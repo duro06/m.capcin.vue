@@ -5,15 +5,12 @@ import router from './router'
 import store from './store'
 import Bulma from 'bulma'
 import axios from 'axios'
-import Vuex from 'vuex'
 
 import 'bulma/bulma.sass'
 import 'bulma/css/bulma.css'
-import './assets/css/login.css'
-import 'vue-promise-btn/dist/vue-promise-btn.css'
 
 Vue.config.productionTip = false
-Vue.use(Vuex, axios)
+Vue.use(axios)
 Vue.use(Bulma)
 
 new Vue({
