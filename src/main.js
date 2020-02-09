@@ -5,12 +5,13 @@ import router from './router'
 import store from './store'
 import Bulma from 'bulma'
 import axios from 'axios'
+import Vuex from 'vuex'
 
 import 'bulma/bulma.sass'
 import 'bulma/css/bulma.css'
 
 Vue.config.productionTip = false
-Vue.use(axios)
+Vue.use(Vuex, axios)
 Vue.use(Bulma)
 
 new Vue({
