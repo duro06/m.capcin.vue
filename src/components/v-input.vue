@@ -6,7 +6,6 @@
      :class="['input', kelas]"
      type="username"
      placeholder="Username"
-     v-model="value"
      @change="UserValidation"
     />
     <span class="icon is-small is-left">
@@ -25,25 +24,30 @@ export default {
  name: 'input',
  props: {
   Pkelas: String,
-  Pvalue: String,
+
   PVisible: String,
   Phelp: String,
   Ppesan: String
 
  },
  data: {
-  kelas: this.Pkelas,
-  value: this.Pvalue,
-  visible: this.PVisible,
-  help: this.Phelp,
-  pesan: this.Ppesan
+  kelas: '',
+
+  visible: '',
+  help: '',
+  pesan: ''
  },
- // methods: {
- //  UserValidation() {
+ methods: {
+  UserValidation() {
+   const vm = this
+   vm.kelas = vm.Pkelas
 
- //  }
+   vm.visible = vm.PVisible
+   vm.help = vm.Phelp
+   vm.pesan = vm.Ppesan
+  }
 
- // }
+ }
 
 }
 </script>
