@@ -15,50 +15,60 @@
    </div>
   </transition>
   <div class="field">
-   <div class="control has-icons-right">
-    <v-text-field class="input" type="username" placeholder="Username" :rules="[rules.requred]"></v-text-field>
-    <span class="icon is-small is-right">
-     <i class="fa fa-user"></i>
+   <div class="control has-icons-left has-icons-right">
+    <input :class="['input', classUser]" type="username" placeholder="Username" v-model="username" />
+    <span class="icon is-small is-left">
+     <i class="fas fa-envelope"></i>
+    </span>
+    <span class="icon is-small is-right" :style="{visibility: visUser}">
+     <i class="fas fa-exclamation-triangle"></i>
     </span>
    </div>
+   <p :class="['help', 'align-left', UserValidation()]">{{ validUser }}</p>
   </div>
 
   <div class="field">
-   <div class="control has-icons-right">
-    <input
-     class="input"
-     type="email"
-     name="email"
-     placeholder="Email"
-     :rules="[rules.requred, rules.email]"
-    />
-    <span class="icon is-small is-right">
-     <i class="fa fa-envelope"></i>
+   <div class="control has-icons-left has-icons-right">
+    <input :class="['input', classDanger]" type="email" placeholder="Email" v-model="email" />
+    <span class="icon is-small is-left">
+     <i class="fas fa-envelope"></i>
+    </span>
+    <span class="icon is-small is-right" :style="{visibility: visClass}">
+     <i class="fas fa-exclamation-triangle"></i>
     </span>
    </div>
+   <p :class="['help', 'align-left', formValidation()]">{{ validMail }}</p>
   </div>
 
   <div class="field">
-   <div class="control has-icons-right">
+   <div class="control has-icons-left has-icons-right">
+    <input :class="['input', passOk()]" type="password" placeholder="Password" v-model="password" />
+    <span class="icon is-small is-left">
+     <i class="fas fa-lock"></i>
+    </span>
+    <span class="icon is-small is-right is-success" :style="{visibility:visPass}">
+     <i class="fas fa-check"></i>
+    </span>
+   </div>
+   <p :class="['help', 'lign-left', passOk()]">{{ passCheck }}</p>
+  </div>
+
+  <div class="field">
+   <div class="control has-icons-left has-icons-right">
     <input
-     class="input"
+     :class="['input', konfirm()]"
      type="password"
-     name="password"
-     placeholder="Password"
-     :rules="[rules.password]"
+     placeholder="Konfirmasi Password"
+     v-model="Kpassword"
     />
-    <span class="icon is-small is-right">
-     <i class="fa fa-key"></i>
+    <span class="icon is-small is-left">
+     <i class="fas fa-lock"></i>
+    </span>
+    <span class="icon is-small is-right is-success" :style="{visibility:kPass}">
+     <i class="fas fa-check"></i>
     </span>
    </div>
-  </div>
-  <div class="field">
-   <div class="control has-icons-right">
-    <input class="input" type="password" name="password" placeholder="konfirmasi Password" />
-    <span class="icon is-small is-right">
-     <i class="fa fa-key"></i>
-    </span>
-   </div>
+   <p :class="['help', 'lign-left', konfirm()]">{{ passKonfirm }}</p>
   </div>
   <div class="has-text-centered">
    <a class="button is-vcentered is-primary is-outlined" @click.prevent="register()">Sign Up!</a>
@@ -71,24 +81,121 @@
 <script>
 export default {
  name: 'signup',
- data: () => ({
-  // username: '',
-  // password: '',
-  // email: '',
-  show: true,
-  pesan: 'pesan dari server',
-  reg: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
-  rules: {
-   required: value => !!value || "Tidak boleh kosong",
-   email: value => {
-    return reg.test(value) || "Email tidak Valid"
-   },
-   password: value => (value.leght <= 6) || "Passwor tidak boleh kurang dari 6 karakter"
+ data() {
+  return {
+   pesan: 'pesan dari server',
+   email: '',
+   classDanger: '',
+   visClass: 'hidden',
+   validMail: '',
+   reg: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
+   password: '',
+   visPass: 'hidden',
+   passCheck: '',
+   validPass: '',
+   Vmail: false,
+   Vpass: false,
+   show: false,
+   Kpassword: '',
+   kPass: 'hidden',
+   passKonfirm
+
   }
- }),
+ },
+ // computed: {
+
+ // },
  methods: {
+  register: function () {
+   const vm = this
+   const postData = {
+    'email': encodeURIComponent(vm.email),
+    'password': encodeURIComponent(vm.password)
+   }
+   const config = {
+    'X-API-KEY': 'capcin123'
+   }
+   if (vm.Vpass == true && vm.Vmail == true) {
+    vm.loading = 'is-loading'
+    axios.get(_newUrlUser + '/user?X-API-KEY=capcin123')
+     .then(function (response) {
+
+      console.log(response.data);
+      vm.loading = ''
+     })
+     .catch(function (error) {
+      console.log(error);
+      vm.loading = ''
+     })
+     .then(function () {
+      // always executed
+     });
+    // alert(postData)
+
+
+   } else {
+    vm.show = true
+    setTimeout(function () {
+     vm.show = false
+    }, 1500)
+   }
+  },
+  //====================== ngisi pesan aja ===============
+  mailString(kelas, visib, pesan, pass) {
+   const vm = this
+   vm.classDanger = kelas
+   vm.visClass = visib
+   vm.validMail = pesan
+   vm.Vmail = pass
+  },
+  passString(kelas, visib, pesan, pass) {
+   const vm = this
+   vm.validPass = kelas
+   vm.visPass = visib
+   vm.passCheck = pesan
+   vm.Vpass = pass
+  },
+  //================= validasi email =====================
+  formValidation: function () {
+   const vm = this
+
+   if (vm.email != '') {
+    if (vm.reg.test(vm.email) == false) {
+     vm.mailString('is-danger', 'visible', 'periksa kembali email anda', false)
+    } else if (vm.reg.test(vm.email) == true) {
+     vm.mailString('is-success', 'hidden', '', true)
+    }
+   } else {
+    vm.mailString('', 'hidden', '', false)
+   }
+   return vm.classDanger
+  },
+  //=================== validasi Password ==================
+  passOk: function () {
+   const vm = this
+   if (vm.email != '' && vm.validMail == '' && vm.password != '') {
+    if (vm.password.length <= 5) {
+     vm.passString('is-danger', 'hidden', 'password anda kurang dari 6 karakter', false)
+    } else {
+     vm.passString('is-success', 'visible', '', true)
+    }
+   } else if (vm.password != '' && vm.email == '') {
+    vm.passString('is-danger', 'hidden', 'Email anda kosong', false)
+   } else if (vm.password != '' && vm.validMail != '') {
+    vm.passString('is-danger', 'hidden', 'Email anda belum valid', false)
+   } else if (vm.password == '' && vm.email != '') {
+    vm.passString('is-warning', 'hidden', 'Password tidak boleh kosong', false)
+   }
+   else {
+    vm.passString('', 'hidden', '', false)
+   }
+   return vm.validPass
+  },
 
  }
+
+}
+</script>
 }
 
 </script>
