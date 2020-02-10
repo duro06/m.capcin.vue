@@ -5,15 +5,22 @@
    <router-link to="/login" msg="Login">Login</router-link>-->
    <Navbar />
   </div>
-  <router-view />
+  <div id="view">
+   <router-view />
+  </div>
+  <div id="fot">
+   <Footer />
+  </div>
  </div>
 </template>
 <script>
 
 import Navbar from '@/components/Navbar.vue'
+import Footer from '@/components/Footer.vue'
 export default {
  components: {
-  Navbar
+  Navbar,
+  Footer
  }
 }
 </script>
@@ -28,7 +35,7 @@ export default {
 }
 
 #nav {
- padding: 30px;
+ padding: 3%;
 
  a {
   font-weight: bold;
@@ -38,5 +45,11 @@ export default {
    color: #42b983;
   }
  }
+}
+#fot {
+ padding: 2%;
+}
+#view {
+ padding: 2%;
 }
 </style>

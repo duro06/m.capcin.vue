@@ -28,15 +28,9 @@
      <div class="navbar-item wow slideInDown" data-wow-duration="1s">
       <div class="field is-grouped">
        <p class="control">
-        <a class="button is-dark" href="https://github.com/andriannus/sehatyuk" target="_blank">
-         <span class="icon">
-          <i class="fab fa-github"></i>
-         </span>
-         <span>Github</span>
-        </a>
         <router-link class="button is-ligth" to="/login">
          <span class="icon">
-          <i class="fab fa-github"></i>
+          <i class="fas fa-sign-in-alt"></i>
          </span>
          <span>
           <!-- <router-link to="/login" msg="Login">Login</router-link> -->

@@ -9,6 +9,10 @@ body {
  background: #F2F6FA;
 }
 
+.hero {
+ padding: 1px;
+}
+
 .hero .nav,
 .hero.is-success .nav {
  -webkit-box-shadow: none;

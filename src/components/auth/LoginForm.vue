@@ -63,10 +63,14 @@
           Remember me
          </label>
         </div>
+
         <button
          @click.prevent="submitForm"
          :class="['button', 'is-block', 'is-info', 'is-normal', 'is-fullwidth', loading, 'is-rounded']"
-        >Login</button>
+        >
+         Login
+         <i class="fas fa-sign-in-alt"></i>
+        </button>
        </form>
       </div>
       <p class="has-text-grey">
@@ -238,6 +242,9 @@ export default {
 }
 </script>
 <style scoped>
+.login {
+ padding-bottom: 5%;
+}
 @import "../../assets/css/login.css";
 /* Enter and leave animations can use different */
 /* durations and timing functions.              */
