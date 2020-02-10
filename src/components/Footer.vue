@@ -23,7 +23,7 @@
    <!-- <?php if (!$this->session->userdata('login')) {?> -->
    <a href="<?=base_url()?>login2" class="mobile-bottom-nav__item">
     <div class="mobile-bottom-nav__item-content">
-     <i class="fa fa-sign-in-alt"></i>
+     <i class="fas fa-sign-in-alt"></i>
      Login
     </div>
    </a>
@@ -31,7 +31,7 @@
    <!-- <?php } else {?> -->
    <a href="<?=base_url()?>site_rules/logout" class="mobile-bottom-nav__item">
     <div class="mobile-bottom-nav__item-content">
-     <i class="fa fa-sign-out-alt"></i>
+     <i class="fas fa-sign-out-alt"></i>
      Logout
     </div>
    </a>

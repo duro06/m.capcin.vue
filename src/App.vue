@@ -1,27 +1,13 @@
 <template>
  <div id="app">
-  <div id="nav">
-   <!-- <router-link to="/">Home</router-link>|
-   <router-link to="/login" msg="Login">Login</router-link>-->
-   <Navbar />
-  </div>
-  <div id="view">
-   <router-view />
-  </div>
-  <div id="fot">
-   <Footer />
-  </div>
+  <router-view />
  </div>
 </template>
 <script>
 
-import Navbar from '@/components/Navbar.vue'
-import Footer from '@/components/Footer.vue'
+
 export default {
- components: {
-  Navbar,
-  Footer
- }
+ name: 'app'
 }
 </script>
 
@@ -35,7 +21,7 @@ export default {
 }
 
 #nav {
- padding: 3%;
+ padding-bottom: 3%;
 
  a {
   font-weight: bold;
@@ -47,9 +33,9 @@ export default {
  }
 }
 #fot {
- padding: 2%;
+ padding-top: 2%;
 }
 #view {
- padding: 2%;
+ padding-bottom: 2%;
 }
 </style>
