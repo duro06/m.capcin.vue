@@ -9,6 +9,7 @@ import Vuex from 'vuex'
 
 import 'bulma/bulma.sass'
 import 'bulma/css/bulma.css'
+// import '/js/bulma.js'
 
 Vue.config.productionTip = false
 Vue.use(Vuex, axios)
