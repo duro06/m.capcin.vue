@@ -127,24 +127,36 @@ export default {
     'email': encodeURIComponent(vm.email),
     'password': encodeURIComponent(vm.password)
    }
-   const config = {
-    'X-API-KEY': 'capcin123'
-   }
    if (vm.Vpass == true && vm.Vmail == true) {
     vm.loading = 'is-loading'
-    axios.get(_newUrlUser + '/user?X-API-KEY=capcin123')
-     .then(function (response) {
+    vm.$store.dispatch('LOGIN', postData)
+     .then(success => {
+      vm.$routes.push('/')
+      vm.loading = ''
+     })
+     .catch(error => {
+      console.log(error)
+      vm.loading = ''
+     })
 
-      console.log(response.data);
-      vm.loading = ''
-     })
-     .catch(function (error) {
-      console.log(error);
-      vm.loading = ''
-     })
-     .then(function () {
-      // always executed
-     });
+    // const config = {
+    //  'X-API-KEY': 'capcin123'
+    // }
+    // if (vm.Vpass == true && vm.Vmail == true) {
+    //  vm.loading = 'is-loading'
+    //  axios.get(_newUrlUser + '/user?X-API-KEY=capcin123')
+    //   .then(function (response) {
+
+    //    console.log(response.data);
+    //    vm.loading = ''
+    //   })
+    //   .catch(function (error) {
+    //    console.log(error);
+    //    vm.loading = ''
+    //   })
+    //   .then(function () {
+    //    // always executed
+    //   });
     // alert(postData)
 
 
