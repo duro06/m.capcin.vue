@@ -10,28 +10,29 @@ const _newUrlApiLogin = _LurlApi + 'apilogin'
 //  'X-API-KEY':'capcin123'
 // }
 export default {
- state: {},
- getters: {},
- mutations: {},
- actions: {
-  LOGIN: ({
-   commit
-  }, payload) => {
-   return new Promise((resolve, reject) => {
-    axios
-     .get(_newUrlUser + '/user?X-API-KEY=capcin123')
-     .then(({
-      data,
-      status
-     }) => {
-      if (status === 200) {
-       resolve(true)
-      }
-     })
-     .catch(error => {
-      reject(error)
-     })
-   })
-  }
- },
+  state: {},
+  getters: {},
+  mutations: {},
+  actions: {
+    LOGIN: ({
+      commit
+    }, payload) => {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(_newUrlUser + '/user?X-API-KEY=capcin123')
+          .then(({
+            data,
+            status
+          }) => {
+            if (status === 200) {
+              console.log(data)
+              resolve(true)
+            }
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+    }
+  },
 }

@@ -11,6 +11,15 @@ import 'bulma/bulma.sass'
 import 'bulma/css/bulma.css'
 // import '/js/bulma.js'
 
+// const _urlOriginApi = 'http://192.168.43.231/capcin/api/'
+// const _LurlApi = 'http://localhost/capcin/api/'
+// const _newUrlApp = _LurlApi + 'app'
+// const _newUrlUser = _LurlApi + 'users'
+// const _newUrlApiLogin = _LurlApi + 'apilogin'
+// const axios = require('axios').default
+// axios.defaults.baseURL = _LurlApi
+// axios.defaults.withCredentials = true
+
 Vue.config.productionTip = false
 Vue.use(Vuex, axios)
 Vue.use(Bulma)

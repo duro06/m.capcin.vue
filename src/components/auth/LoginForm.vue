@@ -131,7 +131,8 @@ export default {
     vm.loading = 'is-loading'
     vm.$store.dispatch('LOGIN', postData)
      .then(success => {
-      vm.$routes.push('/')
+
+      // vm.$router.push('/')
       vm.loading = ''
      })
      .catch(error => {
