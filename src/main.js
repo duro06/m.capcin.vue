@@ -14,10 +14,10 @@ import 'bulma/css/bulma.css'
 // const _urlOriginApi = 'http://192.168.43.231/capcin/api/'
 // const _LurlApi = 'http://localhost/capcin/api/'
 // const _newUrlApp = _LurlApi + 'app'
-// const _newUrlUser = _LurlApi + 'users'
+// const _newUrlUser = _LurlApi + 'user/login'
 // const _newUrlApiLogin = _LurlApi + 'apilogin'
 // const axios = require('axios').default
-// axios.defaults.baseURL = _LurlApi
+// axios.defaults.baseURL = "http: //localhost/capcin/api/"
 // axios.defaults.withCredentials = true
 
 Vue.config.productionTip = false

@@ -121,15 +121,49 @@ export default {
 
  // },
  methods: {
+  // saveParam(email, password) {
+  //  const vm = this
+  //  vm.$store.login.email = email
+  //  vm.$store.login.password = password
+  // },
+  // loginUser: function (email, password) {
+  //  const vm = this
+  //  vm.loading = 'is-loading'
+  //  vm.$store.dispatch('login_user')
+  //   .then((result) => {
+  //    vm.loading = ''
+  //    console.log(result)
+  //   })
+  // },
+
   submitForm: function () {
    const vm = this
    const postData = {
-    'email': encodeURIComponent(vm.email),
-    'password': encodeURIComponent(vm.password)
+    email: encodeURIComponent(vm.email),
+    password: encodeURIComponent(vm.password)
    }
+   vm.$store.commit('SET_LOGIN_USER', {
+    email: vm.email,
+    password: vm.password
+   })
+   let loginFormData = new FormData();
+   //add the parameters
+   loginFormData.set('email', vm.email);
+   loginFormData.set('password', vm.password);
+
+   const config = {
+    headers: {
+     'Content-Type': `multipart/form-data; boundary=${payload._boundary}`
+    }
+   }; //important
+
+
    if (vm.Vpass == true && vm.Vmail == true) {
+    // vm.saveParam(vm.email, vm.password)
+    // vm.loginUser(vm.email, vm.password)
+
     vm.loading = 'is-loading'
-    vm.$store.dispatch('LOGIN', postData)
+    vm.$store.dispatch('LOGIN_USER', { loginFormData, config })
      .then(success => {
 
       // vm.$router.push('/')
@@ -144,8 +178,9 @@ export default {
     //  'X-API-KEY': 'capcin123'
     // }
     // if (vm.Vpass == true && vm.Vmail == true) {
+    //  console.log(loginFormData)
     //  vm.loading = 'is-loading'
-    //  axios.get(_newUrlUser + '/user?X-API-KEY=capcin123')
+    //  axios.post(_newUrlUser, payload, config)
     //   .then(function (response) {
 
     //    console.log(response.data);
@@ -158,7 +193,7 @@ export default {
     //   .then(function () {
     //    // always executed
     //   });
-    // alert(postData)
+    //  // alert(postData)
 
 
    } else {
