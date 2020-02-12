@@ -4,8 +4,9 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 import Bulma from 'bulma'
-import axios from 'axios'
+// import axios from 'axios'
 import Vuex from 'vuex'
+import axios from './backend/vue-axios'
 
 import 'bulma/bulma.sass'
 import 'bulma/css/bulma.css'
@@ -27,5 +28,6 @@ Vue.use(Bulma)
 new Vue({
   router,
   store,
+  axios,
   render: h => h(App)
 }).$mount('#app')

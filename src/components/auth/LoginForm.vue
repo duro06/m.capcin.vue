@@ -86,9 +86,9 @@
 </template>
 <script>
 const _urlOriginApi = 'http://192.168.43.231/capcin/api/'
-const _LurlApi = 'http://localhost/capcin/api/'
+const _LurlApi = 'http://127.0.0.1/capcin/api/'
 const _newUrlApp = _LurlApi + 'app'
-const _newUrlUser = _LurlApi + 'users'
+const _newUrlUser = _LurlApi + 'user/login'
 const _newUrlApiLogin = _LurlApi + 'apilogin'
 const axios = require('axios').default
 
@@ -121,80 +121,47 @@ export default {
 
  // },
  methods: {
-  // saveParam(email, password) {
-  //  const vm = this
-  //  vm.$store.login.email = email
-  //  vm.$store.login.password = password
-  // },
-  // loginUser: function (email, password) {
-  //  const vm = this
-  //  vm.loading = 'is-loading'
-  //  vm.$store.dispatch('login_user')
-  //   .then((result) => {
-  //    vm.loading = ''
-  //    console.log(result)
-  //   })
-  // },
 
+  //================= login request ===============
   submitForm: function () {
    const vm = this
-   const postData = {
-    email: encodeURIComponent(vm.email),
-    password: encodeURIComponent(vm.password)
-   }
-   vm.$store.commit('SET_LOGIN_USER', {
-    email: vm.email,
-    password: vm.password
-   })
-   let loginFormData = new FormData();
-   //add the parameters
-   loginFormData.set('email', vm.email);
-   loginFormData.set('password', vm.password);
-
-   const config = {
-    headers: {
-     'Content-Type': `multipart/form-data; boundary=${payload._boundary}`
-    }
-   }; //important
-
 
    if (vm.Vpass == true && vm.Vmail == true) {
-    // vm.saveParam(vm.email, vm.password)
-    // vm.loginUser(vm.email, vm.password)
-
     vm.loading = 'is-loading'
-    vm.$store.dispatch('LOGIN_USER', { loginFormData, config })
-     .then(success => {
+    vm.$http.post('user/login', {
+     'email': encodeURIComponent(this.email),
+     'password': encodeURIComponent(this.password)
+    })
+     .then(request => vm.loginSuccess(request))
+     .catch(() => vm.loginFailed())
 
-      // vm.$router.push('/')
-      vm.loading = ''
-     })
-     .catch(error => {
-      console.log(error)
-      vm.loading = ''
-     })
+    // $.ajax({
+    //  url: _newUrlUser,
+    //  type: 'post',
+    //  dataType: 'json',
+    //  data: {
+    //   'X-API-KEY': 'capcin123',
+    //   'email': encodeURIComponent(this.email),
+    //   'password': encodeURIComponent(this.password)
+    //  },
+    //  success: function (hasil) {
+    //    this.loading = ''
+    //   if (hasil.status == true) {
+    //    console.log(hasil)
+    //   } else {
+    // this.loading=''
+    //    console.log(this.loading)
+    //    alert('ga dapat data')
 
-    // const config = {
-    //  'X-API-KEY': 'capcin123'
-    // }
-    // if (vm.Vpass == true && vm.Vmail == true) {
-    //  console.log(loginFormData)
-    //  vm.loading = 'is-loading'
-    //  axios.post(_newUrlUser, payload, config)
-    //   .then(function (response) {
+    //   }
+    //  },
+    //  error: function () {
+    //   this.loading = ''
+    //   console.log(this.loading)
+    //   alert('sorry bos Error')
 
-    //    console.log(response.data);
-    //    vm.loading = ''
-    //   })
-    //   .catch(function (error) {
-    //    console.log(error);
-    //    vm.loading = ''
-    //   })
-    //   .then(function () {
-    //    // always executed
-    //   });
-    //  // alert(postData)
-
+    //  }
+    // })
 
    } else {
     vm.show = true
@@ -202,6 +169,21 @@ export default {
      vm.show = false
     }, 1500)
    }
+  },
+  loginSuccess(req) {
+   this.loading = ''
+   if (!req.data.token) {
+    this.loginFailed()
+    return
+   }
+   localStorage.token = req.data.token
+   this.error = false
+   this.$router.replace(this.$router.query.redirect || '/home')
+  },
+  loginFailed() {
+   this.loading = ''
+   this.error = 'Login failed!'
+   delete localStorage.token
   },
   //====================== ngisi pesan aja ===============
   mailString(kelas, visib, pesan, pass) {
