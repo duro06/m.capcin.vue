@@ -128,40 +128,44 @@ export default {
 
    if (vm.Vpass == true && vm.Vmail == true) {
     vm.loading = 'is-loading'
-    vm.$http.post('user/login', {
-     'email': encodeURIComponent(this.email),
-     'password': encodeURIComponent(this.password)
-    })
-     .then(request => vm.loginSuccess(request))
-     .catch(() => vm.loginFailed())
-
-    // $.ajax({
-    //  url: _newUrlUser,
-    //  type: 'post',
-    //  dataType: 'json',
-    //  data: {
-    //   'X-API-KEY': 'capcin123',
-    //   'email': encodeURIComponent(this.email),
-    //   'password': encodeURIComponent(this.password)
-    //  },
-    //  success: function (hasil) {
-    //    this.loading = ''
-    //   if (hasil.status == true) {
-    //    console.log(hasil)
-    //   } else {
-    // this.loading=''
-    //    console.log(this.loading)
-    //    alert('ga dapat data')
-
-    //   }
-    //  },
-    //  error: function () {
-    //   this.loading = ''
-    //   console.log(this.loading)
-    //   alert('sorry bos Error')
-
-    //  }
+    // vm.$http.post('user/login', {
+    //  'email': encodeURIComponent(this.email),
+    //  'password': encodeURIComponent(this.password)
     // })
+    //  .then(request => vm.loginSuccess(request))
+    //  .catch((error) => vm.loginFailed(error))
+
+    $.ajax({
+     url: _newUrlUser,
+     type: 'post',
+     dataType: 'json',
+     data: {
+      'X-API-KEY': 'capcin123',
+      'email': this.email,
+      'password': this.password
+     },
+     success: function (hasil) {
+      vm.loading = ''
+      if (hasil.status == true) {
+       console.log(hasil)
+       localStorage.token = hasil.data.token
+       // vm.$router.replace(vm.$router.query.redirect || '/logged')
+      } else {
+       vm.loading = ''
+       delete localStorage.token
+       alert('ga dapat data')
+
+      }
+     },
+     error: function (error) {
+      vm.loading = ''
+      delete localStorage.token
+      console.log(error.responseJSON)
+
+      // alert('sorry bos Error')
+
+     }
+    })
 
    } else {
     vm.show = true
@@ -170,21 +174,23 @@ export default {
     }, 1500)
    }
   },
-  loginSuccess(req) {
-   this.loading = ''
-   if (!req.data.token) {
-    this.loginFailed()
-    return
-   }
-   localStorage.token = req.data.token
-   this.error = false
-   this.$router.replace(this.$router.query.redirect || '/home')
-  },
-  loginFailed() {
-   this.loading = ''
-   this.error = 'Login failed!'
-   delete localStorage.token
-  },
+  // loginSuccess(req) {
+  //  console.log(req)
+  //  this.loading = ''
+  //  if (!req.data.token) {
+  //   this.loginFailed()
+  //   return
+  //  }
+  //  localStorage.token = req.data.token
+  //  this.error = false
+  //  this.$router.replace(this.$router.query.redirect || '/Logged')
+  // },
+  // loginFailed(err) {
+  //  console.log(err)
+  //  this.loading = ''
+  //  this.error = 'Login failed!'
+  //  delete localStorage.token
+  // },
   //====================== ngisi pesan aja ===============
   mailString(kelas, visib, pesan, pass) {
    const vm = this
