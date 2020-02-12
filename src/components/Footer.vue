@@ -60,7 +60,7 @@ export default {
  background-color: #fff;
 }
 .mobile-bottom-nav i {
- font-size: 20px;
+ font-size: 15;
 }
 a.mobile-bottom-nav__item {
  flex-grow: 1;

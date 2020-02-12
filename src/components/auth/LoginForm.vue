@@ -22,11 +22,23 @@
         </p>
        </div>
       </transition>
-      <div class="box form-masuk">
+      <div class="notification is-warning is-light" v-if="successMessage">
+       <span class="icon is-medium has-text-danger">
+        <i class="fas fa-2x fa-ban"></i>
+       </span>
+       <p>{{ successMessage }}</p>
+      </div>
+      <div class="notification is-warning is-light" v-if="serverError">
+       <span class="icon is-medium has-text-danger">
+        <i class="fas fa-2x fa-ban"></i>
+       </span>
+       <p>{{ serverError }}</p>
+      </div>
+      <div class="box form-control">
        <figure class="avatar">
         <img :src="merk" />
        </figure>
-       <form id="validate-form" method="form">
+       <form id="validate-form" action="#" @submit.prevent="submitForm">
         <div class="field">
          <div class="control has-icons-left has-icons-right">
           <input :class="['input', classDanger]" type="email" placeholder="Email" v-model="email" />
@@ -85,19 +97,21 @@
  </div>
 </template>
 <script>
-const _urlOriginApi = 'http://192.168.43.231/capcin/api/'
-const _LurlApi = 'http://127.0.0.1/capcin/api/'
-const _newUrlApp = _LurlApi + 'app'
-const _newUrlUser = _LurlApi + 'user/login'
-const _newUrlApiLogin = _LurlApi + 'apilogin'
+// const _urlOriginApi = 'http://192.168.43.231/capcin/api/'
+// const _LurlApi = 'http://127.0.0.1/capcin/api/'
+// const _newUrlApp = _LurlApi + 'app'
+// const _newUrlUser = _LurlApi + 'user/login'
+// const _newUrlApiLogin = _LurlApi + 'apilogin'
 
-const axios = require('axios').default
+// const axios = require('axios').default
 
 // import '../assets/js/bulma.js'
+import { mapState } from 'vuex'
 export default {
  name: 'LoginTemplate',
  props: {
-  msg: String
+  msg: String,
+  dataSuccessMessage: String
  },
  data() {
   return {
@@ -110,19 +124,32 @@ export default {
    visPass: 'hidden',
    passCheck: '',
    validPass: '',
-   logo: './assets/logo.png',
+   logo: '../../assets/logo.png',
    merk: 'https://placehold.it/128x128',
    Vmail: false,
    Vpass: false,
    show: false,
-   loading: ''
+   loading: '',
+   successMessage: this.dataSuccessMessage,
+   serverError: ''
   }
  },
  updated() {
-  if (localStorage.token) {
+  if (localStorage.getItem('access_token')) {
    this.$router.replace(this.$route.query.redirect || '/logged')
   }
+
  },
+ // watch: {
+ //  // Logo(Value) {
+ //  //  this.logo = Value
+ //  // }
+ // },
+ // computed: {
+ //  ...mapState({ Logo: state => state.user.app.data.logo }),
+
+
+ // },
  methods: {
 
   //================= login request ===============
@@ -165,22 +192,44 @@ export default {
     // })
     // =============================================
 
-    this.loading = 'is-loading'
+    // this.loading = 'is-loading'
     this.$store.dispatch('retrieveToken', {
      email: this.email,
      password: this.password,
     })
      .then(response => {
       this.loading = ''
-      this.$router.push({ name: 'logged' })
+      this.$router.replace(this.$route.query.redirect || '/logged')
      })
      .catch(error => {
       this.loading = ''
-      // this.serverError = error.response.data
+      this.serverError = error.response.data.errors
       this.password = ''
-      // this.successMessage = ''
-      console.log(error)
+      this.successMessage = ''
+      console.log(error.response.data)
      })
+
+    // dibawah ini berhasil login, tapi tokennya tidak masuk
+
+    // const axios = require('axios').default
+    // const params = new URLSearchParams()
+    // params.append('email', this.email)
+    // params.append('password', this.password)
+    // axios.post('http://localhost/capcin/api/user/login', params)
+    //  .then(response => {
+    //   const token = response.data.token
+
+    //   localStorage.setItem('access_token', token)
+    //   this.loading = ''
+    //   console.log(response);
+    //  })
+    //  .catch(error => {
+    //   this.serverError = error.response.data.errors
+    //   this.password = ''
+    //   this.successMessage = ''
+    //   console.log(error.response.data)
+    //   this.loading = ''
+    //  })
 
    } else {
     this.show = true
@@ -242,23 +291,26 @@ export default {
    return vm.validPass
   },
   //================= Re-render componen data ==============
-  // forceRendere() {
-  //  const vm = this
-  //  vm.logo = vm.logo
-  //  console.log(vm.logo)
-  // },
-  // updated: function () {
-  //  const vm = this
-  //  vm.$nextTick(function () {
-  //   vm.logo = vm.logo
-  //   console.log(vm.logo)
-  //  })
-  // }
+  forceRendere() {
+   const vm = this
+   vm.logo = vm.logo
+   console.log(vm.logo)
+  },
  },
+ // updated: function () {
+ //  const vm = this
+ //  vm.$nextTick(function () {
+ //   vm.logo = vm.logo
+ //   console.log(vm.logo)
+ //  })
+ // },
  mounted: function () {
   //========================= ambil data ====================
   const vm = this
-  axios.get(_newUrlApp + '/user?X-API-KEY=capcin123')
+  // axios.defaults.baseURL = 'http://localhost/capcin/api/'
+  const axios = require('axios').default
+  axios.defaults.headers.common['X-API-KEY'] = 'capcin123'
+  axios.get('http://localhost/capcin/api/app')
    .then(function (response) {
     if (response.data.status == true) {
      vm.logo = response.data.data.logo
@@ -271,10 +323,22 @@ export default {
    .then(function () {
     // always executed
    });
-  // console.log(vm.logo)
+  // // console.log(vm.logo)
+  // this.$store.dispatch('retrieveLogo')
+  //  .then(function (response) {
+  //   console.log(this.logo)
+  //   this.logo = response.data.data.logo
+  //   console.log(this.response.data.data.logo);
+  //  })
+  //  .catch(function (error) {
+  //   console.log(error);
+  //  })
 
- }
+
+ },
+
 }
+
 </script>
 <style scoped>
 .login {

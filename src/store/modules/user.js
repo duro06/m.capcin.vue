@@ -10,7 +10,7 @@ axios.defaults.baseURL = _LurlApi
 export default {
   state: {
     token: localStorage.getItem('access_token') || null,
-
+    // app
   },
   getters: {
     loggedIn(state) {
@@ -26,6 +26,7 @@ export default {
     },
   },
   actions: {
+
     retrieveName(context) {
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + context.state.token
 
@@ -76,26 +77,30 @@ export default {
       }
     },
     retrieveToken(context, credentials) {
-
       return new Promise((resolve, reject) => {
-        axios.post('/user/login', {
-            email: credentials.email,
-            password: credentials.password,
-          })
+        const params = new URLSearchParams()
+        params.append('email', credentials.email)
+        params.append('password', credentials.password)
+        axios.post('user/login', params)
           .then(response => {
-            const token = response.data.token
-
-            localStorage.setItem('access_token', token)
-            context.commit('retrieveToken', token)
+            console.log(response.data.data)
+            const token = response.data.data.token
             resolve(response)
-            console.log(response);
-            // context.commit('addTodo', response.data)
+            if (token != undefined) {
+              localStorage.setItem('access_token', token)
+              context.commit('retrieveToken', token)
+            } else {
+              localStorage.removeItem('access_token')
+              context.commit('destroyToken')
+              console.log('token undefined')
+            }
           })
           .catch(error => {
             console.log(error)
             reject(error)
           })
       })
-    },
-  },
+
+    }
+  }
 }
