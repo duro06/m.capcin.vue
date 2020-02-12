@@ -90,6 +90,7 @@ const _LurlApi = 'http://127.0.0.1/capcin/api/'
 const _newUrlApp = _LurlApi + 'app'
 const _newUrlUser = _LurlApi + 'user/login'
 const _newUrlApiLogin = _LurlApi + 'apilogin'
+
 const axios = require('axios').default
 
 // import '../assets/js/bulma.js'
@@ -117,80 +118,78 @@ export default {
    loading: ''
   }
  },
- // computed: {
-
- // },
+ updated() {
+  if (localStorage.token) {
+   this.$router.replace(this.$route.query.redirect || '/logged')
+  }
+ },
  methods: {
 
   //================= login request ===============
   submitForm: function () {
-   const vm = this
 
-   if (vm.Vpass == true && vm.Vmail == true) {
-    vm.loading = 'is-loading'
-    // vm.$http.post('user/login', {
-    //  'email': encodeURIComponent(this.email),
-    //  'password': encodeURIComponent(this.password)
+   if (this.Vpass == true && this.Vmail == true) {
+    this.loading = 'is-loading'
+
+    //==========================ajax point ==============
+    // $.ajax({
+    //  url: _newUrlUser,
+    //  type: 'post',
+    //  dataType: 'json',
+    //  data: {
+    //   'X-API-KEY': 'capcin123',
+    //   'email': this.email,
+    //   'password': this.password
+    //  },
+    //  success: function (hasil) {
+    //   vm.loading = ''
+    //   if (hasil.status == true) {
+    //    console.log(hasil)
+    //    localStorage.token = hasil.data.token
+    //    vm.$router.replace(vm.$route.query.redirect || '/logged')
+    //   } else {
+    //    vm.loading = ''
+    //    delete localStorage.token
+    //    alert('ga dapat data')
+
+    //   }
+    //  },
+    //  error: function (error) {
+    //   vm.loading = ''
+    //   delete localStorage.token
+    //   console.log(error.responseJSON)
+
+    //   // alert('sorry bos Error')
+
+    //  }
     // })
-    //  .then(request => vm.loginSuccess(request))
-    //  .catch((error) => vm.loginFailed(error))
+    // =============================================
 
-    $.ajax({
-     url: _newUrlUser,
-     type: 'post',
-     dataType: 'json',
-     data: {
-      'X-API-KEY': 'capcin123',
-      'email': this.email,
-      'password': this.password
-     },
-     success: function (hasil) {
-      vm.loading = ''
-      if (hasil.status == true) {
-       console.log(hasil)
-       localStorage.token = hasil.data.token
-       // vm.$router.replace(vm.$router.query.redirect || '/logged')
-      } else {
-       vm.loading = ''
-       delete localStorage.token
-       alert('ga dapat data')
-
-      }
-     },
-     error: function (error) {
-      vm.loading = ''
-      delete localStorage.token
-      console.log(error.responseJSON)
-
-      // alert('sorry bos Error')
-
-     }
+    this.loading = 'is-loading'
+    this.$store.dispatch('retrieveToken', {
+     email: this.email,
+     password: this.password,
     })
+     .then(response => {
+      this.loading = ''
+      this.$router.push({ name: 'logged' })
+     })
+     .catch(error => {
+      this.loading = ''
+      // this.serverError = error.response.data
+      this.password = ''
+      // this.successMessage = ''
+      console.log(error)
+     })
 
    } else {
-    vm.show = true
+    this.show = true
     setTimeout(function () {
-     vm.show = false
+     this.show = false
     }, 1500)
    }
   },
-  // loginSuccess(req) {
-  //  console.log(req)
-  //  this.loading = ''
-  //  if (!req.data.token) {
-  //   this.loginFailed()
-  //   return
-  //  }
-  //  localStorage.token = req.data.token
-  //  this.error = false
-  //  this.$router.replace(this.$router.query.redirect || '/Logged')
-  // },
-  // loginFailed(err) {
-  //  console.log(err)
-  //  this.loading = ''
-  //  this.error = 'Login failed!'
-  //  delete localStorage.token
-  // },
+
   //====================== ngisi pesan aja ===============
   mailString(kelas, visib, pesan, pass) {
    const vm = this

@@ -8,8 +8,7 @@ export default axios.create({
  baseURL: API_URL,
  headers: {
 
-  'Access-Control-Allow-Origin': '*',
-  'Content-Type': 'application/x-www-form-urlencoded',
+  'Accept': 'application/json',
   'Authorization': 'Bearer ' + localStorage.token,
 
 
