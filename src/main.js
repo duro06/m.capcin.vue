@@ -6,14 +6,17 @@ import store from './store'
 import Bulma from 'bulma'
 import Vuex from 'vuex'
 import axios from 'axios'
+import Pusher from 'pusher-js'
 
 import 'bulma/bulma.sass'
 import 'bulma/css/bulma.css'
+// import 'https://js.pusher.com/5.1/pusher.min.js'
 
 
 Vue.config.productionTip = false
 Vue.use(Vuex, axios)
 Vue.use(Bulma)
+// Vue.use(Pusher)
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
@@ -41,9 +44,11 @@ router.beforeEach((to, from, next) => {
   }
 })
 
+
 new Vue({
   router,
   store,
   axios,
+  Pusher,
   render: h => h(App)
 }).$mount('#app')

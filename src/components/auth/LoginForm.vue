@@ -262,7 +262,7 @@ export default {
   forceRendere() {
    const vm = this
    vm.logo = vm.logo
-   console.log(vm.logo)
+   // console.log(vm.logo)
   },
  },
  mounted: function () {
@@ -277,7 +277,7 @@ export default {
     }
    })
    .catch(function (error) {
-    console.log(error);
+    // console.log(error);
    })
 
  },

@@ -10,6 +10,7 @@ axios.defaults.baseURL = _LurlApi
 export default {
   state: {
     token: localStorage.getItem('access_token') || null,
+    pusherMessages: ''
   },
   getters: {
     loggedIn(state) {
@@ -41,11 +42,15 @@ export default {
     },
     register(context, data) {
       return new Promise((resolve, reject) => {
-        axios.post('/register', {
-            name: data.name,
-            email: data.email,
-            password: data.password,
-          })
+        const params = new URLSearchParams()
+        params.append('nama', data.nama)
+        params.append('username', data.username)
+        params.append('email', data.email)
+        params.append('telp', data.telp)
+        params.append('alamat', data.alamat)
+        params.append('password', data.password)
+
+        axios.post('user/register', params)
           .then(response => {
             resolve(response)
           })

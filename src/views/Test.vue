@@ -1,59 +1,58 @@
 <template>
  <div id="coba">
-  <VInput @keypress="formValidation" />
+  <h1>Pusher Test</h1>
+  <p>
+   Publish an event to channel
+   <code>my-channel</code>
+   with event name
+   <code>my-event</code>; it will appear below:
+  </p>
+  <ul>
+   <li v-for="(message, apem) in messages" :key="apem">{{ message }}</li>
+  </ul>
+  <button class="button is-success is-light" @click="subscribe">Connect</button>
  </div>
 </template>
 <script>
 
-import VInput from '@/components/v-input.vue'
-import { mapGetters } from 'vuex'
+Pusher.logToConsole = true;
+
+// var pusher = new Pusher('ebfe3f8ff45ad9c3ad4c', {
+//   cluster: 'ap1',
+//   forceTLS: true
+// });
+
+// var channel = pusher.subscribe('my-channel');
+// channel.bind('my-event', function (data) {
+//   store.state.pusherMessages.push(JSON.stringify(data));
+// });
+
+
 export default {
  name: 'coba',
- components: {
-  VInput
+ data() {
+  return { messages: '', }
  },
- data() {  return {
-   email: '',
-   reg: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
 
-  }
 
- },
- computed: {
-  ...mapGetters(["GLOBALINPUT"]),
+ // created() {
 
- },
+ //  this.subscribe()
+ // },
  methods: {
-  mailString(klas, visib, psan, pass) {
-   const vm = this
-   vm.$store.commit('SET_GLOBALINPUT', {
-    kelas: klas,
-    holder: '',
-    lefticon: "envelope",
-    rigthicon: "fa-sign-in-alt",
-    visible: visib,
-    help: "help",
-    pesan: psan,
-    model: vm.email
+  subscribe() {
+
+   let pusher = new Pusher('ebfe3f8ff45ad9c3ad4c', {
+    cluster: 'ap1',
+    forceTLS: true
    })
-  },
-  formValidation: function () {
-   const vm = this
-   let i = 1
+   let channel = pusher.subscribe('channel')
 
-   if (vm.email != '') {
-    if (vm.reg.test(vm.email) == false) {
-     vm.mailString('is-danger', 'visible', 'periksa kembali email anda', false)
-    } else if (vm.reg.test(vm.email) == true) {
-     vm.mailString('is-success', 'hidden', '', true)
-    }
-   } else {
-    vm.mailString('', 'hidden', '', false)
-   }
-   console.log(i++)
-   return
-
-  },
+   channel.bind('event', function (data) {
+    this.messages.push(JSON.stringify(data))
+    console.log(JSON.stringify(data))
+   })
+  }
 
  }
 

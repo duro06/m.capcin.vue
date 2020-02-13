@@ -31,7 +31,10 @@ const routes = [{
   }, {
     path: '/test',
     name: 'test',
-    component: () => import('../views/Test.vue')
+    component: () => import('../views/Test.vue'),
+    meta: {
+      requiresVisitor: true,
+    }
   }, {
     path: '/home',
     name: 'home',
