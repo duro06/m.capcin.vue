@@ -9,7 +9,7 @@ const _newUrlApiLogin = _LurlApi + 'apilogin'
 axios.defaults.baseURL = _LurlApi
 export default {
   state: {
-    token: localStorage.getItem('access_token') || null,
+    token: (localStorage.getItem('access_token') || null),
     pusherMessages: ''
   },
   getters: {
@@ -87,7 +87,7 @@ export default {
         params.append('password', credentials.password)
         axios.post('user/login', params)
           .then(response => {
-            console.log(response.data.data)
+            // console.log(response.data.data)
             const token = response.data.data.token
             resolve(response)
             // if (token != undefined) {

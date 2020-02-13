@@ -4,7 +4,11 @@
    <div class="navbar-brand">
     <router-link class="navbar-item wow slideInLeft" to="/" data-wow-duration="1s">Home</router-link>
     <!-- <a><?= app_name()?></!-->
-
+    <div class="column wow slideInRight">
+     <span class="has-badge-rounded has-badge-success has-badge-outlined" data-badge="0">
+      <i class="far fa-bell"></i>
+     </span>
+    </div>
     <a
      role="button"
      class="navbar-burger has-text-white"
@@ -93,3 +97,5 @@ export default {
  }
 }
 </script>
+<style scoped>
+</style>

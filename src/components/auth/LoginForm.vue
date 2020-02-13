@@ -195,15 +195,13 @@ export default {
       this.serverError = error.response.data.errors
       this.password = ''
       this.successMessage = ''
-      console.log(error.response.data)
+      // console.log(error.response.data)
      })
 
 
    } else {
     this.show = true
-    setTimeout(function () {
-     this.show = false
-    }, 1500)
+    setTimeout(function () { this.show = false }, 2000)
    }
   },
 
@@ -269,7 +267,7 @@ export default {
   //========================= ambil data ====================
   const vm = this
   const axios = require('axios').default
-  axios.defaults.headers.common['X-API-KEY'] = 'capcin123'
+  // axios.defaults.headers.common['X-API-KEY'] = 'capcin123'
   axios.get('http://localhost/capcin/api/app')
    .then(function (response) {
     if (response.data.status == true) {

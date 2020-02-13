@@ -1,15 +1,15 @@
 <template>
  <div class="logged">
-  <div id="nav">
+  <!-- <div id="nav">
    <Navbar />
-  </div>
+  </div>-->
   <div id="mid">
    <img alt="Vue logo" src="../assets/logo.png" />
    <HelloWorld msg="Welcome to Your Vue.js App" />
   </div>
-  <div id="fot">
+  <!-- <div id="fot">
    <Footer />
-  </div>
+  </div>-->
  </div>
 </template>
 <script>

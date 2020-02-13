@@ -10,6 +10,12 @@ import Pusher from 'pusher-js'
 
 import 'bulma/bulma.sass'
 import 'bulma/css/bulma.css'
+// import 'bulma/css/bulma.css.map'
+import 'bulma/css/bulma.min.css'
+import 'bulma-badge/dist/css/bulma-badge.min.css'
+// import 'bulma-badge/dist/css/bulma-badge.sass'
+
+
 // import 'https://js.pusher.com/5.1/pusher.min.js'
 
 

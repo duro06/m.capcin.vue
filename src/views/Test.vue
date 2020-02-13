@@ -1,37 +1,29 @@
 <template>
  <div id="coba">
-  <h1>Pusher Test</h1>
-  <p>
-   Publish an event to channel
-   <code>my-channel</code>
-   with event name
-   <code>my-event</code>; it will appear below:
-  </p>
-  <ul>
-   <li v-for="(message, apem) in messages" :key="apem">{{ message }}</li>
-  </ul>
-  <button class="button is-success is-light" @click="subscribe">Connect</button>
+  <div class="container has-text-centered">
+   <div class="column is-4 is-offset-4">
+    <h3 class="notification is-light is-info">
+     <strong>Anda telah berhasil melakukan Regestrasi</strong>
+    </h3>
+    <div class="notification is-primary is-light">
+     <strong>Silahkan tunggu 1 x 24 jam</strong>
+     <p>hubungi Admin di nomor</p>
+     <strong>088 000 888 999</strong>
+     <p>jika dalam waktu 1 x 24 jam halaman ini belum berubah</p>
+    </div>
+   </div>
+  </div>
  </div>
 </template>
 <script>
 
-Pusher.logToConsole = true;
-
-// var pusher = new Pusher('ebfe3f8ff45ad9c3ad4c', {
-//   cluster: 'ap1',
-//   forceTLS: true
-// });
-
-// var channel = pusher.subscribe('my-channel');
-// channel.bind('my-event', function (data) {
-//   store.state.pusherMessages.push(JSON.stringify(data));
-// });
+// Pusher.logToConsole = true;
 
 
 export default {
- name: 'coba',
+ name: 'info',
  data() {
-  return { messages: '', }
+  return { messages: [], }
  },
 
 
@@ -46,15 +38,22 @@ export default {
     cluster: 'ap1',
     forceTLS: true
    })
-   let channel = pusher.subscribe('channel')
+   let channel = pusher.subscribe('my-channel')
 
-   channel.bind('event', function (data) {
-    this.messages.push(JSON.stringify(data))
-    console.log(JSON.stringify(data))
+   channel.bind('my-event', data => {
+    this.messages.push(data)
+
+    console.log(data)
    })
-  }
-
+  },
  }
 
 }
 </script>
+// <style lang="sass">
+// @charset 'utf-8'
+// // Import Bulma core
+// @import 'bulma.sass';
+// // Import component
+// @import 'bulma-badge.sass';
+// </style>
