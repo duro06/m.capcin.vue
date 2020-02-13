@@ -10,7 +10,6 @@ axios.defaults.baseURL = _LurlApi
 export default {
   state: {
     token: localStorage.getItem('access_token') || null,
-    // app
   },
   getters: {
     loggedIn(state) {
@@ -60,7 +59,7 @@ export default {
 
       if (context.getters.loggedIn) {
         return new Promise((resolve, reject) => {
-          axios.post('/logout')
+          axios.post('user/logout')
             .then(response => {
               localStorage.removeItem('access_token')
               context.commit('destroyToken')
@@ -86,17 +85,17 @@ export default {
             console.log(response.data.data)
             const token = response.data.data.token
             resolve(response)
-            if (token != undefined) {
-              localStorage.setItem('access_token', token)
-              context.commit('retrieveToken', token)
-            } else {
-              localStorage.removeItem('access_token')
-              context.commit('destroyToken')
-              console.log('token undefined')
-            }
+            // if (token != undefined) {
+            localStorage.setItem('access_token', token)
+            context.commit('retrieveToken', token)
+            // } else {
+            // localStorage.removeItem('access_token')
+            // context.commit('destroyToken')
+            // console.log('token undefined')
+            // }
           })
           .catch(error => {
-            console.log(error)
+            // console.log(error)
             reject(error)
           })
       })

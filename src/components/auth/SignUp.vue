@@ -95,7 +95,7 @@
    >Sign Up!</a>
   </div>
   <div class="has-text-centered">
-   <a href="login">Already have an account? Log in now !</a>
+   <a href="/">Already have an account? Log in now !</a>
   </div>
  </section>
 </template>

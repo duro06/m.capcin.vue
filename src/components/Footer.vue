@@ -1,47 +1,50 @@
 <template>
  <div id="foot">
   <div class="mobile-bottom-nav is-hidden-desktop">
-   <a href="<?=base_url()?>" data-toggle="page" class="mobile-bottom-nav__item">
+   <a href data-toggle="page" class="mobile-bottom-nav__item">
     <div class="mobile-bottom-nav__item-content">
      <i class="fa fa-home"></i>
      Beranda
     </div>
    </a>
-   <a href="<?=base_url()?>front/logbook" class="mobile-bottom-nav__item">
+   <a href="front/logbook" class="mobile-bottom-nav__item">
     <div class="mobile-bottom-nav__item-content">
      <i class="fa fa-info-circle"></i>
      Informasi
     </div>
    </a>
-   <a href="<?=base_url()?>front/profile" class="mobile-bottom-nav__item">
+   <a href="front/profile" class="mobile-bottom-nav__item">
     <div class="mobile-bottom-nav__item-content">
      <i class="fa fa-user-tie"></i>
      Profile
     </div>
    </a>
 
-   <!-- <?php if (!$this->session->userdata('login')) {?> -->
-   <a href="<?=base_url()?>login2" class="mobile-bottom-nav__item">
+   <a v-if="!loggedIn" href="login" class="mobile-bottom-nav__item">
     <div class="mobile-bottom-nav__item-content">
      <i class="fas fa-sign-in-alt"></i>
      Login
     </div>
    </a>
 
-   <!-- <?php } else {?> -->
-   <a href="<?=base_url()?>site_rules/logout" class="mobile-bottom-nav__item">
+   <a v-if="loggedIn" href="logout" class="mobile-bottom-nav__item">
     <div class="mobile-bottom-nav__item-content">
      <i class="fas fa-sign-out-alt"></i>
      Logout
     </div>
    </a>
-   <!-- <?php }?> -->
   </div>
  </div>
 </template>
 <script>
 export default {
- name: 'footnav'
+ name: 'footnav',
+ computed: {
+  loggedIn() {
+   return this.$store.getters.loggedIn
+  }
+
+ }
 }
 </script>
 <style scoped>

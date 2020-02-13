@@ -24,23 +24,23 @@
     :class="{ 'is-active': isActive }"
     data-wow-duration="1s"
    >
-    <div class="navbar-start">
+    <!-- <div class="navbar-start">
      <div class="navbar-item wow slideInDown" data-wow-duration="1s">
       <div class="field is-grouped">
        <p class="control">
-        <router-link class="button is-ligth" to="/login">
+        <router-link class="button is-ligth" to="/">
          <span class="icon">
           <i class="fas fa-sign-in-alt"></i>
          </span>
          <span>
-          <!-- <router-link to="/login" msg="Login">Login</router-link> -->
+           <router-link to="/login" msg="Login">Login</router-link> 
           Login
          </span>
         </router-link>
        </p>
       </div>
      </div>
-    </div>
+    </div>-->
 
     <div class="navbar-end">
      <a

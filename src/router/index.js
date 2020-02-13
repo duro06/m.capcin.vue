@@ -7,8 +7,11 @@ Vue.use(VueRouter)
 
 const routes = [{
     path: '/',
-    name: 'Login',
-    component: () => import( /* webpackChunkName: "about" */ '../views/Login.vue')
+    name: 'login',
+    component: () => import( /* webpackChunkName: "about" */ '../views/Login.vue'),
+    meta: {
+      requiresVisitor: true,
+    }
   },
   // {
   //   path: '/login',
@@ -20,20 +23,30 @@ const routes = [{
   // },
   {
     path: '/signup',
-    name: 'Signup',
-    component: () => import('../components/auth/SignUp.vue')
+    name: 'signup',
+    component: () => import('../components/auth/SignUp.vue'),
+    meta: {
+      requiresVisitor: true,
+    }
   }, {
     path: '/test',
-    name: 'Test',
+    name: 'test',
     component: () => import('../views/Test.vue')
   }, {
     path: '/home',
-    name: 'Home',
+    name: 'home',
     component: () => import('../views/Home.vue')
   }, {
     path: '/logged',
-    name: 'Logged',
-    component: () => import('../views/Logged.vue')
+    name: 'logged',
+    component: () => import('../views/Logged.vue'),
+    meta: {
+      requiresAuth: true,
+    }
+  }, {
+    path: '/logout',
+    name: 'logout',
+    component: () => import('../components/auth/Logout.vue')
   },
 
 ]

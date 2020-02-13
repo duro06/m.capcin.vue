@@ -134,20 +134,10 @@ export default {
    serverError: ''
   }
  },
- updated() {
-  if (localStorage.getItem('access_token')) {
-   this.$router.replace(this.$route.query.redirect || '/logged')
-  }
-
- },
- // watch: {
- //  // Logo(Value) {
- //  //  this.logo = Value
- //  // }
- // },
- // computed: {
- //  ...mapState({ Logo: state => state.user.app.data.logo }),
-
+ // updated() {
+ //  if (localStorage.getItem('access_token')) {
+ //   this.$router.replace(this.$route.query.redirect || '/logged')
+ //  }
 
  // },
  methods: {
@@ -192,14 +182,13 @@ export default {
     // })
     // =============================================
 
-    // this.loading = 'is-loading'
     this.$store.dispatch('retrieveToken', {
      email: this.email,
      password: this.password,
     })
      .then(response => {
       this.loading = ''
-      this.$router.replace(this.$route.query.redirect || '/logged')
+      this.$router.push('/logged')
      })
      .catch(error => {
       this.loading = ''
@@ -209,27 +198,6 @@ export default {
       console.log(error.response.data)
      })
 
-    // dibawah ini berhasil login, tapi tokennya tidak masuk
-
-    // const axios = require('axios').default
-    // const params = new URLSearchParams()
-    // params.append('email', this.email)
-    // params.append('password', this.password)
-    // axios.post('http://localhost/capcin/api/user/login', params)
-    //  .then(response => {
-    //   const token = response.data.token
-
-    //   localStorage.setItem('access_token', token)
-    //   this.loading = ''
-    //   console.log(response);
-    //  })
-    //  .catch(error => {
-    //   this.serverError = error.response.data.errors
-    //   this.password = ''
-    //   this.successMessage = ''
-    //   console.log(error.response.data)
-    //   this.loading = ''
-    //  })
 
    } else {
     this.show = true
@@ -297,43 +265,20 @@ export default {
    console.log(vm.logo)
   },
  },
- // updated: function () {
- //  const vm = this
- //  vm.$nextTick(function () {
- //   vm.logo = vm.logo
- //   console.log(vm.logo)
- //  })
- // },
  mounted: function () {
   //========================= ambil data ====================
   const vm = this
-  // axios.defaults.baseURL = 'http://localhost/capcin/api/'
   const axios = require('axios').default
   axios.defaults.headers.common['X-API-KEY'] = 'capcin123'
   axios.get('http://localhost/capcin/api/app')
    .then(function (response) {
     if (response.data.status == true) {
      vm.logo = response.data.data.logo
-     // console.log(response.data.data.logo);
     }
    })
    .catch(function (error) {
-    // console.log(error);
+    console.log(error);
    })
-   .then(function () {
-    // always executed
-   });
-  // // console.log(vm.logo)
-  // this.$store.dispatch('retrieveLogo')
-  //  .then(function (response) {
-  //   console.log(this.logo)
-  //   this.logo = response.data.data.logo
-  //   console.log(this.response.data.data.logo);
-  //  })
-  //  .catch(function (error) {
-  //   console.log(error);
-  //  })
-
 
  },
 
