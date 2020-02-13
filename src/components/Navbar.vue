@@ -45,28 +45,28 @@
     <div class="navbar-end">
      <a
       class="navbar-item wow slideInDown <?= (isset($menu) && $menu === 'home' ? 'is-active' : ''); ?>"
-      href="<?= base_url('home') ?>"
+      to="/"
       data-wow-duration="1s"
       data-wow-delay="0.4s"
      >Beranda</a>
 
      <a
       class="navbar-item wow slideInDown <?= (isset($menu) && $menu === 'puskesmas' ? 'is-active' : ''); ?>"
-      href="<?= base_url('puskesmas') ?>"
+      to="/"
       data-wow-duration="1s"
       data-wow-delay="0.4s"
      >Puskesmas</a>
 
      <a
       class="navbar-item wow slideInDown <?= (isset($menu) && $menu === 'rsk' ? 'is-active' : ''); ?>"
-      href="<?= base_url('rsk') ?>"
+      to="/"
       data-wow-duration="1s"
       data-wow-delay="0.6s"
      >Rumah Sakit Khusus</a>
 
      <a
       class="navbar-item wow slideInDown <?= (isset($menu) && $menu === 'rsu' ? 'is-active' : ''); ?>"
-      href="<?= base_url('rsu') ?>"
+      to="/"
       data-wow-duration="1s"
       data-wow-delay="0.8s"
      >Rumah Sakit Umum</a>

@@ -1,18 +1,25 @@
 <template>
  <div id="app">
+  <Navbar v-if="loggedIn" />
   <router-view />
+  <Footer v-if="loggedIn" />
  </div>
 </template>
 <script>
 
-
+import Navbar from '@/components/Navbar.vue'
+import Footer from '@/components/Footer.vue'
 export default {
  name: 'app',
- // updated() {
- //  if (!localStorage.getItem('access_token') && this.$route.path !== '/') {
- //   this.$router.push('/?redirect=' + this.$route.path)
- //  }
- // }
+ components: {
+  Navbar,
+  Footer,
+ },
+ computed: {
+  loggedIn() {
+   return this.$store.getters.loggedIn
+  }
+ }
 }
 </script>
 
