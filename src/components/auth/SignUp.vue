@@ -225,6 +225,12 @@ export default {
  // computed: {
 
  // },
+ updated() {
+  if (localStorage.getItem('waiting_verivication')) {
+   this.$router.replace(this.$route.query.redirect || '/logged')
+  }
+
+ },
  methods: {
   register: function () {
    const vm = this
@@ -247,7 +253,7 @@ export default {
      })
      .catch(function (error) {
       vm.loading = ''
-      console.log(error.response.data.message)
+      // console.log(error.response.data.message)
       vm.pesan = error.response.data.errors
       setTimeout(function () { vm.pesan = '' }, 5000)
      })
