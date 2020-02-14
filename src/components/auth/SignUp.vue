@@ -227,7 +227,7 @@ export default {
  // },
  updated() {
   if (localStorage.getItem('waiting_verivication')) {
-   this.$router.replace(this.$route.query.redirect || '/logged')
+   this.$router.replace(this.$route.query.redirect || '/')
   }
 
  },
