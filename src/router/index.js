@@ -11,6 +11,7 @@ const routes = [{
     component: () => import( /* webpackChunkName: "about" */ '../views/Login.vue'),
     meta: {
       requiresVisitor: true,
+      requiresVerification: true,
     }
   },
   // {
@@ -27,6 +28,7 @@ const routes = [{
     component: () => import('../components/auth/SignUp.vue'),
     meta: {
       requiresVisitor: true,
+      requiresVerification: true,
     }
   }, {
     path: '/test',

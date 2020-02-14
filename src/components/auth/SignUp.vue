@@ -1,162 +1,171 @@
 <template>
- <section class="section">
-  <div class="has-text-centered">
-   <img class="login-logo" src="../../assets/logo.png" />
-  </div>
-  <transition name="slide-fade">
-   <div class="notification is-warning is-light" v-if="show">
-    <span class="icon is-medium has-text-danger">
-     <i class="fas fa-2x fa-ban"></i>
-    </span>
-    <p>
-     <strong>Oh Snap!</strong>
-     Silahkan di isi dahulu
-    </p>
-   </div>
-  </transition>
-  <transition name="slide-fade">
-   <div class="notification is-warning is-light" v-if="pesan">
-    <span class="icon is-medium has-text-danger">
-     <i class="fas fa-2x fa-ban"></i>
-    </span>
-    <p>
-     <strong>Oh Snap!</strong>
-     {{ pesan }}
-    </p>
-   </div>
-  </transition>
-  <form action="#" @submit.prevent="register">
-   <div class="field">
-    <div class="control has-icons-left">
-     <input
-      @change="NameValidation"
-      :class="['input', className]"
-      type="name"
-      placeholder="Nama"
-      v-model="name"
-     />
-     <span class="icon is-small is-left">
-      <i class="fas fa-portrait"></i>
-     </span>
-    </div>
-    <p :class="['help', 'align-left', className]">{{ validName }}</p>
-   </div>
+ <section class="hero is-success is-fullheight is-flex-mobile">
+  <div class="hero-body">
+   <div class="container has-text-centered">
+    <transition name="slide-fade">
+     <div class="notification is-warning is-light" v-if="show">
+      <span class="icon is-medium has-text-danger">
+       <i class="fas fa-2x fa-ban"></i>
+      </span>
+      <p>
+       <strong>Oh Snap!</strong>
+       Silahkan di isi dahulu
+      </p>
+     </div>
+    </transition>
+    <transition name="slide-fade">
+     <div class="notification is-warning is-light" v-if="pesan">
+      <span class="icon is-medium has-text-danger">
+       <i class="fas fa-2x fa-ban"></i>
+      </span>
+      <p>
+       <strong>Oh Snap!</strong>
+       {{ pesan }}
+      </p>
+     </div>
+    </transition>
+    <div class="box form-control">
+     <figure class="avatar">
+      <img src="../../assets/logocapcin.png" />
+     </figure>
+     <form action="#" @submit.prevent="register">
+      <div class="field">
+       <div class="control has-icons-left">
+        <input
+         @change="NameValidation"
+         :class="['input', className]"
+         type="name"
+         placeholder="Nama"
+         v-model="name"
+        />
+        <span class="icon is-small is-left">
+         <i class="fas fa-portrait"></i>
+        </span>
+       </div>
+       <p :class="['help', 'align-left', className]">{{ validName }}</p>
+      </div>
 
-   <div class="field">
-    <div class="control has-icons-left has-icons-right">
-     <input
-      @change="UserValidation"
-      :class="['input', classUser]"
-      type="username"
-      placeholder="Username"
-      v-model="username"
-     />
-     <span class="icon is-small is-left">
-      <i class="fas fa-user"></i>
-     </span>
-     <span class="icon is-small is-right" :style="{visibility: visUser}">
-      <i class="fas fa-exclamation-triangle"></i>
-     </span>
-    </div>
-    <p :class="['help', 'align-left', classUser]">{{ validUser }}</p>
-   </div>
+      <div class="field">
+       <div class="control has-icons-left has-icons-right">
+        <input
+         @change="UserValidation"
+         :class="['input', classUser]"
+         type="username"
+         placeholder="Username"
+         v-model="username"
+        />
+        <span class="icon is-small is-left">
+         <i class="fas fa-user"></i>
+        </span>
+        <span class="icon is-small is-right" :style="{visibility: visUser}">
+         <i class="fas fa-exclamation-triangle"></i>
+        </span>
+       </div>
+       <p :class="['help', 'align-left', classUser]">{{ validUser }}</p>
+      </div>
 
-   <div class="field">
-    <div class="control has-icons-left has-icons-right">
-     <input
-      @change="formValidation"
-      :class="['input', classDanger]"
-      type="email"
-      placeholder="Email"
-      v-model="email"
-     />
-     <span class="icon is-small is-left">
-      <i class="fas fa-envelope"></i>
-     </span>
-     <span class="icon is-small is-right" :style="{visibility: visClass}">
-      <i class="fas fa-exclamation-triangle"></i>
-     </span>
-    </div>
-    <p :class="['help', 'align-left', classDanger]">{{ validMail }}</p>
-   </div>
+      <div class="field">
+       <div class="control has-icons-left has-icons-right">
+        <input
+         @change="formValidation"
+         :class="['input', classDanger]"
+         type="email"
+         placeholder="Email"
+         v-model="email"
+        />
+        <span class="icon is-small is-left">
+         <i class="fas fa-envelope"></i>
+        </span>
+        <span class="icon is-small is-right" :style="{visibility: visClass}">
+         <i class="fas fa-exclamation-triangle"></i>
+        </span>
+       </div>
+       <p :class="['help', 'align-left', classDanger]">{{ validMail }}</p>
+      </div>
 
-   <div class="field">
-    <div class="control has-icons-left">
-     <input
-      @change="phoneValidation"
-      :class="['input', classPhone]"
-      type="phone"
-      placeholder="Telepon"
-      v-model="phone"
-     />
-     <span class="icon is-small is-left">
-      <i class="fas fa-phone"></i>
-     </span>
-    </div>
-    <p :class="['help', 'align-left', classPhone]">{{ validPhone }}</p>
-   </div>
+      <div class="field">
+       <div class="control has-icons-left">
+        <input
+         @change="phoneValidation"
+         :class="['input', classPhone]"
+         type="phone"
+         placeholder="Telepon"
+         v-model="phone"
+        />
+        <span class="icon is-small is-left">
+         <i class="fas fa-phone"></i>
+        </span>
+       </div>
+       <p :class="['help', 'align-left', classPhone]">{{ validPhone }}</p>
+      </div>
 
-   <div class="field">
-    <div class="control has-icons-left">
-     <input
-      @change="addresValidation"
-      :class="['input', classAddres]"
-      type="address"
-      placeholder="Alamat"
-      v-model="addres"
-     />
-     <span class="icon is-small is-left">
-      <i class="fas fa-map-marker-alt"></i>
-     </span>
-    </div>
-    <p :class="['help', 'align-left', classAddres]">{{ validAddres }}</p>
-   </div>
+      <div class="field">
+       <div class="control has-icons-left">
+        <input
+         @change="addresValidation"
+         :class="['input', classAddres]"
+         type="address"
+         placeholder="Alamat"
+         v-model="addres"
+        />
+        <span class="icon is-small is-left">
+         <i class="fas fa-map-marker-alt"></i>
+        </span>
+       </div>
+       <p :class="['help', 'align-left', classAddres]">{{ validAddres }}</p>
+      </div>
 
-   <div class="field">
-    <div class="control has-icons-left has-icons-right">
-     <input
-      @change="passOk"
-      :class="['input', validPass]"
-      type="password"
-      placeholder="Password"
-      v-model="password"
-     />
-     <span class="icon is-small is-left">
-      <i class="fas fa-lock"></i>
-     </span>
-     <span class="icon is-small is-right is-success" :style="{visibility:visPass}">
-      <i class="fas fa-check"></i>
-     </span>
-    </div>
-    <p :class="['help', 'lign-left', validPass]">{{ passCheck }}</p>
-   </div>
+      <div class="field">
+       <div class="control has-icons-left has-icons-right">
+        <input
+         @change="passOk"
+         :class="['input', validPass]"
+         type="password"
+         placeholder="Password"
+         v-model="password"
+        />
+        <span class="icon is-small is-left">
+         <i class="fas fa-lock"></i>
+        </span>
+        <span class="icon is-small is-right is-success" :style="{visibility:visPass}">
+         <i class="fas fa-check"></i>
+        </span>
+       </div>
+       <p :class="['help', 'lign-left', validPass]">{{ passCheck }}</p>
+      </div>
 
-   <div class="field">
-    <div class="control has-icons-left has-icons-right">
-     <input
-      :class="['input', classKonfirm]"
-      type="password"
-      placeholder="Konfirmasi Password"
-      v-model="Kpassword"
-     />
-     <span class="icon is-small is-left">
-      <i class="fas fa-lock"></i>
-     </span>
-     <span class="icon is-small is-right is-success" :style="{visibility:kPass}">
-      <i class="fas fa-check"></i>
-     </span>
+      <div class="field">
+       <div class="control has-icons-left has-icons-right">
+        <input
+         :class="['input', classKonfirm]"
+         type="password"
+         placeholder="Konfirmasi Password"
+         v-model="Kpassword"
+        />
+        <span class="icon is-small is-left">
+         <i class="fas fa-lock"></i>
+        </span>
+        <span class="icon is-small is-right is-success" :style="{visibility:kPass}">
+         <i class="fas fa-check"></i>
+        </span>
+       </div>
+       <p :class="['help', 'lign-left', konfirm()]">{{ passKonfirm }}</p>
+      </div>
+      <div class="has-text-centered">
+       <button
+        :class="['button', 'is-vcentered', 'is-primary', 'is-outlined', loading]"
+        @click.prevent="register"
+       >Daftar</button>
+      </div>
+     </form>
     </div>
-    <p :class="['help', 'lign-left', konfirm()]">{{ passKonfirm }}</p>
+    <div class="has-text-centered">
+     <a href="/">
+      Sudah Punya Akun?
+      <strong style="text-decoration:underline;">Log in</strong> Sekarang !
+     </a>
+    </div>
    </div>
-   <div class="has-text-centered">
-    <button
-     :class="['button', 'is-vcentered', 'is-primary', 'is-outlined', loading]"
-     @click.prevent="register"
-    >Daftar</button>
-   </div>
-  </form>
-  <div class="has-text-centered">
-   <a href="/">Sudah Punya Akun? Log in Sekarang !</a>
   </div>
  </section>
 </template>
@@ -231,9 +240,10 @@ export default {
      password: vm.password,
     })
      .then(function (response) {
-      this.$router.push('/test')
-      console.log(response.data);
+      console.log(response.data)
+      vm.$store.dispatch('retrieveVerifie', 'register')
       vm.loading = ''
+      this.$router.push('/test')
      })
      .catch(function (error) {
       vm.loading = ''
@@ -392,8 +402,14 @@ export default {
 
 </script>
 <style scoped>
+@import "../../assets/css/login.css";
+.hero-body {
+ padding-top: 20px;
+ padding-bottom: 20px;
+}
+
 img {
- width: 10%;
+ width: 20%;
  height: auto;
 }
 .slide-fade-enter-active {

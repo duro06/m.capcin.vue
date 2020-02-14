@@ -11,13 +11,14 @@
      <strong>088 000 888 999</strong>
      <p>jika dalam waktu 1 x 24 jam halaman ini belum berubah</p>
     </div>
+    <h3 class="notification is-primary is-light" v-if="!waiting">Anda sudah terverifikasi</h3>
    </div>
   </div>
  </div>
 </template>
 <script>
 
-// Pusher.logToConsole = true;
+Pusher.logToConsole = true;
 
 
 export default {
@@ -27,13 +28,34 @@ export default {
  },
 
 
- // created() {
+ created() {
 
- //  this.subscribe()
- // },
+  this.subscribe()
+  // this.kirimKePuser()
+ },
+ computed: {
+  waiting() {
+   return this.$store.getters.waitingVerified
+  }
+
+
+
+ },
+ updated() {
+  if (!(localStorage.getItem('waiting_verivication'))) {
+   this.$router.replace(this.$route.query.redirect || '/')
+  }
+
+ },
+
  methods: {
-  subscribe() {
+  // kirimKePuser() {
+  //  const vm = this
+  //  vm.$store.dispatch('verivication')
 
+  // },
+  subscribe() {
+   // const vm = this
    let pusher = new Pusher('ebfe3f8ff45ad9c3ad4c', {
     cluster: 'ap1',
     forceTLS: true
@@ -42,12 +64,16 @@ export default {
 
    channel.bind('my-event', data => {
     this.messages.push(data)
+    if (data != '') {
+     this.$store.dispatch('destroyVerifie')
+     this.$router.push('/')
+    }
 
     console.log(data)
    })
   },
- }
 
+ }
 }
 </script>
 // <style lang="sass">
@@ -56,4 +82,4 @@ export default {
 // @import 'bulma.sass';
 // // Import component
 // @import 'bulma-badge.sass';
-// </style>
+</style>

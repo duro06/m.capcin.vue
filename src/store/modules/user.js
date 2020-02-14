@@ -10,14 +10,24 @@ axios.defaults.baseURL = _LurlApi
 export default {
   state: {
     token: (localStorage.getItem('access_token') || null),
-    pusherMessages: ''
+    adminVerified: (localStorage.getItem('waiting_verivication') || null),
   },
   getters: {
     loggedIn(state) {
       return state.token !== null
     },
+    waitingVerified(state) {
+      return state.adminVerified !== null
+    }
   },
   mutations: {
+    retrieveVerifie(state, msg) {
+      state.adminVerified = msg
+    },
+    destroyverifie(state) {
+      state.adminVerified = null
+    },
+
     retrieveToken(state, token) {
       state.token = token
     },
@@ -26,7 +36,15 @@ export default {
     },
   },
   actions: {
+    destroyVerifie(context) {
+      localStorage.removeItem('waiting_verivication')
+      context.commit('destroyverifie')
+    },
+    retrieveVerifie(contex) {
+      localStorage.setItem('waiting_verivication', contex)
+      contex.commit('retrieveVerifie')
 
+    },
     retrieveName(context) {
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + context.state.token
 

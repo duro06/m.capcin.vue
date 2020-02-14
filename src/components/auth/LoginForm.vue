@@ -5,7 +5,7 @@
     <div class="container has-text-centered">
      <div class="column is-4 is-offset-4">
       <h2 class="mgbt-xs-5">
-       <img :src="logo" alt="logo" />
+       <img src="../../assets/logo3.png" alt="logo" />
       </h2>
 
       <h3 class="title has-text-black header">{{ msg }}</h3>
@@ -36,7 +36,7 @@
       </div>
       <div class="box form-control">
        <figure class="avatar">
-        <img :src="merk" />
+        <img src="../../assets/logocapcin.png" />
        </figure>
        <form id="validate-form" action="#" @submit.prevent="submitForm">
         <div class="field">
@@ -124,7 +124,6 @@ export default {
    visPass: 'hidden',
    passCheck: '',
    validPass: '',
-   logo: '../../assets/logo.png',
    merk: 'https://placehold.it/128x128',
    Vmail: false,
    Vpass: false,
@@ -144,64 +143,29 @@ export default {
 
   //================= login request ===============
   submitForm: function () {
-
-   if (this.Vpass == true && this.Vmail == true) {
-    this.loading = 'is-loading'
-
-    //==========================ajax point ==============
-    // $.ajax({
-    //  url: _newUrlUser,
-    //  type: 'post',
-    //  dataType: 'json',
-    //  data: {
-    //   'X-API-KEY': 'capcin123',
-    //   'email': this.email,
-    //   'password': this.password
-    //  },
-    //  success: function (hasil) {
-    //   vm.loading = ''
-    //   if (hasil.status == true) {
-    //    console.log(hasil)
-    //    localStorage.token = hasil.data.token
-    //    vm.$router.replace(vm.$route.query.redirect || '/logged')
-    //   } else {
-    //    vm.loading = ''
-    //    delete localStorage.token
-    //    alert('ga dapat data')
-
-    //   }
-    //  },
-    //  error: function (error) {
-    //   vm.loading = ''
-    //   delete localStorage.token
-    //   console.log(error.responseJSON)
-
-    //   // alert('sorry bos Error')
-
-    //  }
-    // })
-    // =============================================
-
-    this.$store.dispatch('retrieveToken', {
-     email: this.email,
-     password: this.password,
+   const vm = this
+   if (vm.Vpass == true && vm.Vmail == true) {
+    vm.loading = 'is-loading'
+    vm.$store.dispatch('retrieveToken', {
+     email: vm.email,
+     password: vm.password,
     })
      .then(response => {
-      this.loading = ''
-      this.$router.push('/logged')
+      vm.loading = ''
+      vm.$router.push('/logged')
      })
      .catch(error => {
-      this.loading = ''
-      this.serverError = error.response.data.errors
-      this.password = ''
-      this.successMessage = ''
-      // console.log(error.response.data)
+      vm.loading = ''
+      vm.serverError = error.response.data.message
+      vm.password = ''
+      vm.successMessage = ''
+      setTimeout(function () { vm.serverError = '' }, 2000)
      })
 
 
    } else {
-    this.show = true
-    setTimeout(function () { this.show = false }, 2000)
+    vm.show = true
+    setTimeout(function () { vm.show = false }, 2000)
    }
   },
 
@@ -257,29 +221,29 @@ export default {
    return vm.validPass
   },
   //================= Re-render componen data ==============
-  forceRendere() {
-   const vm = this
-   vm.logo = vm.logo
-   // console.log(vm.logo)
-  },
+  // forceRendere() {
+  //  const vm = this
+  //  vm.logo = vm.logo
+  //  // console.log(vm.logo)
+  // },
  },
- mounted: function () {
-  //========================= ambil data ====================
-  const vm = this
-  const axios = require('axios').default
-  // axios.defaults.headers.common['X-API-KEY'] = 'capcin123'
-  axios.get('http://localhost/capcin/api/app')
-   .then(function (response) {
-    if (response.data.status == true) {
-     vm.logo = response.data.data.logo
-    }
-   })
-   .catch(function (error) {
-    console.log(error);
-    location.reload()
-   })
+ //  mounted: function () {
+ //   //========================= ambil data ====================
+ //   const vm = this
+ //   const axios = require('axios').default
+ //   // axios.defaults.headers.common['X-API-KEY'] = 'capcin123'
+ //   axios.get('http://localhost/capcin/api/app')
+ //    .then(function (response) {
+ //     if (response.data.status == true) {
+ //      vm.logo = response.data.data.logo
+ //     }
+ //    })
+ //    .catch(function (error) {
+ //     console.log(error);
+ //     location.reload()
+ //    })
 
- },
+ //  },
 
 }
 

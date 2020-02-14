@@ -25,7 +25,18 @@ Vue.use(Bulma)
 // Vue.use(Pusher)
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
+
+  if (to.matched.some(record => record.meta.requiresVerification)) {
+    // this route requires verivication, check if logged in
+    // if not, redirect to login page.
+    if (store.getters.waitingVerified) {
+      next({
+        path: '/test',
+      })
+    } else {
+      next()
+    }
+  } else if (to.matched.some(record => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
     if (!store.getters.loggedIn) {
@@ -36,7 +47,7 @@ router.beforeEach((to, from, next) => {
       next()
     }
   } else if (to.matched.some(record => record.meta.requiresVisitor)) {
-    // this route requires auth, check if logged in
+    // this route requires visitor, check if logged in
     // if not, redirect to login page.
     if (store.getters.loggedIn) {
       next({
