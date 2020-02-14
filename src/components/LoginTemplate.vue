@@ -1,98 +1,114 @@
 <template>
- <div class="login">
-  <section class="hero is-success is-fullheight is-flex-mobile">
-   <div class="hero-body">
-    <div class="container has-text-centered">
-     <div class="column is-4 is-offset-4">
-      <h2 class="mgbt-xs-5">
-       <img :src="logo" alt="logo" />
-      </h2>
+ <section class="hero is-fullheight">
+  <div class="hero-body">
+   <div class="container has-text-centered">
+    <div class="column is-4 is-offset-4 box">
+     <h1 class="avatar has-text-centered section">
+      <img src="../assets/logocapcin.png" alt="logo" />
+     </h1>
 
-      <h3 class="title has-text-black header">{{ msg }}</h3>
-      <hr class="login-hr" />
-      <transition name="slide-fade">
-       <p class="subtitle has-text-black" v-if="!show">Please login to proceed.</p>
-       <div class="notification is-warning is-light" v-if="show">
-        <span class="icon is-medium has-text-danger">
-         <i class="fas fa-2x fa-ban"></i>
-        </span>
-        <p>
-         <strong>Oh Snap!</strong>
-         Diisi dulu om.. jangan buru-buru
+     <transition name="slide-fade">
+      <p class="subtitle has-text-black" v-if="!show">Please login to proceed.</p>
+      <div class="notification is-warning is-light" v-if="show">
+       <span class="icon is-medium has-text-danger">
+        <i class="fas fa-2x fa-ban"></i>
+       </span>
+       <p>
+        <strong>Oh Snap!</strong>
+        Diisi dulu om.. jangan buru-buru
+       </p>
+      </div>
+     </transition>
+     <div class="notification is-warning is-light" v-if="successMessage">
+      <span class="icon is-medium has-text-danger">
+       <i class="fas fa-2x fa-ban"></i>
+      </span>
+      <p>{{ successMessage }}</p>
+     </div>
+     <div class="notification is-warning is-light" v-if="serverError">
+      <span class="icon is-medium has-text-danger">
+       <i class="fas fa-2x fa-ban"></i>
+      </span>
+      <p>{{ serverError }}</p>
+     </div>
+
+     <div class="login-form">
+      <form role="form" action="/login" method="post">
+       <div class="field">
+        <p class="control has-icons-left has-icons-right">
+         <input
+          :class="['input', classDanger, 'is-small']"
+          type="email"
+          placeholder="Email"
+          data-lpignore="true"
+          v-model="email"
+         />
+         <span class="icon is-small is-left">
+          <i class="fas fa-envelope"></i>
+         </span>
+         <span class="icon is-small is-right" :style="{visibility: visClass}">
+          <i class="fas fa-exclamation-triangle"></i>
+         </span>
+        </p>
+        <p :class="['help', 'align-left', formValidation()]">{{ validMail }}</p>
+       </div>
+
+       <div class="field">
+        <p class="control has-icons-left">
+         <input
+          :class="['input', passOk(),'is-small']"
+          type="password"
+          placeholder="Password"
+          data-lpignore="true"
+          v-model="password"
+         />
+         <span class="icon is-small is-left">
+          <i class="fas fa-lock"></i>
+         </span>
+         <span class="icon is-small is-right is-success" :style="{visibility:visPass}">
+          <i class="fas fa-check"></i>
+         </span>
+        </p>
+        <p :class="['help', 'lign-left', passOk()]">{{ passCheck }}</p>
+       </div>
+
+       <div class="field" style="visibility:hidden">
+        <p class="control">
+         <label class="checkbox">
+          <input type="checkbox" />Remember me
+         </label>
         </p>
        </div>
-      </transition>
-      <div class="box form-masuk">
-       <figure class="avatar">
-        <img :src="merk" />
-       </figure>
-       <form id="validate-form" method="form">
-        <div class="field">
-         <div class="control has-icons-left has-icons-right">
-          <input :class="['input', classDanger]" type="email" placeholder="Email" v-model="email" />
-          <span class="icon is-small is-left">
-           <i class="fas fa-envelope"></i>
-          </span>
-          <span class="icon is-small is-right" :style="{visibility: visClass}">
-           <i class="fas fa-exclamation-triangle"></i>
-          </span>
-         </div>
-         <p :class="['help', 'align-left', formValidation()]">{{ validMail }}</p>
-        </div>
-
-        <div class="field">
-         <div class="control has-icons-left has-icons-right">
-          <input
-           :class="['input', passOk()]"
-           type="password"
-           placeholder="Password"
-           v-model="password"
-          />
-          <span class="icon is-small is-left">
-           <i class="fas fa-lock"></i>
-          </span>
-          <span class="icon is-small is-right is-success" :style="{visibility:visPass}">
-           <i class="fas fa-check"></i>
-          </span>
-         </div>
-         <p :class="['help', 'lign-left', passOk()]">{{ passCheck }}</p>
-        </div>
-        <div class="field">
-         <label class="checkbox">
-          <input type="checkbox" />
-          Remember me
-         </label>
-        </div>
-        <button
-         @click.prevent="submitForm"
-         :class="['button', 'is-block', 'is-info', 'is-normal', 'is-fullwidth', loading, 'is-rounded']"
-        >Login</button>
-       </form>
-      </div>
-      <p class="has-text-grey">
-       <a href="../">Sign Up</a> &nbsp;·&nbsp;
-       <a href="../">Forgot Password</a> &nbsp;·&nbsp;
-       <a href="../">Need Help?</a>
+       <div class="field">
+        <p class="control">
+         <button
+          @click.prevent="submitForm"
+          :class="['button', 'is-block', 'is-danger', 'is-small', 'is-fullwidth', loading, 'is-rounded']"
+         >Login</button>
+        </p>
+       </div>
+      </form>
+     </div>
+     <hr />
+     <div class="forgot-password">
+      <p class="has-text-centered has-text-small">
+       Did you
+       <a class="is-small" href="/forgot">forgot your password</a> or
+       <a href="/signup">need an account?</a>
       </p>
      </div>
     </div>
    </div>
-  </section>
- </div>
+  </div>
+ </section>
 </template>
 <script>
-const _urlOriginApi = 'http://192.168.43.231/capcin/api/'
-const _LurlApi = 'http://localhost/capcin/api/'
-const _newUrlApp = _LurlApi + 'app'
-const _newUrlUser = _LurlApi + 'users'
-const _newUrlApiLogin = _LurlApi + 'apilogin'
-const axios = require('axios').default
 
-// import '../assets/js/bulma.js'
 export default {
- name: 'LoginTemplate',
+ name: 'Login2',
  props: {
-  msg: String
+  msg: String,
+  dataSucccessMessage: String
  },
  data() {
   return {
@@ -105,12 +121,13 @@ export default {
    visPass: 'hidden',
    passCheck: '',
    validPass: '',
-   logo: './assets/logo.png',
-   merk: 'https://placehold.it/128x128',
+
    Vmail: false,
    Vpass: false,
    show: false,
-   loading: ''
+   loading: '',
+   successMessage: this.dataSucccessMessage,
+   serverError: ''
   }
  },
  // computed: {
@@ -119,30 +136,24 @@ export default {
  methods: {
   submitForm: function () {
    const vm = this
-   const postData = {
-    'email': encodeURIComponent(vm.email),
-    'password': encodeURIComponent(vm.password)
-   }
-   const config = {
-    'X-API-KEY': 'capcin123'
-   }
+
    if (vm.Vpass == true && vm.Vmail == true) {
     vm.loading = 'is-loading'
-    axios.get(_newUrlUser + '/user?X-API-KEY=capcin123')
-     .then(function (response) {
-
-      console.log(response.data);
+    vm.$store.dispatch('retrieveToken', {
+     email: vm.email,
+     password: vm.password,
+    })
+     .then(response => {
       vm.loading = ''
+      vm.$router.push('/logged')
      })
-     .catch(function (error) {
-      console.log(error);
+     .catch(error => {
       vm.loading = ''
+      vm.serverError = error.response.data.message
+      vm.password = ''
+      vm.successMessage = ''
+      setTimeout(function () { vm.serverError = '' }, 2000)
      })
-     .then(function () {
-      // always executed
-     });
-    // alert(postData)
-
 
    } else {
     vm.show = true
@@ -202,39 +213,8 @@ export default {
    }
    return vm.validPass
   },
-  //================= Re-render componen data ==============
-  // forceRendere() {
-  //  const vm = this
-  //  vm.logo = vm.logo
-  //  console.log(vm.logo)
-  // },
-  // updated: function () {
-  //  const vm = this
-  //  vm.$nextTick(function () {
-  //   vm.logo = vm.logo
-  //   console.log(vm.logo)
-  //  })
-  // }
  },
- mounted: function () {
-  //========================= ambil data ====================
-  const vm = this
-  axios.get(_newUrlApp + '/user?X-API-KEY=capcin123')
-   .then(function (response) {
-    if (response.data.status == true) {
-     vm.logo = response.data.data.logo
-     // console.log(response.data.data.logo);
-    }
-   })
-   .catch(function (error) {
-    // console.log(error);
-   })
-   .then(function () {
-    // always executed
-   });
-  // console.log(vm.logo)
 
- }
 }
 </script>
 <style scoped>

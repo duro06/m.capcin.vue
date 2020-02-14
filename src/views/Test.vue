@@ -56,6 +56,7 @@ export default {
   // },
   subscribe() {
    // const vm = this
+   // Api key + cluster
    let pusher = new Pusher('ebfe3f8ff45ad9c3ad4c', {
     cluster: 'ap1',
     forceTLS: true

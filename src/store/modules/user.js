@@ -6,7 +6,7 @@ const _newUrlApp = _LurlApi + 'app'
 const _newUrlUser = _LurlApi + 'user/login'
 const _newUrlApiLogin = _LurlApi + 'apilogin'
 
-axios.defaults.baseURL = _LurlApi
+axios.defaults.baseURL = _urlOriginApi
 export default {
   state: {
     token: (localStorage.getItem('access_token') || null),
@@ -64,8 +64,7 @@ export default {
         params.append('nama', data.nama)
         params.append('username', data.username)
         params.append('email', data.email)
-        params.append('telp', data.telp)
-        params.append('alamat', data.alamat)
+        params.append('id_level', data.id_level)
         params.append('password', data.password)
 
         axios.post('user/register', params)

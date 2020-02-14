@@ -9,7 +9,7 @@
       </span>
       <p>
        <strong>Oh Snap!</strong>
-       Silahkan di isi dahulu
+       Silahkan di isi dahulu yang belum di isi
       </p>
      </div>
     </transition>
@@ -85,20 +85,17 @@
 
       <div class="field">
        <div class="control has-icons-left">
-        <input
-         @change="phoneValidation"
-         :class="['input', classPhone]"
-         type="phone"
-         placeholder="Telepon"
-         v-model="phone"
-        />
+        <div :class="['select', valSelect]">
+         <select v-model="selected" @change="validasiSelect">
+          <option v-for="level in levels" v-bind:value="level.id">{{ level.nama }}</option>
+         </select>
+        </div>
         <span class="icon is-small is-left">
          <i class="fas fa-phone"></i>
         </span>
        </div>
-       <p :class="['help', 'align-left', classPhone]">{{ validPhone }}</p>
       </div>
-
+      <!-- 
       <div class="field">
        <div class="control has-icons-left">
         <input
@@ -113,7 +110,7 @@
         </span>
        </div>
        <p :class="['help', 'align-left', classAddres]">{{ validAddres }}</p>
-      </div>
+      </div>-->
 
       <div class="field">
        <div class="control has-icons-left has-icons-right">
@@ -182,34 +179,44 @@ export default {
   return {
    pesan: '',
 
-   name: '',
+   name: 'coba',
    className: '',
    validName: '',
 
-   email: '',
+   email: 'pharyyady@gmail.co',
    classDanger: '',
    visClass: 'hidden',
    validMail: '',
 
-   phone: null,
-   classPhone: '',
-   validPhone: '',
+   selected: '3',
+   levels: [
+    { 'id': '', 'nama': 'Pilih bagian' },
+    { 'id': 3, 'nama': 'Produksi' },
+    { 'id': 4, 'nama': 'Packing' },
+    { 'id': 5, 'nama': 'Supplier' },
+    { 'id': 6, 'nama': 'Mitra' },
+   ],
+   // phone: null,
+   // classPhone: '',
+   // validPhone: '',
 
-   addres: '',
-   classAddres: '',
-   validAddres: '',
-
-   password: '',
+   // addres: '',
+   // classAddres: '',
+   // validAddres: '',
+   valSelect: '',
+   password: '123456',
    validPass: '',
    visPass: 'hidden',
    passCheck: '',
 
-   Kpassword: '',
+   Kpassword: '123456',
    classKonfirm: '',
    kPass: 'hidden',
    passKonfirm: '',
 
-   username: '',
+   ServerError: '',
+
+   username: 'coba',
    classUser: '',
    visUser: 'hidden',
    validUser: '',
@@ -227,22 +234,23 @@ export default {
  // },
  updated() {
   if (localStorage.getItem('waiting_verivication')) {
-   this.$router.replace(this.$route.query.redirect || '/')
+   this.$router.replace(this.$route.query.redirect || '/test')
   }
 
  },
  methods: {
   register: function () {
    const vm = this
-
-   if (vm.Vpass == true && vm.Vmail == true) {
+   if (vm.selected == '') {
+    vm.valSelect = 'is-danger'
+   }
+   if (vm.Vpass == true && vm.Vmail == true && vm.selected != '') {
     vm.loading = 'is-loading'
     vm.$store.dispatch('register', {
      nama: vm.name,
      username: vm.username,
      email: vm.email,
-     telp: vm.phone,
-     alamat: vm.addres,
+     id_level: vm.selected,
      password: vm.password,
     })
      .then(function (response) {
@@ -251,10 +259,27 @@ export default {
       vm.loading = ''
       this.$router.push('/test')
      })
-     .catch(function (error) {
+     .catch(error => {
+
+      console.log(error.response.data.errors)
+      // vm.splitError(error.response.data.errors)
+      if (error.response.data.errors.username == 'username') {
+       vm.classUser = 'is-danger'
+       vm.visUser = 'visible'
+       vm.validUser = 'Username sudah ada, harap diganti',
+        vm.username = ''
+      }
+      if (error.response.data.errors.email == 'email') {
+       vm.classDanger = 'is-danger'
+       vm.visClass = 'visible'
+       vm.validMail = 'Email sudah terdaftar, harap diganti'
+       vm.email = ''
+      }
+      if (error.response.data.errors == '') {
+       vm.pesan = error.response.data.message
+      }
       vm.loading = ''
-      // console.log(error.response.data.message)
-      vm.pesan = error.response.data.errors
+      // if(error.response.data.errors)
       setTimeout(function () { vm.pesan = '' }, 5000)
      })
      .then(function () {
@@ -273,6 +298,11 @@ export default {
      vm.show = false
     }, 1500)
    }
+  },
+  splitError(e) {
+   const vm = this
+   let data = e.split(':')
+   console.log(data)
   },
   //====================== ngisi pesan aja ===============
   mailString(kelas, visib, pesan, pass) {
@@ -300,32 +330,27 @@ export default {
    }
 
   },
-  //====================== Validasi tlp ===============
+  //====================== Validasi Level ===============
 
-  phoneValidation() {
-   if (this.phone == '') {
-    this.classPhone = 'is-danger'
-    this.validPhone = 'nomor telepon tidak boleh kosong'
-   } else if (isNaN(this.phone)) {
-    this.classPhone = 'is-danger'
-    this.validPhone = 'nomor telepon hanya diisi angka'
+  validasiSelect() {
+   if (this.selected == '') {
+    this.valSelect = 'is-danger'
    } else {
-    this.classPhone = ''
-    this.validPhone = ''
+    this.valSelect = ''
    }
 
   },
-  //====================== Validasi alamat ===============
+  // //====================== Validasi alamat ===============
 
-  addresValidation() {
-   if (this.addres == '') {
-    this.classAddres = 'is-danger'
-    this.validAddres = 'alamat tidak boleh kosong'
-   } else {
-    this.classAddres = ''
-    this.validAddres = ''
-   }
-  },
+  // addresValidation() {
+  //  if (this.addres == '') {
+  //   this.classAddres = 'is-danger'
+  //   this.validAddres = 'alamat tidak boleh kosong'
+  //  } else {
+  //   this.classAddres = ''
+  //   this.validAddres = ''
+  //  }
+  // },
   //=================== validasi username ============
   UserValidation() {
    const vm = this
@@ -337,6 +362,10 @@ export default {
     vm.classUser = 'is-danger'
     vm.visUser = 'visible'
     vm.validUser = 'gunakan karakter alpha-numerik (a-z / 0-9) dalam satu kata'
+   } else if (vm.username >= 20) {
+    vm.classUser = 'is-danger'
+    vm.visUser = 'visible'
+    vm.validUser = 'tidak boleh lebih dari 20 karakter'
    } else {
     vm.classUser = 'is-success'
     vm.visUser = 'hidden'
@@ -373,6 +402,8 @@ export default {
     } else if (vm.reg.test(vm.email) == true) {
      vm.mailString('is-success', 'hidden', '', true)
     }
+   } else if (vm.email >= 80) {
+    vm.mailString('is-danger', 'visible', 'tidak boleh lebih dari 80 karakter', false)
    } else {
     vm.mailString('', 'hidden', '', false)
    }
