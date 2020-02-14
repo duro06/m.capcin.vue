@@ -37,8 +37,6 @@ router.beforeEach((to, from, next) => {
       next()
     }
   } else if (to.matched.some(record => record.meta.requiresAuth)) {
-    // this route requires auth, check if logged in
-    // if not, redirect to login page.
     if (!store.getters.loggedIn) {
       next({
         path: '/',
@@ -47,8 +45,6 @@ router.beforeEach((to, from, next) => {
       next()
     }
   } else if (to.matched.some(record => record.meta.requiresVisitor)) {
-    // this route requires visitor, check if logged in
-    // if not, redirect to login page.
     if (store.getters.loggedIn) {
       next({
         path: '/logged',

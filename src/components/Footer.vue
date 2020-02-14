@@ -1,7 +1,7 @@
 <template>
  <div id="foot">
   <div class="mobile-bottom-nav is-hidden-desktop">
-   <a href data-toggle="page" class="mobile-bottom-nav__item">
+   <a href="home" data-toggle="page" class="mobile-bottom-nav__item">
     <div class="mobile-bottom-nav__item-content">
      <i class="fa fa-home"></i>
      Beranda

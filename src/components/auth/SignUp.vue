@@ -1,5 +1,5 @@
 <template>
- <section class="hero is-success is-fullheight is-flex-mobile">
+ <section class="hero is-danger is-fullheight is-flex-mobile">
   <div class="hero-body">
    <div class="container has-text-centered">
     <transition name="slide-fade">
@@ -28,12 +28,12 @@
      <figure class="avatar">
       <img src="../../assets/logocapcin.png" />
      </figure>
-     <form action="#" @submit.prevent="register">
+     <form action="#" @submit.prevent="register" class="is-light is-danger">
       <div class="field">
        <div class="control has-icons-left">
         <input
          @change="NameValidation"
-         :class="['input', className]"
+         :class="['input', className, 'is-small']"
          type="name"
          placeholder="Nama"
          v-model="name"
@@ -49,7 +49,7 @@
        <div class="control has-icons-left has-icons-right">
         <input
          @change="UserValidation"
-         :class="['input', classUser]"
+         :class="['input', classUser, 'is-small']"
          type="username"
          placeholder="Username"
          v-model="username"
@@ -68,7 +68,7 @@
        <div class="control has-icons-left has-icons-right">
         <input
          @change="formValidation"
-         :class="['input', classDanger]"
+         :class="['input', classDanger, 'is-small']"
          type="email"
          placeholder="Email"
          v-model="email"
@@ -85,7 +85,7 @@
 
       <div class="field">
        <div class="control has-icons-left">
-        <div :class="['select', valSelect]">
+        <div :class="['select', valSelect,  'is-small']">
          <select v-model="selected" @change="validasiSelect">
           <option v-for="level in levels" v-bind:value="level.id">{{ level.nama }}</option>
          </select>
@@ -95,28 +95,12 @@
         </span>
        </div>
       </div>
-      <!-- 
-      <div class="field">
-       <div class="control has-icons-left">
-        <input
-         @change="addresValidation"
-         :class="['input', classAddres]"
-         type="address"
-         placeholder="Alamat"
-         v-model="addres"
-        />
-        <span class="icon is-small is-left">
-         <i class="fas fa-map-marker-alt"></i>
-        </span>
-       </div>
-       <p :class="['help', 'align-left', classAddres]">{{ validAddres }}</p>
-      </div>-->
 
       <div class="field">
        <div class="control has-icons-left has-icons-right">
         <input
          @change="passOk"
-         :class="['input', validPass]"
+         :class="['input', validPass, 'is-small']"
          type="password"
          placeholder="Password"
          v-model="password"
@@ -134,7 +118,7 @@
       <div class="field">
        <div class="control has-icons-left has-icons-right">
         <input
-         :class="['input', classKonfirm]"
+         :class="['input', classKonfirm, 'is-small']"
          type="password"
          placeholder="Konfirmasi Password"
          v-model="Kpassword"
@@ -150,7 +134,7 @@
       </div>
       <div class="has-text-centered">
        <button
-        :class="['button', 'is-vcentered', 'is-primary', 'is-outlined', loading]"
+        :class="['button', 'is-vcentered', 'is-primary', 'is-outlined', loading, 'is-small', 'is-rounded']"
         @click.prevent="register"
        >Daftar</button>
       </div>
@@ -167,12 +151,7 @@
  </section>
 </template>
 <script>
-const _urlOriginApi = 'http://192.168.43.231/capcin/api/'
-const _LurlApi = 'http://localhost/capcin/api/'
-const _newUrlApp = _LurlApi + 'app'
-const _newUrlUser = _LurlApi + 'users'
-const _newUrlApiLogin = _LurlApi + 'apilogin'
-const axios = require('axios').default
+
 export default {
  name: 'signup',
  data() {
@@ -261,7 +240,7 @@ export default {
      })
      .catch(error => {
 
-      console.log(error.response.data.errors)
+      // console.log(error.response.data.errors)
       // vm.splitError(error.response.data.errors)
       if (error.response.data.errors.username == 'username') {
        vm.classUser = 'is-danger'

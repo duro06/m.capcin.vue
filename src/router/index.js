@@ -35,7 +35,7 @@ const routes = [{
     name: 'test',
     component: () => import('../views/Test.vue'),
     meta: {
-      requiresVisitor: true,
+      requiresVerification: true,
     }
   }, {
     path: '/home',
