@@ -6,7 +6,7 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 const routes = [{
-    path: '/',
+    path: '/login',
     name: 'login',
     component: () => import( /* webpackChunkName: "about" */ '../views/Login.vue'),
     meta: {
@@ -53,7 +53,7 @@ const routes = [{
     name: 'logout',
     component: () => import('../components/auth/Logout.vue')
   }, {
-    path: '/login',
+    path: '/',
     name: 'login2',
     component: () => import( /* webpackChunkName: "about" */ '../components/LoginTemplate.vue'),
     meta: {
