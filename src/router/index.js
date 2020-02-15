@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Vue from "vue";
 import VueRouter from "vue-router";
 // import Login from '../views/Login.vue'
@@ -5,22 +6,22 @@ import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
 const routes = [{
-    path: "/login",
-    name: "login",
-    component: () =>
-      import( /* webpackChunkName: "about" */ "../views/Login.vue"),
-    meta: {
-      requiresVisitor: true,
+    path: "/",
+    redirect: {
+      name: "login"
     }
   },
-  // {
-  //   path: '/login',
-  //   name: 'Login',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import( /* webpackChunkName: "about" */ '../views/Login.vue')
-  // },
+  {
+    path: "/login2",
+    name: "Login2",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import( /* webpackChunkName: "about" */ "../views/Login.vue"),
+    meta: {
+      requiresVisitor: true
+    }
+  },
   {
     path: "/signup",
     name: "signup",
@@ -32,8 +33,7 @@ const routes = [{
   {
     path: "/test",
     name: "test",
-    component: () => import("../views/Test.vue"),
-
+    component: () => import("../views/Test.vue")
   },
   {
     path: "/home",
@@ -54,10 +54,11 @@ const routes = [{
     component: () => import("../components/auth/Logout.vue")
   },
   {
-    path: "/",
-    name: "login2",
+    path: "/login",
+    name: "login",
     component: () =>
-      import( /* webpackChunkName: "about" */ "../components/LoginTemplate.vue"),
+      import(
+        "../components/LoginTemplate.vue"),
     meta: {
       requiresVisitor: true
     }

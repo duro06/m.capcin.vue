@@ -194,7 +194,7 @@ export default {
             email: vm.email,
             password: vm.password
           })
-          .then((vm.loading = ""), vm.$router.push("/logged"))
+          .then((vm.loading = ""), vm.$router.replace("/logged"))
           .catch(error => {
             vm.loading = "";
             vm.serverError = error.response.data.message;
