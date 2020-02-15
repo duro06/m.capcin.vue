@@ -12,11 +12,11 @@ import Footer from '@/components/Footer.vue'
 import Welcome from '@/components/Welcome.vue'
 export default {
 
- name: 'logged',
- components: {
-  Navbar,
-  Footer,
-  Welcome
- }
+  name: 'logged',
+  components: {
+    Navbar,
+    Footer,
+    Welcome
+  }
 }
 </script>

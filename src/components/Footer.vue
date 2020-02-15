@@ -38,13 +38,13 @@
 </template>
 <script>
 export default {
- name: 'footnav',
- computed: {
-  loggedIn() {
-   return this.$store.getters.loggedIn
-  }
+  name: 'footnav',
+  computed: {
+    loggedIn () {
+      return this.$store.getters.loggedIn
+    }
 
- }
+  }
 }
 </script>
 <style scoped>

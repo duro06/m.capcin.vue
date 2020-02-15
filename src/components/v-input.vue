@@ -17,24 +17,22 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
- name: 'globalinput',
+  name: 'globalinput',
 
+  computed: {
+    ...mapGetters(['GLOBALINPUT'])
+    // model: {
+    //  get() {
+    //   return this.$store.getters.GLOBALINPUT.model
+    //  },
+    //  set(value) {
+    //   this.$store.commit('SET_GLOBALINPUT', {
+    //    model
+    //   })
+    // }
+    // }
 
- computed: {
-  ...mapGetters(["GLOBALINPUT"]),
-  // model: {
-  //  get() {
-  //   return this.$store.getters.GLOBALINPUT.model
-  //  },
-  //  set(value) {
-  //   this.$store.commit('SET_GLOBALINPUT', {
-  //    model
-  //   })
-  // }
-  // }
-
- }
-
+  }
 
 }
 </script>

@@ -108,142 +108,139 @@
 // import '../assets/js/bulma.js'
 import { mapState } from 'vuex'
 export default {
- name: 'LoginTemplate',
- props: {
-  msg: String,
-  dataSuccessMessage: String
- },
- data() {
-  return {
-   email: '',
-   classDanger: '',
-   visClass: 'hidden',
-   validMail: '',
-   reg: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
-   password: '',
-   visPass: 'hidden',
-   passCheck: '',
-   validPass: '',
-   merk: 'https://placehold.it/128x128',
-   Vmail: false,
-   Vpass: false,
-   show: false,
-   loading: '',
-   successMessage: this.dataSuccessMessage,
-   serverError: ''
-  }
- },
- // updated() {
- //  if (localStorage.getItem('access_token')) {
- //   this.$router.replace(this.$route.query.redirect || '/logged')
- //  }
-
- // },
- methods: {
-
-  //================= login request ===============
-  submitForm: function () {
-   const vm = this
-   if (vm.Vpass == true && vm.Vmail == true) {
-    vm.loading = 'is-loading'
-    vm.$store.dispatch('retrieveToken', {
-     email: vm.email,
-     password: vm.password,
-    })
-     .then(response => {
-      vm.loading = ''
-      vm.$router.push('/logged')
-     })
-     .catch(error => {
-      vm.loading = ''
-      vm.serverError = error.response.data.message
-      vm.password = ''
-      vm.successMessage = ''
-      setTimeout(function () { vm.serverError = '' }, 2000)
-     })
-
-
-   } else {
-    vm.show = true
-    setTimeout(function () { vm.show = false }, 2000)
-   }
+  name: 'LoginTemplate',
+  props: {
+    msg: String,
+    dataSuccessMessage: String
   },
-
-  //====================== ngisi pesan aja ===============
-  mailString(kelas, visib, pesan, pass) {
-   const vm = this
-   vm.classDanger = kelas
-   vm.visClass = visib
-   vm.validMail = pesan
-   vm.Vmail = pass
-  },
-  passString(kelas, visib, pesan, pass) {
-   const vm = this
-   vm.validPass = kelas
-   vm.visPass = visib
-   vm.passCheck = pesan
-   vm.Vpass = pass
-  },
-  //================= validasi email =====================
-  formValidation: function () {
-   const vm = this
-
-   if (vm.email != '') {
-    if (vm.reg.test(vm.email) == false) {
-     vm.mailString('is-danger', 'visible', 'periksa kembali email anda', false)
-    } else if (vm.reg.test(vm.email) == true) {
-     vm.mailString('is-success', 'hidden', '', true)
+  data () {
+    return {
+      email: '',
+      classDanger: '',
+      visClass: 'hidden',
+      validMail: '',
+      reg: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
+      password: '',
+      visPass: 'hidden',
+      passCheck: '',
+      validPass: '',
+      merk: 'https://placehold.it/128x128',
+      Vmail: false,
+      Vpass: false,
+      show: false,
+      loading: '',
+      successMessage: this.dataSuccessMessage,
+      serverError: ''
     }
-   } else {
-    vm.mailString('', 'hidden', '', false)
-   }
-   return vm.classDanger
   },
-  //=================== validasi Password ==================
-  passOk: function () {
-   const vm = this
-   if (vm.email != '' && vm.validMail == '' && vm.password != '') {
-    if (vm.password.length <= 5) {
-     vm.passString('is-danger', 'hidden', 'password anda kurang dari 6 karakter', false)
-    } else {
-     vm.passString('is-success', 'visible', '', true)
+  // updated() {
+  //  if (localStorage.getItem('access_token')) {
+  //   this.$router.replace(this.$route.query.redirect || '/logged')
+  //  }
+
+  // },
+  methods: {
+
+    //= ================ login request ===============
+    submitForm: function () {
+      const vm = this
+      if (vm.Vpass == true && vm.Vmail == true) {
+        vm.loading = 'is-loading'
+        vm.$store.dispatch('retrieveToken', {
+          email: vm.email,
+          password: vm.password
+        })
+          .then(response => {
+            vm.loading = ''
+            vm.$router.push('/logged')
+          })
+          .catch(error => {
+            vm.loading = ''
+            vm.serverError = error.response.data.message
+            vm.password = ''
+            vm.successMessage = ''
+            setTimeout(function () { vm.serverError = '' }, 2000)
+          })
+      } else {
+        vm.show = true
+        setTimeout(function () { vm.show = false }, 2000)
+      }
+    },
+
+    //= ===================== ngisi pesan aja ===============
+    mailString (kelas, visib, pesan, pass) {
+      const vm = this
+      vm.classDanger = kelas
+      vm.visClass = visib
+      vm.validMail = pesan
+      vm.Vmail = pass
+    },
+    passString (kelas, visib, pesan, pass) {
+      const vm = this
+      vm.validPass = kelas
+      vm.visPass = visib
+      vm.passCheck = pesan
+      vm.Vpass = pass
+    },
+    //= ================ validasi email =====================
+    formValidation: function () {
+      const vm = this
+
+      if (vm.email != '') {
+        if (vm.reg.test(vm.email) == false) {
+          vm.mailString('is-danger', 'visible', 'periksa kembali email anda', false)
+        } else if (vm.reg.test(vm.email) == true) {
+          vm.mailString('is-success', 'hidden', '', true)
+        }
+      } else {
+        vm.mailString('', 'hidden', '', false)
+      }
+      return vm.classDanger
+    },
+    //= ================== validasi Password ==================
+    passOk: function () {
+      const vm = this
+      if (vm.email != '' && vm.validMail == '' && vm.password != '') {
+        if (vm.password.length <= 5) {
+          vm.passString('is-danger', 'hidden', 'password anda kurang dari 6 karakter', false)
+        } else {
+          vm.passString('is-success', 'visible', '', true)
+        }
+      } else if (vm.password != '' && vm.email == '') {
+        vm.passString('is-danger', 'hidden', 'Email anda kosong', false)
+      } else if (vm.password != '' && vm.validMail != '') {
+        vm.passString('is-danger', 'hidden', 'Email anda belum valid', false)
+      } else if (vm.password == '' && vm.email != '') {
+        vm.passString('is-warning', 'hidden', 'Password tidak boleh kosong', false)
+      } else {
+        vm.passString('', 'hidden', '', false)
+      }
+      return vm.validPass
     }
-   } else if (vm.password != '' && vm.email == '') {
-    vm.passString('is-danger', 'hidden', 'Email anda kosong', false)
-   } else if (vm.password != '' && vm.validMail != '') {
-    vm.passString('is-danger', 'hidden', 'Email anda belum valid', false)
-   } else if (vm.password == '' && vm.email != '') {
-    vm.passString('is-warning', 'hidden', 'Password tidak boleh kosong', false)
-   }
-   else {
-    vm.passString('', 'hidden', '', false)
-   }
-   return vm.validPass
-  },
-  //================= Re-render componen data ==============
+  //= ================ Re-render componen data ==============
   // forceRendere() {
   //  const vm = this
   //  vm.logo = vm.logo
   //  // console.log(vm.logo)
   // },
- },
- //  mounted: function () {
- //   //========================= ambil data ====================
- //   const vm = this
- //   const axios = require('axios').default
- //   // axios.defaults.headers.common['X-API-KEY'] = 'capcin123'
- //   axios.get('http://localhost/capcin/api/app')
- //    .then(function (response) {
- //     if (response.data.status == true) {
- //      vm.logo = response.data.data.logo
- //     }
- //    })
- //    .catch(function (error) {
- //     console.log(error);
- //     location.reload()
- //    })
+  }
+  //  mounted: function () {
+  //   //========================= ambil data ====================
+  //   const vm = this
+  //   const axios = require('axios').default
+  //   // axios.defaults.headers.common['X-API-KEY'] = 'capcin123'
+  //   axios.get('http://localhost/capcin/api/app')
+  //    .then(function (response) {
+  //     if (response.data.status == true) {
+  //      vm.logo = response.data.data.logo
+  //     }
+  //    })
+  //    .catch(function (error) {
+  //     console.log(error);
+  //     location.reload()
+  //    })
 
- //  },
+  //  },
 
 }
 

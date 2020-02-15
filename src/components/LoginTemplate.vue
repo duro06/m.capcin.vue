@@ -109,115 +109,113 @@
 <script>
 
 export default {
- name: 'Login2',
- props: {
-  msg: String,
-  dataSucccessMessage: String
- },
- data() {
-  return {
-   email: '',
-   classDanger: '',
-   visClass: 'hidden',
-   validMail: '',
-   reg: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
-   password: '',
-   visPass: 'hidden',
-   passCheck: '',
-   validPass: '',
+  name: 'Login2',
+  props: {
+    msg: String,
+    dataSucccessMessage: String
+  },
+  data () {
+    return {
+      email: '',
+      classDanger: '',
+      visClass: 'hidden',
+      validMail: '',
+      reg: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
+      password: '',
+      visPass: 'hidden',
+      passCheck: '',
+      validPass: '',
 
-   Vmail: false,
-   Vpass: false,
-   show: false,
-   loading: '',
-   successMessage: this.dataSucccessMessage,
-   serverError: ''
+      Vmail: false,
+      Vpass: false,
+      show: false,
+      loading: '',
+      successMessage: this.dataSucccessMessage,
+      serverError: ''
+    }
+  },
+  // computed: {
+
+  // },
+  methods: {
+    submitForm: function () {
+      const vm = this
+
+      if (vm.Vpass == true && vm.Vmail == true) {
+        vm.loading = 'is-loading'
+        vm.$store.dispatch('retrieveToken', {
+          email: vm.email,
+          password: vm.password
+        })
+          .then(response => {
+            vm.loading = ''
+            vm.$router.push('/logged')
+          })
+          .catch(error => {
+            vm.loading = ''
+            vm.serverError = error.response.data.message
+            vm.password = ''
+            vm.successMessage = ''
+            setTimeout(function () { vm.serverError = '' }, 2000)
+          })
+      } else {
+        vm.show = true
+        setTimeout(function () {
+          vm.show = false
+        }, 1500)
+      }
+    },
+    //= ===================== ngisi pesan aja ===============
+    mailString (kelas, visib, pesan, pass) {
+      const vm = this
+      vm.classDanger = kelas
+      vm.visClass = visib
+      vm.validMail = pesan
+      vm.Vmail = pass
+    },
+    passString (kelas, visib, pesan, pass) {
+      const vm = this
+      vm.validPass = kelas
+      vm.visPass = visib
+      vm.passCheck = pesan
+      vm.Vpass = pass
+    },
+    //= ================ validasi email =====================
+    formValidation: function () {
+      const vm = this
+
+      if (vm.email != '') {
+        if (vm.reg.test(vm.email) == false) {
+          vm.mailString('is-danger', 'visible', 'periksa kembali email anda', false)
+        } else if (vm.reg.test(vm.email) == true) {
+          vm.mailString('is-success', 'hidden', '', true)
+        }
+      } else {
+        vm.mailString('', 'hidden', '', false)
+      }
+      return vm.classDanger
+    },
+    //= ================== validasi Password ==================
+    passOk: function () {
+      const vm = this
+      if (vm.email != '' && vm.validMail == '' && vm.password != '') {
+        if (vm.password.length <= 5) {
+          vm.passString('is-danger', 'hidden', 'password anda kurang dari 6 karakter', false)
+        } else {
+          vm.passString('is-success', 'visible', '', true)
+        }
+      } else if (vm.password != '' && vm.email == '') {
+        vm.passString('is-danger', 'hidden', 'Email anda kosong', false)
+      } else if (vm.password != '' && vm.validMail != '') {
+        vm.passString('is-danger', 'hidden', 'Email anda belum valid', false)
+      } else if (vm.password == '' && vm.email != '') {
+        vm.passString('is-warning', 'hidden', 'Password tidak boleh kosong', false)
+      } else {
+        vm.passString('', 'hidden', '', false)
+      }
+      return vm.validPass
+    }
   }
- },
- // computed: {
-
- // },
- methods: {
-  submitForm: function () {
-   const vm = this
-
-   if (vm.Vpass == true && vm.Vmail == true) {
-    vm.loading = 'is-loading'
-    vm.$store.dispatch('retrieveToken', {
-     email: vm.email,
-     password: vm.password,
-    })
-     .then(response => {
-      vm.loading = ''
-      vm.$router.push('/logged')
-     })
-     .catch(error => {
-      vm.loading = ''
-      vm.serverError = error.response.data.message
-      vm.password = ''
-      vm.successMessage = ''
-      setTimeout(function () { vm.serverError = '' }, 2000)
-     })
-
-   } else {
-    vm.show = true
-    setTimeout(function () {
-     vm.show = false
-    }, 1500)
-   }
-  },
-  //====================== ngisi pesan aja ===============
-  mailString(kelas, visib, pesan, pass) {
-   const vm = this
-   vm.classDanger = kelas
-   vm.visClass = visib
-   vm.validMail = pesan
-   vm.Vmail = pass
-  },
-  passString(kelas, visib, pesan, pass) {
-   const vm = this
-   vm.validPass = kelas
-   vm.visPass = visib
-   vm.passCheck = pesan
-   vm.Vpass = pass
-  },
-  //================= validasi email =====================
-  formValidation: function () {
-   const vm = this
-
-   if (vm.email != '') {
-    if (vm.reg.test(vm.email) == false) {
-     vm.mailString('is-danger', 'visible', 'periksa kembali email anda', false)
-    } else if (vm.reg.test(vm.email) == true) {
-     vm.mailString('is-success', 'hidden', '', true)
-    }
-   } else {
-    vm.mailString('', 'hidden', '', false)
-   }
-   return vm.classDanger
-  },
-  //=================== validasi Password ==================
-  passOk: function () {
-   const vm = this
-   if (vm.email != '' && vm.validMail == '' && vm.password != '') {
-    if (vm.password.length <= 5) {
-     vm.passString('is-danger', 'hidden', 'password anda kurang dari 6 karakter', false)
-    } else {
-     vm.passString('is-success', 'visible', '', true)
-    }
-   } else if (vm.password != '' && vm.email == '') {
-    vm.passString('is-danger', 'hidden', 'Email anda kosong', false)
-   } else if (vm.password != '' && vm.validMail != '') {
-    vm.passString('is-danger', 'hidden', 'Email anda belum valid', false)
-   } else if (vm.password == '' && vm.email != '') {
-    vm.passString('is-warning', 'hidden', 'Password tidak boleh kosong', false)
-   }
-   else {
-    vm.passString('', 'hidden', '', false)
-   }
-   return vm.validPass
-  },
- },
 
 }
 </script>

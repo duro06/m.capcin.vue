@@ -9,16 +9,13 @@ import axios from 'axios'
 import Pusher from 'pusher-js'
 import vWow from 'v-wow'
 
-import 'bulma/bulma.sass'
 import 'bulma/css/bulma.css'
 // import 'bulma/css/bulma.css.map'
 import 'bulma/css/bulma.min.css'
 import 'bulma-badge/dist/css/bulma-badge.min.css'
 // import 'bulma-badge/dist/css/bulma-badge.sass'
 
-
 // import 'https://js.pusher.com/5.1/pusher.min.js'
-
 
 Vue.config.productionTip = false
 Vue.use(Vuex, axios)
@@ -26,11 +23,10 @@ Vue.use(Bulma)
 Vue.use(vWow)
 
 router.beforeEach((to, from, next) => {
-
-  if (to.matched.some(record => (record.meta.requiresVerification || record.meta.requiresAuth))) {
+  if (to.matched.some(record => (record.meta.requiresVerification && record.meta.requiresAuth))) {
     if (!store.getters.waitingVerified && !store.getters.loggedIn) {
       next({
-        path: '/',
+        path: '/'
       })
     } else {
       next()
@@ -40,7 +36,7 @@ router.beforeEach((to, from, next) => {
     // if not, redirect to login page.
     if (store.getters.waitingVerified) {
       next({
-        path: '/test',
+        path: '/test'
       })
     } else {
       next()
@@ -48,7 +44,7 @@ router.beforeEach((to, from, next) => {
   } else if (to.matched.some(record => record.meta.requiresVisitor)) {
     if (store.getters.loggedIn) {
       next({
-        path: '/logged',
+        path: '/logged'
       })
     } else {
       next()
@@ -57,7 +53,6 @@ router.beforeEach((to, from, next) => {
     next() // make sure to always call next()!
   }
 })
-
 
 new Vue({
   router,

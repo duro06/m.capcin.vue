@@ -11,46 +11,45 @@ export default {
   state: {
     token: (localStorage.getItem('access_token') || null),
     adminVerified: (localStorage.getItem('waiting_verivication') || null),
-    level: (localStorage.getItem('access_level') || null),
+    level: (localStorage.getItem('access_level') || null)
   },
   getters: {
-    loggedIn(state) {
+    loggedIn (state) {
       return state.token !== null
     },
-    levelAccess(state) {
+    levelAccess (state) {
       return state.level
     },
-    waitingVerified(state) {
+    waitingVerified (state) {
       return state.adminVerified !== null
     }
   },
   mutations: {
-    retrieveVerifie(state, msg) {
+    retrieveVerifie (state, msg) {
       state.adminVerified = msg
     },
-    destroyverifie(state) {
+    destroyverifie (state) {
       state.adminVerified = null
     },
 
-    retrieveToken(state, token) {
+    retrieveToken (state, token) {
       state.token = token
     },
-    destroyToken(state) {
+    destroyToken (state) {
       state.token = null
-    },
+    }
   },
   actions: {
-    destroyVerifie(context) {
+    destroyVerifie (context) {
       localStorage.removeItem('waiting_verivication')
       context.commit('destroyverifie')
     },
-    retrieveVerifie(contex) {
+    retrieveVerifie (contex) {
       localStorage.setItem('waiting_verivication', contex)
       contex.commit('retrieveVerifie')
-
     },
-    retrieveName(context) {
-      axios.defaults.headers.common['Authorization'] = 'Bearer ' + context.state.token
+    retrieveName (context) {
+      axios.defaults.headers.common.Authorization = 'Bearer ' + context.state.token
 
       return new Promise((resolve, reject) => {
         axios.get('/user')
@@ -62,7 +61,7 @@ export default {
           })
       })
     },
-    register(context, data) {
+    register (context, data) {
       return new Promise((resolve, reject) => {
         const params = new URLSearchParams()
         params.append('nama', data.nama)
@@ -80,8 +79,8 @@ export default {
           })
       })
     },
-    destroyToken(context) {
-      axios.defaults.headers.common['Authorization'] = 'Bearer ' + context.state.token
+    destroyToken (context) {
+      axios.defaults.headers.common.Authorization = 'Bearer ' + context.state.token
 
       if (context.getters.loggedIn) {
         return new Promise((resolve, reject) => {
@@ -101,7 +100,7 @@ export default {
         })
       }
     },
-    retrieveToken(context, credentials) {
+    retrieveToken (context, credentials) {
       return new Promise((resolve, reject) => {
         const params = new URLSearchParams()
         params.append('email', credentials.email)
@@ -125,7 +124,6 @@ export default {
             reject(error)
           })
       })
-
     }
   }
 }

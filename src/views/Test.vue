@@ -32,58 +32,53 @@
 </template>
 <script>
 
-Pusher.logToConsole = true;
-
+Pusher.logToConsole = true
 
 export default {
- name: 'info',
- data() {
-  return { messages: [], }
- },
-
-
- created() {
-
-  this.subscribe()
-  // this.kirimKePuser()
- },
- computed: {
-  waiting() {
-   return this.$store.getters.waitingVerified
-  }
-
-
-
- },
- // updated() {
- //  if (!(localStorage.getItem('waiting_verivication'))) {
- //   this.$router.replace(this.$route.query.redirect || '/')
- //  }
-
- // },
-
- methods: {
-  subscribe() {
-   // const vm = this
-   // Api key + cluster
-   let pusher = new Pusher('ebfe3f8ff45ad9c3ad4c', {
-    cluster: 'ap1',
-    forceTLS: true
-   })
-   let channel = pusher.subscribe('my-channel')
-
-   channel.bind('my-event', data => {
-    this.messages.push(data)
-    if (data != '') {
-     this.$store.dispatch('destroyVerifie')
-     // this.$router.push('/')
-    }
-
-    console.log(data)
-   })
+  name: 'info',
+  data () {
+    return { messages: [] }
   },
 
- }
+  created () {
+    this.subscribe()
+  // this.kirimKePuser()
+  },
+  computed: {
+    waiting () {
+      return this.$store.getters.waitingVerified
+    }
+
+  },
+  // updated() {
+  //  if (!(localStorage.getItem('waiting_verivication'))) {
+  //   this.$router.replace(this.$route.query.redirect || '/')
+  //  }
+
+  // },
+
+  methods: {
+    subscribe () {
+      // const vm = this
+      // Api key + cluster
+      const pusher = new Pusher('ebfe3f8ff45ad9c3ad4c', {
+        cluster: 'ap1',
+        forceTLS: true
+      })
+      const channel = pusher.subscribe('my-channel')
+
+      channel.bind('my-event', data => {
+        this.messages.push(data)
+        if (data != '') {
+          this.$store.dispatch('destroyVerifie')
+          // this.$router.push('/')
+        }
+
+        console.log(data)
+      })
+    }
+
+  }
 }
 </script>
 <style lang="sass" scoped>

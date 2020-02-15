@@ -1,15 +1,13 @@
 export default {
- state: {
+  state: {
 
- },
- getters: {
+  },
+  getters: {
 
- },
- mutations: {
+  },
+  mutations: {
 
-
- },
- actions: {}
-
+  },
+  actions: {}
 
 }

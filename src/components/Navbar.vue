@@ -38,7 +38,7 @@
           <i class="fas fa-sign-in-alt"></i>
          </span>
          <span>
-           <router-link to="/login" msg="Login">Login</router-link> 
+           <router-link to="/login" msg="Login">Login</router-link>
           Login
          </span>
         </router-link>
@@ -84,20 +84,19 @@
 <script>
 // import '/assets/js/bulma.js'
 export default {
- name: 'navbar',
- props: {
-  msg: String
- },
- data: () => ({
-  isActive: false
- }),
+  name: 'navbar',
+  props: {
+    msg: String
+  },
+  data: () => ({
+    isActive: false
+  }),
 
- methods: {
-  switchMenu() {
-   this.isActive = !this.isActive
-
+  methods: {
+    switchMenu () {
+      this.isActive = !this.isActive
+    }
   }
- }
 }
 </script>
 <style scoped>
