@@ -3,9 +3,11 @@
   <div class="hero-body">
    <div class="container has-text-centered">
     <div class="column is-4 is-offset-4 box">
-     <h1 class="avatar has-text-centered section">
-      <img src="../assets/logocapcin.png" alt="logo" />
-     </h1>
+     <div class="fadeInUp" v-wow data-wow-delay="0.2s" data-wow-duration="2s">
+      <h1 class="avatar has-text-centered section">
+       <img src="../assets/logocapcin.png" alt="logo" />
+      </h1>
+     </div>
 
      <transition name="slide-fade">
       <p class="subtitle has-text-black" v-if="!show">Please login to proceed.</p>
@@ -34,8 +36,8 @@
       </div>
 
       <div class="login-form">
-       <form role="form" action="/login" method="post">
-        <div class="field">
+       <form role="form" method="post">
+        <div class="field fadeInUp" v-wow data-wow-delay="0.2s" data-wow-duration="2s">
          <p class="control has-icons-left has-icons-right">
           <input
            :class="['input', classDanger, 'is-small']"
@@ -54,7 +56,7 @@
          <p :class="['help', 'align-left', formValidation()]">{{ validMail }}</p>
         </div>
 
-        <div class="field">
+        <div class="field fadeInUp" v-wow data-wow-delay="0.2s" data-wow-duration="2s">
          <p class="control has-icons-left">
           <input
            :class="['input', passOk(),'is-small']"
@@ -80,7 +82,7 @@
           </label>
          </p>
         </div>
-        <div class="field">
+        <div class="field fadeInUp" v-wow data-wow-delay="0.2s" data-wow-duration="2s">
          <p class="control">
           <button
            @click.prevent="submitForm"
@@ -91,7 +93,7 @@
        </form>
       </div>
       <hr />
-      <div class="forgot-password">
+      <div class="forgot-password fadeInUp" v-wow data-wow-delay="0.2s" data-wow-duration="2s">
        <p class="has-text-centered has-text-small">
         Did you
         <a class="is-small" href="/forgot">forgot your password</a> or
@@ -220,6 +222,25 @@ export default {
 }
 </script>
 <style scoped>
+@keyframes fadeInUp {
+ 0% {
+  opacity: 0;
+  -webkit-transform: translate3d(0, 30%, 0);
+  -ms-transform: translate3d(0, 30%, 0);
+  transform: translate3d(0, 30%, 0);
+ }
+ 100% {
+  opacity: 1;
+  -webkit-transform: none;
+  -ms-transform: none;
+  transform: none;
+ }
+}
+
+.fadeInUp {
+ animation-name: fadeInUp;
+ animation-timing-function: ease-out;
+}
 /* @import "../assets/css/login.css"; */
 /* Enter and leave animations can use different */
 /* durations and timing functions.              */

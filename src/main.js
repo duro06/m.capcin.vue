@@ -7,6 +7,7 @@ import Bulma from 'bulma'
 import Vuex from 'vuex'
 import axios from 'axios'
 import Pusher from 'pusher-js'
+import vWow from 'v-wow'
 
 import 'bulma/bulma.sass'
 import 'bulma/css/bulma.css'
@@ -22,7 +23,7 @@ import 'bulma-badge/dist/css/bulma-badge.min.css'
 Vue.config.productionTip = false
 Vue.use(Vuex, axios)
 Vue.use(Bulma)
-// Vue.use(Pusher)
+Vue.use(vWow)
 
 router.beforeEach((to, from, next) => {
 

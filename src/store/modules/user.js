@@ -6,7 +6,7 @@ const _newUrlApp = _LurlApi + 'app'
 const _newUrlUser = _LurlApi + 'user/login'
 const _newUrlApiLogin = _LurlApi + 'apilogin'
 
-axios.defaults.baseURL = _LurlApi
+axios.defaults.baseURL = _urlOriginApi
 export default {
   state: {
     token: (localStorage.getItem('access_token') || null),
