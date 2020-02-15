@@ -19,84 +19,86 @@
        </p>
       </div>
      </transition>
-     <div class="notification is-warning is-light" v-if="successMessage">
-      <span class="icon is-medium has-text-danger">
-       <i class="fas fa-2x fa-ban"></i>
-      </span>
-      <p>{{ successMessage }}</p>
-     </div>
-     <div class="notification is-warning is-light" v-if="serverError">
-      <span class="icon is-medium has-text-danger">
-       <i class="fas fa-2x fa-ban"></i>
-      </span>
-      <p>{{ serverError }}</p>
-     </div>
+     <form action>
+      <div class="notification is-warning is-light" v-if="successMessage">
+       <span class="icon is-medium has-text-danger">
+        <i class="fas fa-2x fa-ban"></i>
+       </span>
+       <p>{{ successMessage }}</p>
+      </div>
+      <div class="notification is-warning is-light" v-if="serverError">
+       <span class="icon is-medium has-text-danger">
+        <i class="fas fa-2x fa-ban"></i>
+       </span>
+       <p>{{ serverError }}</p>
+      </div>
 
-     <div class="login-form">
-      <form role="form" action="/login" method="post">
-       <div class="field">
-        <p class="control has-icons-left has-icons-right">
-         <input
-          :class="['input', classDanger, 'is-small']"
-          type="email"
-          placeholder="Email"
-          data-lpignore="true"
-          v-model="email"
-         />
-         <span class="icon is-small is-left">
-          <i class="fas fa-envelope"></i>
-         </span>
-         <span class="icon is-small is-right" :style="{visibility: visClass}">
-          <i class="fas fa-exclamation-triangle"></i>
-         </span>
-        </p>
-        <p :class="['help', 'align-left', formValidation()]">{{ validMail }}</p>
-       </div>
+      <div class="login-form">
+       <form role="form" action="/login" method="post">
+        <div class="field">
+         <p class="control has-icons-left has-icons-right">
+          <input
+           :class="['input', classDanger, 'is-small']"
+           type="email"
+           placeholder="Email"
+           data-lpignore="true"
+           v-model="email"
+          />
+          <span class="icon is-small is-left">
+           <i class="fas fa-envelope"></i>
+          </span>
+          <span class="icon is-small is-right" :style="{visibility: visClass}">
+           <i class="fas fa-exclamation-triangle"></i>
+          </span>
+         </p>
+         <p :class="['help', 'align-left', formValidation()]">{{ validMail }}</p>
+        </div>
 
-       <div class="field">
-        <p class="control has-icons-left">
-         <input
-          :class="['input', passOk(),'is-small']"
-          type="password"
-          placeholder="Password"
-          data-lpignore="true"
-          v-model="password"
-         />
-         <span class="icon is-small is-left">
-          <i class="fas fa-lock"></i>
-         </span>
-         <span class="icon is-small is-right is-success" :style="{visibility:visPass}">
-          <i class="fas fa-check"></i>
-         </span>
-        </p>
-        <p :class="['help', 'lign-left', passOk()]">{{ passCheck }}</p>
-       </div>
+        <div class="field">
+         <p class="control has-icons-left">
+          <input
+           :class="['input', passOk(),'is-small']"
+           type="password"
+           placeholder="Password"
+           data-lpignore="true"
+           v-model="password"
+          />
+          <span class="icon is-small is-left">
+           <i class="fas fa-lock"></i>
+          </span>
+          <span class="icon is-small is-right is-success" :style="{visibility:visPass}">
+           <i class="fas fa-check"></i>
+          </span>
+         </p>
+         <p :class="['help', 'lign-left', passOk()]">{{ passCheck }}</p>
+        </div>
 
-       <div class="field" style="visibility:hidden">
-        <p class="control">
-         <label class="checkbox">
-          <input type="checkbox" />Remember me
-         </label>
-        </p>
-       </div>
-       <div class="field">
-        <p class="control">
-         <button
-          @click.prevent="submitForm"
-          :class="['button', 'is-block', 'is-danger', 'is-small', 'is-fullwidth', loading, 'is-rounded']"
-         >Login</button>
-        </p>
-       </div>
-      </form>
-     </div>
-     <hr />
-     <div class="forgot-password">
-      <p class="has-text-centered has-text-small">
-       Did you
-       <a class="is-small" href="/forgot">forgot your password</a> or
-       <a href="/signup">need an account?</a>
-      </p>
-     </div>
+        <div class="field" style="visibility:hidden">
+         <p class="control">
+          <label class="checkbox">
+           <input type="checkbox" />Remember me
+          </label>
+         </p>
+        </div>
+        <div class="field">
+         <p class="control">
+          <button
+           @click.prevent="submitForm"
+           :class="['button', 'is-block', 'is-danger', 'is-small', 'is-fullwidth', loading, 'is-rounded']"
+          >Login</button>
+         </p>
+        </div>
+       </form>
+      </div>
+      <hr />
+      <div class="forgot-password">
+       <p class="has-text-centered has-text-small">
+        Did you
+        <a class="is-small" href="/forgot">forgot your password</a> or
+        <a href="/signup">need an account?</a>
+       </p>
+      </div>
+     </form>
     </div>
    </div>
   </div>

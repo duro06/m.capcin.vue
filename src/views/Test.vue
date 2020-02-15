@@ -20,9 +20,10 @@
         <p>jika dalam waktu 1 x 24 jam halaman ini belum berubah</p>
        </div>
       </article>
-
-      <h3 class="notification berhasil">Anda sudah terverifikasi</h3>
-      <a href="/" class="button is-small is-rounded is-danger">Klik untuk Login</a>
+      <div v-if="!waiting">
+       <h3 class="notification berhasil">Anda sudah terverifikasi</h3>
+       <a href="/" class="button is-small is-rounded is-danger">Klik untuk Login</a>
+      </div>
      </div>
     </div>
    </div>
@@ -75,7 +76,7 @@ export default {
     this.messages.push(data)
     if (data != '') {
      this.$store.dispatch('destroyVerifie')
-     this.$router.push('/')
+     // this.$router.push('/')
     }
 
     console.log(data)

@@ -11,7 +11,7 @@ const routes = [{
     component: () => import( /* webpackChunkName: "about" */ '../views/Login.vue'),
     meta: {
       requiresVisitor: true,
-
+      AlredyVerified: true
     }
   },
   // {
@@ -28,6 +28,7 @@ const routes = [{
     component: () => import('../components/auth/SignUp.vue'),
     meta: {
       requiresVisitor: true,
+      AlredyVerified: true
 
     }
   }, {
@@ -58,6 +59,7 @@ const routes = [{
     component: () => import( /* webpackChunkName: "about" */ '../components/LoginTemplate.vue'),
     meta: {
       requiresVisitor: true,
+      AlredyVerified: true
 
     }
   },

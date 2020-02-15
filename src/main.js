@@ -26,12 +26,20 @@ Vue.use(Bulma)
 
 router.beforeEach((to, from, next) => {
 
-  if (to.matched.some(record => record.meta.requiresVerification)) {
+  if (to.matched.some(record => record.meta.AlredyVerified)) {
     // this route requires verivication, check if logged in
     // if not, redirect to login page.
     if (store.getters.waitingVerified) {
       next({
         path: '/test',
+      })
+    } else {
+      next()
+    }
+  } else if (to.matched.some(record => record.meta.requiresVerification)) {
+    if (!store.getters.waitingVerified) {
+      next({
+        path: '/',
       })
     } else {
       next()

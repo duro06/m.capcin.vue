@@ -234,7 +234,7 @@ export default {
     })
      .then(function (response) {
       console.log(response.data)
-      vm.$store.dispatch('retrieveVerifie', 'register')
+      vm.$store.dispatch('retrieveVerifie', 'asdasdadasdasdadasdasdasdasdasdasdasdasdsad')
       vm.loading = ''
       this.$router.push('/test')
      })

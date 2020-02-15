@@ -10,7 +10,7 @@ axios.defaults.baseURL = _LurlApi
 export default {
   state: {
     token: (localStorage.getItem('access_token') || null),
-    adminVerified: (localStorage.getItem('waiting_verivication') || null),
+    adminVerified: localStorage.getItem('waiting_verivication') || null,
   },
   getters: {
     loggedIn(state) {
