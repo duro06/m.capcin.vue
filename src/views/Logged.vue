@@ -7,14 +7,14 @@
   </div>
 </template>
 <script>
-import Navbar from "@/components/Navbar.vue";
-import Footer from "@/components/Footer.vue";
+// import Navbar from "@/components/Navbar.vue";
+// import Footer from "@/components/Footer.vue";
 import Welcome from "@/components/Welcome.vue";
 export default {
   name: "logged",
   components: {
-    Navbar,
-    Footer,
+    // Navbar,
+    // Footer,
     Welcome
   }
 };

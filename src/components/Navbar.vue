@@ -53,7 +53,7 @@
           <i class="fas fa-sign-in-alt"></i>
          </span>
          <span>
-           <router-link to="/login" msg="Login">Login</router-link> 
+           <router-link to="/login" msg="Login">Login</router-link>
           Login
          </span>
         </router-link>

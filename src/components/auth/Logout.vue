@@ -1,15 +1,13 @@
-<template></template>
+<template>
+  <div></div>
+</template>
 <script>
 export default {
   created() {
     this.$store
       .dispatch("destroyToken")
-      .then(response => {
-        this.$router.replace(this.$route.query.redirect || "/");
-      })
-      .catch(error => {
-        this.$router.replace(this.$route.query.redirect || "/");
-      });
+      .then(this.$router.replace(this.$route.query.redirect || "/"))
+      .catch(this.$router.replace(this.$route.query.redirect || "/"));
   }
 };
 </script>

@@ -166,7 +166,7 @@ export default {
       classDanger: "",
       visClass: "hidden",
       validMail: "",
-      reg: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
+      reg: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
       password: "",
       visPass: "hidden",
       passCheck: "",
@@ -194,10 +194,7 @@ export default {
             email: vm.email,
             password: vm.password
           })
-          .then(response => {
-            vm.loading = "";
-            vm.$router.push("/logged");
-          })
+          .then((vm.loading = ""), vm.$router.push("/logged"))
           .catch(error => {
             vm.loading = "";
             vm.serverError = error.response.data.message;

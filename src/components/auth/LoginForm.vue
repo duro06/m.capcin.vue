@@ -131,7 +131,7 @@
 // const axios = require('axios').default
 
 // import '../assets/js/bulma.js'
-import { mapState } from "vuex";
+// import { mapState } from "vuex";
 export default {
   name: "LoginTemplate",
   props: {
@@ -144,7 +144,7 @@ export default {
       classDanger: "",
       visClass: "hidden",
       validMail: "",
-      reg: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
+      reg: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
       password: "",
       visPass: "hidden",
       passCheck: "",
@@ -177,6 +177,7 @@ export default {
           })
           .then(response => {
             vm.loading = "";
+            console.log(response);
             vm.$router.push("/logged");
           })
           .catch(error => {

@@ -85,11 +85,10 @@ router.beforeEach((to, from, next) => {
 });
 
 
-
 new Vue({
   router,
   store,
   axios,
   // Pusher,
   render: h => h(App)
-}).$mount("#app");
+})

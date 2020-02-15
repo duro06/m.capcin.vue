@@ -57,7 +57,6 @@ export default {
  //   this.$router.replace(this.$route.query.redirect || '/')
  //  }
 
- // },
 
  methods: {
   subscribe () {

@@ -1,12 +1,12 @@
 import axios from "axios";
 
-const _urlOriginApi = "http://192.168.43.231/capcin/api/";
+// const _urlOriginApi = "http://192.168.43.231/capcin/api/";
 const _LurlApi = "http://localhost/capcin/api/";
-const _newUrlApp = _LurlApi + "app";
-const _newUrlUser = _LurlApi + "user/login";
-const _newUrlApiLogin = _LurlApi + "apilogin";
+// const _newUrlApp = _LurlApi + "app";
+// const _newUrlUser = _LurlApi + "user/login";
+// const _newUrlApiLogin = _LurlApi + "apilogin";
 
-axios.defaults.baseURL = _urlOriginApi;
+axios.defaults.baseURL = _LurlApi;
 export default {
   state: {
     token: localStorage.getItem("access_token") || null,
