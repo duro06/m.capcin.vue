@@ -10,11 +10,15 @@ axios.defaults.baseURL = _urlOriginApi
 export default {
   state: {
     token: (localStorage.getItem('access_token') || null),
-    adminVerified: localStorage.getItem('waiting_verivication') || null,
+    adminVerified: (localStorage.getItem('waiting_verivication') || null),
+    level: (localStorage.getItem('access_level') || null),
   },
   getters: {
     loggedIn(state) {
       return state.token !== null
+    },
+    levelAccess(state) {
+      return state.level
     },
     waitingVerified(state) {
       return state.adminVerified !== null

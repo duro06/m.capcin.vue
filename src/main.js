@@ -27,28 +27,20 @@ Vue.use(vWow)
 
 router.beforeEach((to, from, next) => {
 
-  if (to.matched.some(record => record.meta.AlredyVerified)) {
+  if (to.matched.some(record => (record.meta.requiresVerification || record.meta.requiresAuth))) {
+    if (!store.getters.waitingVerified && !store.getters.loggedIn) {
+      next({
+        path: '/',
+      })
+    } else {
+      next()
+    }
+  } else if (to.matched.some(record => record.meta.AlredyVerified)) {
     // this route requires verivication, check if logged in
     // if not, redirect to login page.
     if (store.getters.waitingVerified) {
       next({
         path: '/test',
-      })
-    } else {
-      next()
-    }
-  } else if (to.matched.some(record => record.meta.requiresVerification)) {
-    if (!store.getters.waitingVerified) {
-      next({
-        path: '/',
-      })
-    } else {
-      next()
-    }
-  } else if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (!store.getters.loggedIn) {
-      next({
-        path: '/',
       })
     } else {
       next()
