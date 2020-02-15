@@ -1,11 +1,9 @@
 <template>
- <div class="section" name="welcome"></div>
+  <div class="section" name="welcome"></div>
 </template>
 <script>
 export default {
- name: 'welcome'
-
-}
+  name: "welcome"
+};
 </script>
-<style  scoped>
-</style>
+<style scoped></style>
