@@ -4,15 +4,13 @@ import VueRouter from "vue-router";
 
 Vue.use(VueRouter);
 
-const routes = [
-  {
+const routes = [{
     path: "/login",
     name: "login",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Login.vue"),
+      import( /* webpackChunkName: "about" */ "../views/Login.vue"),
     meta: {
       requiresVisitor: true,
-      AlredyVerified: true
     }
   },
   // {
@@ -28,17 +26,14 @@ const routes = [
     name: "signup",
     component: () => import("../components/auth/SignUp.vue"),
     meta: {
-      requiresVisitor: true,
-      AlredyVerified: true
+      requiresVisitor: true
     }
   },
   {
     path: "/test",
     name: "test",
     component: () => import("../views/Test.vue"),
-    meta: {
-      requiresVerification: true
-    }
+
   },
   {
     path: "/home",
@@ -62,10 +57,9 @@ const routes = [
     path: "/",
     name: "login2",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../components/LoginTemplate.vue"),
+      import( /* webpackChunkName: "about" */ "../components/LoginTemplate.vue"),
     meta: {
-      requiresVisitor: true,
-      AlredyVerified: true
+      requiresVisitor: true
     }
   }
 ];
