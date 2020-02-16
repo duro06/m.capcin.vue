@@ -6,7 +6,7 @@
           <div
             class="fadeInUp"
             v-wow
-            data-wow-delay="0.2s"
+            data-wow-delay="0s"
             data-wow-duration="2s"
           >
             <h1 class="avatar has-text-centered section">
@@ -15,9 +15,16 @@
           </div>
 
           <transition name="slide-fade">
-            <p class="subtitle has-text-black" v-if="!show">
-              Please login to proceed.
-            </p>
+            <div
+              class="fadeInUp"
+              v-wow
+              data-wow-delay="0s"
+              data-wow-duration="2s"
+            >
+              <p class="subtitle has-text-black" v-if="!show">
+                Please login to proceed.
+              </p>
+            </div>
             <div class="notification is-warning is-light" v-if="show">
               <span class="icon is-medium has-text-danger">
                 <i class="fas fa-2x fa-ban"></i>
@@ -47,7 +54,7 @@
                 <div
                   class="field fadeInUp"
                   v-wow
-                  data-wow-delay="0.2s"
+                  data-wow-delay="0s"
                   data-wow-duration="2s"
                 >
                   <p class="control has-icons-left has-icons-right">
@@ -76,7 +83,7 @@
                 <div
                   class="field fadeInUp"
                   v-wow
-                  data-wow-delay="0.2s"
+                  data-wow-delay="0s"
                   data-wow-duration="2s"
                 >
                   <p class="control has-icons-left">
@@ -112,7 +119,7 @@
                 <div
                   class="field fadeInUp"
                   v-wow
-                  data-wow-delay="0.2s"
+                  data-wow-delay="0s"
                   data-wow-duration="2s"
                 >
                   <p class="control">
@@ -138,13 +145,13 @@
             <div
               class="forgot-password fadeInUp"
               v-wow
-              data-wow-delay="0.2s"
+              data-wow-delay="0s"
               data-wow-duration="2s"
             >
               <p class="has-text-centered has-text-small">
                 Did you
-                <a class="is-small" href="/forgot">forgot your password</a> or
-                <a href="/signup">need an account?</a>
+                <a class="is-small" @click="forgot">forgot your password</a> or
+                <a @click="signup">need an account?</a>
               </p>
             </div>
           </form>
@@ -184,6 +191,12 @@ export default {
 
   // },
   methods: {
+    signup() {
+      this.$router.replace("/signup");
+    },
+    forgot() {
+      this.$router.replace("/forgot");
+    },
     submitForm: function() {
       const vm = this;
 
@@ -194,7 +207,16 @@ export default {
             email: vm.email,
             password: vm.password
           })
-          .then((vm.loading = ""), vm.$router.replace("/logged"))
+          .then(response => {
+            // console.log(response.data.data)
+            const token = response.data.data.token;
+            const level = response.data.data.level;
+            localStorage.setItem("access_token", token);
+            this.$store.commit("retrieveToken", token);
+            this.$store.commit("setAccessLevel", level);
+            vm.loading = "";
+            vm.$router.replace("/logged");
+          })
           .catch(error => {
             vm.loading = "";
             vm.serverError = error.response.data.message;

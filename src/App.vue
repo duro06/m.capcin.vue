@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <Navbar v-if="loggedIn" />
-    <router-view />
+    <transition :name="ngiri">
+      <router-view />
+    </transition>
     <Footer v-if="loggedIn" />
   </div>
 </template>
@@ -10,6 +12,11 @@ import Navbar from "@/components/Navbar.vue";
 import Footer from "@/components/Footer.vue";
 export default {
   name: "app",
+  data() {
+    return {
+      ngiri: ""
+    };
+  },
   components: {
     Navbar,
     Footer
@@ -17,6 +24,13 @@ export default {
   computed: {
     loggedIn() {
       return this.$store.getters.loggedIn;
+    }
+  },
+  watch: {
+    $route(to, from) {
+      const toDepth = to.path.split("/").length;
+      const fromDepth = from.path.split("/").length;
+      this.ngiri = toDepth < fromDepth ? "slide-right" : "slide-left";
     }
   }
 };

@@ -1,8 +1,8 @@
 import axios from "axios";
 
 // const _urlOriginApi = "http://192.168.43.231/capcin/";
-// const _LurlApi = "http://localhost/capcin/";
-const _LurlApi = "http://localhost/capcin-copy/";
+const _LurlApi = "http://localhost/capcin/";
+// const _LurlApi = "http://localhost/capcin-copy/";
 // const _newUrlApp = _LurlApi + "app";
 // const _newUrlUser = _LurlApi + "user/login";
 // const _newUrlApiLogin = _LurlApi + "apilogin";
@@ -77,7 +77,7 @@ export default {
         params.append("password", data.password);
 
         axios
-          .post("user/register", params)
+          .post("api/user/register", params)
           .then(response => {
             resolve(response);
           })
@@ -118,18 +118,12 @@ export default {
           .post("api/user/login", params)
           .then(response => {
             // console.log(response.data.data)
-            const token = response.data.data.token;
-            const level = response.data.data.level;
+            // const token = response.data.data.token;
+            // const level = response.data.data.level;
             resolve(response);
-            // if (token != undefined) {
-            localStorage.setItem("access_token", token);
-            context.commit("retrieveToken", token);
-            context.commit("setAccessLevel", level);
-            // } else {
-            // localStorage.removeItem('access_token')
-            // context.commit('destroyToken')
-            // console.log('token undefined')
-            // }
+            // localStorage.setItem("access_token", token);
+            // context.commit("retrieveToken", token);
+            // context.commit("setAccessLevel", level);
           })
           .catch(error => {
             // console.log(error)

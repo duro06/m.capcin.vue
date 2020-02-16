@@ -25,161 +25,231 @@
           </div>
         </transition>
         <div class="box form-control">
-          <figure class="avatar">
-            <img src="../../assets/logocapcin.png" />
-          </figure>
+          <div
+            class="field fadeInUp"
+            v-wow
+            data-wow-delay="0s"
+            data-wow-duration="2s"
+          >
+            <figure class="avatar">
+              <img src="../../assets/logocapcin.png" />
+            </figure>
+          </div>
           <form
             action="#"
             @submit.prevent="register"
             class="is-light is-danger"
           >
-            <div class="field">
-              <div class="control has-icons-left">
-                <input
-                  @change="NameValidation"
-                  :class="['input', className, 'is-small']"
-                  type="name"
-                  placeholder="Nama"
-                  v-model="name"
-                />
-                <span class="icon is-small is-left">
-                  <i class="fas fa-portrait"></i>
-                </span>
-              </div>
-              <p :class="['help', 'align-left', className]">{{ validName }}</p>
-            </div>
-
-            <div class="field">
-              <div class="control has-icons-left has-icons-right">
-                <input
-                  @change="UserValidation"
-                  :class="['input', classUser, 'is-small']"
-                  type="username"
-                  placeholder="Username"
-                  v-model="username"
-                />
-                <span class="icon is-small is-left">
-                  <i class="fas fa-user"></i>
-                </span>
-                <span
-                  class="icon is-small is-right"
-                  :style="{ visibility: visUser }"
-                >
-                  <i class="fas fa-exclamation-triangle"></i>
-                </span>
-              </div>
-              <p :class="['help', 'align-left', classUser]">{{ validUser }}</p>
-            </div>
-
-            <div class="field">
-              <div class="control has-icons-left has-icons-right">
-                <input
-                  @change="formValidation"
-                  :class="['input', classDanger, 'is-small']"
-                  type="email"
-                  placeholder="Email"
-                  v-model="email"
-                />
-                <span class="icon is-small is-left">
-                  <i class="fas fa-envelope"></i>
-                </span>
-                <span
-                  class="icon is-small is-right"
-                  :style="{ visibility: visClass }"
-                >
-                  <i class="fas fa-exclamation-triangle"></i>
-                </span>
-              </div>
-              <p :class="['help', 'align-left', classDanger]">
-                {{ validMail }}
-              </p>
-            </div>
-
-            <div class="field">
-              <div class="control has-icons-left">
-                <div :class="['select', valSelect, 'is-small']">
-                  <select v-model="selected" @change="validasiSelect">
-                    <option
-                      v-for="(level, t) in levels"
-                      :key="t"
-                      v-bind:value="level.id"
-                    >
-                      {{ level.nama }}
-                    </option>
-                  </select>
+            <div
+              class="field fadeInUp"
+              v-wow
+              data-wow-delay="0s"
+              data-wow-duration="2s"
+            >
+              <div class="field">
+                <div class="control has-icons-left">
+                  <input
+                    @change="NameValidation"
+                    :class="['input', className, 'is-small']"
+                    type="name"
+                    placeholder="Nama"
+                    v-model="name"
+                  />
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-portrait"></i>
+                  </span>
                 </div>
-                <span class="icon is-small is-left">
-                  <i class="fas fa-phone"></i>
-                </span>
+                <p :class="['help', 'align-left', className]">
+                  {{ validName }}
+                </p>
               </div>
             </div>
 
-            <div class="field">
-              <div class="control has-icons-left has-icons-right">
-                <input
-                  @change="passOk"
-                  :class="['input', validPass, 'is-small']"
-                  type="password"
-                  placeholder="Password"
-                  v-model="password"
-                />
-                <span class="icon is-small is-left">
-                  <i class="fas fa-lock"></i>
-                </span>
-                <span
-                  class="icon is-small is-right is-success"
-                  :style="{ visibility: visPass }"
-                >
-                  <i class="fas fa-check"></i>
-                </span>
+            <div
+              class="field fadeInUp"
+              v-wow
+              data-wow-delay="0s"
+              data-wow-duration="2s"
+            >
+              <div class="field">
+                <div class="control has-icons-left has-icons-right">
+                  <input
+                    @change="UserValidation"
+                    :class="['input', classUser, 'is-small']"
+                    type="username"
+                    placeholder="Username"
+                    v-model="username"
+                  />
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-user"></i>
+                  </span>
+                  <span
+                    class="icon is-small is-right"
+                    :style="{ visibility: visUser }"
+                  >
+                    <i class="fas fa-exclamation-triangle"></i>
+                  </span>
+                </div>
+                <p :class="['help', 'align-left', classUser]">
+                  {{ validUser }}
+                </p>
               </div>
-              <p :class="['help', 'lign-left', validPass]">{{ passCheck }}</p>
             </div>
 
-            <div class="field">
-              <div class="control has-icons-left has-icons-right">
-                <input
-                  :class="['input', classKonfirm, 'is-small']"
-                  type="password"
-                  placeholder="Konfirmasi Password"
-                  v-model="Kpassword"
-                />
-                <span class="icon is-small is-left">
-                  <i class="fas fa-lock"></i>
-                </span>
-                <span
-                  class="icon is-small is-right is-success"
-                  :style="{ visibility: kPass }"
-                >
-                  <i class="fas fa-check"></i>
-                </span>
+            <div
+              class="field fadeInUp"
+              v-wow
+              data-wow-delay="0s"
+              data-wow-duration="2s"
+            >
+              <div class="field">
+                <div class="control has-icons-left has-icons-right">
+                  <input
+                    @change="formValidation"
+                    :class="['input', classDanger, 'is-small']"
+                    type="email"
+                    placeholder="Email"
+                    v-model="email"
+                  />
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                  </span>
+                  <span
+                    class="icon is-small is-right"
+                    :style="{ visibility: visClass }"
+                  >
+                    <i class="fas fa-exclamation-triangle"></i>
+                  </span>
+                </div>
+                <p :class="['help', 'align-left', classDanger]">
+                  {{ validMail }}
+                </p>
               </div>
-              <p :class="['help', 'lign-left', konfirm()]">{{ passKonfirm }}</p>
             </div>
-            <div class="has-text-centered">
-              <button
-                :class="[
-                  'button',
-                  'is-vcentered',
-                  'is-primary',
-                  'is-outlined',
-                  loading,
-                  'is-small',
-                  'is-rounded'
-                ]"
-                @click.prevent="register"
-              >
-                Daftar
-              </button>
+
+            <div
+              class="field fadeInUp"
+              v-wow
+              data-wow-delay="0s"
+              data-wow-duration="2s"
+            >
+              <div class="field">
+                <div class="control has-icons-left">
+                  <div :class="['select', valSelect, 'is-small']">
+                    <select v-model="selected" @change="validasiSelect">
+                      <option
+                        v-for="(level, t) in levels"
+                        :key="t"
+                        v-bind:value="level.id"
+                      >
+                        {{ level.nama }}
+                      </option>
+                    </select>
+                  </div>
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-phone"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="field fadeInUp"
+              v-wow
+              data-wow-delay="0s"
+              data-wow-duration="2s"
+            >
+              <div class="field">
+                <div class="control has-icons-left has-icons-right">
+                  <input
+                    @change="passOk"
+                    :class="['input', validPass, 'is-small']"
+                    type="password"
+                    placeholder="Password"
+                    v-model="password"
+                  />
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                  </span>
+                  <span
+                    class="icon is-small is-right is-success"
+                    :style="{ visibility: visPass }"
+                  >
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+                <p :class="['help', 'lign-left', validPass]">{{ passCheck }}</p>
+              </div>
+            </div>
+
+            <div
+              class="field fadeInUp"
+              v-wow
+              data-wow-delay="0s"
+              data-wow-duration="2s"
+            >
+              <div class="field">
+                <div class="control has-icons-left has-icons-right">
+                  <input
+                    :class="['input', classKonfirm, 'is-small']"
+                    type="password"
+                    placeholder="Konfirmasi Password"
+                    v-model="Kpassword"
+                  />
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                  </span>
+                  <span
+                    class="icon is-small is-right is-success"
+                    :style="{ visibility: kPass }"
+                  >
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+                <p :class="['help', 'lign-left', konfirm()]">
+                  {{ passKonfirm }}
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="field fadeInUp"
+              v-wow
+              data-wow-delay="0s"
+              data-wow-duration="2s"
+            >
+              <div class="has-text-centered">
+                <button
+                  :class="[
+                    'button',
+                    'is-vcentered',
+                    'is-primary',
+                    'is-outlined',
+                    loading,
+                    'is-small',
+                    'is-rounded'
+                  ]"
+                  @click.prevent="register"
+                >
+                  Daftar
+                </button>
+              </div>
             </div>
           </form>
         </div>
-        <div class="has-text-centered">
-          <a href="/">
-            Sudah Punya Akun?
-            <strong style="text-decoration:underline;">Log in</strong>
-            Sekarang !
-          </a>
+        <div
+          class="field fadeInUp"
+          v-wow
+          data-wow-delay="0s"
+          data-wow-duration="2s"
+        >
+          <div class="has-text-centered">
+            <a @click="toLogin">
+              Sudah Punya Akun?
+              <strong style="text-decoration:underline;">Log in</strong>
+              Sekarang !
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -241,12 +311,15 @@ export default {
       reg: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/
     };
   },
-  updated() {
-    if (localStorage.getItem("waiting_verivication")) {
-      this.$router.replace(this.$route.query.redirect || "/test");
-    }
-  },
+  // updated() {
+  //   if (localStorage.getItem("waiting_verivication")) {
+  //     this.$router.replace(this.$route.query.redirect || "/test");
+  //   }
+  // },
   methods: {
+    toLogin() {
+      this.$router.replace("/");
+    },
     register: function() {
       const vm = this;
       if (vm.selected == "") {
@@ -269,7 +342,7 @@ export default {
               "asdasdadasdasdadasdasdasdasdasdasdasdasdsad"
             );
             vm.loading = "";
-            this.$router.push("/test");
+            this.$router.replace("/test");
           })
           .catch(error => {
             // console.log(error.response.data.errors)
@@ -367,7 +440,7 @@ export default {
         vm.classUser = "is-danger";
         vm.visUser = "visible";
         vm.validUser = "Tidak boleh kosong";
-      } else if (vm.reg2.test(vm.username == false)) {
+      } else if (vm.reg2.test(vm.username) == false) {
         vm.classUser = "is-danger";
         vm.visUser = "visible";
         vm.validUser =
@@ -462,6 +535,26 @@ export default {
 </script>
 
 <style scoped>
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 30%, 0);
+    -ms-transform: translate3d(0, 30%, 0);
+    transform: translate3d(0, 30%, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    -ms-transform: none;
+    transform: none;
+  }
+}
+
+.fadeInUp {
+  animation-name: fadeInUp;
+  animation-timing-function: ease-out;
+}
+
 @import "../../assets/css/login.css";
 .hero-body {
   padding-top: 20px;
