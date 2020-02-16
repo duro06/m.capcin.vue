@@ -311,11 +311,11 @@ export default {
       reg: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/
     };
   },
-  // updated() {
-  //   if (localStorage.getItem("waiting_verivication")) {
-  //     this.$router.replace(this.$route.query.redirect || "/test");
-  //   }
-  // },
+  updated() {
+    if (localStorage.getItem("waiting_verivication")) {
+      this.$router.replace(this.$route.query.redirect || "/test");
+    }
+  },
   methods: {
     toLogin() {
       this.$router.replace("/");
@@ -347,26 +347,28 @@ export default {
           .catch(error => {
             // console.log(error.response.data.errors)
             // vm.splitError(error.response.data.errors)
-            if (error.response.data.errors.username == "username") {
-              vm.classUser = "is-danger";
-              vm.visUser = "visible";
-              (vm.validUser = "Username sudah ada, harap diganti"),
-                (vm.username = "");
+            if (error) {
+              if (error.response.data.errors.username == "username") {
+                vm.classUser = "is-danger";
+                vm.visUser = "visible";
+                (vm.validUser = "Username sudah ada, harap diganti"),
+                  (vm.username = "");
+              }
+              if (error.response.data.errors.email == "email") {
+                vm.classDanger = "is-danger";
+                vm.visClass = "visible";
+                vm.validMail = "Email sudah terdaftar, harap diganti";
+                vm.email = "";
+              }
+              if (error.response.data.errors == "") {
+                vm.pesan = error.response.data.message;
+              }
+              vm.loading = "";
+              // if(error.response.data.errors)
+              setTimeout(function() {
+                vm.pesan = "";
+              }, 5000);
             }
-            if (error.response.data.errors.email == "email") {
-              vm.classDanger = "is-danger";
-              vm.visClass = "visible";
-              vm.validMail = "Email sudah terdaftar, harap diganti";
-              vm.email = "";
-            }
-            if (error.response.data.errors == "") {
-              vm.pesan = error.response.data.message;
-            }
-            vm.loading = "";
-            // if(error.response.data.errors)
-            setTimeout(function() {
-              vm.pesan = "";
-            }, 5000);
           })
           .then(function() {
             // always executed

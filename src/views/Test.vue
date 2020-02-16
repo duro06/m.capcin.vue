@@ -45,7 +45,7 @@
               data-wow-duration="2s"
             >
               <h3 class="notification berhasil">Anda sudah terverifikasi</h3>
-              <a href="/" class="button is-small is-rounded is-danger">
+              <a @click="pindah" class="button is-small is-rounded is-danger">
                 Klik untuk Login
               </a>
             </div>
@@ -84,6 +84,9 @@ export default {
 
 
   methods: {
+    pindah(){
+      this.$router.replace("/")
+    },
     subscribe () {
     // const vm = this
     // Api key + cluster
@@ -106,7 +109,30 @@ export default {
   }
 };
 </script>
+<style scoped>
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 30%, 0);
+    -ms-transform: translate3d(0, 30%, 0);
+    transform: translate3d(0, 30%, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    -ms-transform: none;
+    transform: none;
+  }
+}
+
+.fadeInUp {
+  animation-name: fadeInUp;
+  animation-timing-function: ease-out;
+}
+
+</style>
 <style lang="sass" scoped>
+
   @charset 'utf-8'
   Import Bulma core
   // @import 'bulma.sass';
@@ -119,6 +145,7 @@ export default {
   }
   .section {
   padding-top: 10px;
+  padding-bottom: 10px;
   }
   .berhasil {
   background-color: rgb(255, 57, 90);
