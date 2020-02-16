@@ -262,16 +262,16 @@ export default {
     return {
       pesan: "",
 
-      name: "coba",
+      name: "",
       className: "",
       validName: "",
 
-      email: "pharyyady@gmail.co",
+      email: "",
       classDanger: "",
       visClass: "hidden",
       validMail: "",
 
-      selected: "3",
+      selected: "",
       levels: [
         { id: "", nama: "Pilih bagian" },
         { id: 3, nama: "Produksi" },
@@ -287,19 +287,19 @@ export default {
       // classAddres: '',
       // validAddres: '',
       valSelect: "",
-      password: "123456",
+      password: "",
       validPass: "",
       visPass: "hidden",
       passCheck: "",
 
-      Kpassword: "123456",
+      Kpassword: "",
       classKonfirm: "",
       kPass: "hidden",
       passKonfirm: "",
 
       ServerError: "",
 
-      username: "coba",
+      username: "",
       classUser: "",
       visUser: "hidden",
       validUser: "",

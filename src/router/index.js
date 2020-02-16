@@ -62,6 +62,32 @@ const routes = [{
     meta: {
       requiresVisitor: true
     }
+  },
+  {
+    path: "/level3",
+    name: "level3",
+    component: () =>
+      import(
+        "../components/Level3.vue"),
+  },
+  {
+    path: "/level4",
+    name: "level4",
+    component: () =>
+      import(
+        "../components/Level4.vue"),
+  }, {
+    path: "/level5",
+    name: "level5",
+    component: () =>
+      import(
+        "../components/Level5.vue"),
+  }, {
+    path: "/level6",
+    name: "level6",
+    component: () =>
+      import(
+        "../components/Level6.vue"),
   }
 ];
 

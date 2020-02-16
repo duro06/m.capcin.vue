@@ -1,7 +1,6 @@
 <template>
-  <div class="logged">
+  <div class="logged fadeInUp" v-wow data-wow-duration="1s">
     <div id="mid">
-      <img alt="Vue logo" src="../assets/logocapcin.png" />
       <Welcome />
     </div>
   </div>
@@ -19,3 +18,8 @@ export default {
   }
 };
 </script>
+<style scooped>
+.logged {
+  padding-top: 25px;
+}
+</style>
