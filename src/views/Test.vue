@@ -45,7 +45,7 @@
               data-wow-duration="2s"
             >
               <h3 class="notification berhasil">Anda sudah terverifikasi</h3>
-              <a @click="pindah" class="button is-small is-rounded is-danger">
+              <a to="/" class="button is-small is-rounded is-danger">
                 Klik untuk Login
               </a>
             </div>
@@ -84,9 +84,9 @@ export default {
 
 
   methods: {
-    pindah(){
-      this.$router.replace("/")
-    },
+    // pindah(){
+      // this.$router.replace("/")
+    // },
     subscribe () {
     // const vm = this
     // Api key + cluster

@@ -1,21 +1,35 @@
 <template>
-  <div id="foot">
-    <div class="mobile-bottom-nav is-hidden-desktop">
+  <div id="foot" class="field">
+    <div class="message-body mobile-bottom-nav is-hidden-desktop">
       <a href="home" data-toggle="page" class="mobile-bottom-nav__item">
         <div class="mobile-bottom-nav__item-content">
-          <i class="fas fa-home fa-2x" />
+          <i
+            class="fas fa-home fa-2x slideInRight"
+            v-wow
+            data-wow-duration="1s"
+          />
           Beranda
         </div>
       </a>
       <a href="front/logbook" class="mobile-bottom-nav__item">
         <div class="mobile-bottom-nav__item-content">
-          <i class="fas fa-info-circle fa-2x"></i>
+          <i
+            class="fas fa-info-circle fa-2x slideInRight"
+            v-wow
+            data-wow-duration="1s"
+            data-wow-delay="0.3s"
+          ></i>
           Informasi
         </div>
       </a>
       <a href="front/profile" class="mobile-bottom-nav__item">
         <div class="mobile-bottom-nav__item-content">
-          <i class="fas fa-user-tie fa-2x"></i>
+          <i
+            class="fas fa-user-tie fa-2x slideInRight"
+            v-wow
+            data-wow-duration="1s"
+            data-wow-delay="0.5s"
+          ></i>
           Profile
         </div>
       </a>
@@ -29,7 +43,12 @@
 
       <a v-if="loggedIn" href="logout" class="mobile-bottom-nav__item">
         <div class="mobile-bottom-nav__item-content">
-          <i class="fas fa-sign-out-alt fa-2x"></i>
+          <i
+            class="fas fa-sign-out-alt fa-2x slideInRight"
+            v-wow
+            data-wow-duration="1s"
+            data-wow-delay="0.7s"
+          ></i>
           Logout
         </div>
       </a>

@@ -37,6 +37,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import "./assets/css/animate.css";
 @import "~bulma";
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

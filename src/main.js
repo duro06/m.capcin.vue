@@ -11,7 +11,6 @@ import vWow from "v-wow";
 
 import "bulma/bulma.sass";
 import "bulma/css/bulma.css";
-// import 'bulma/css/bulma.css.map'
 import "bulma/css/bulma.min.css";
 import "bulma-badge/dist/css/bulma-badge.min.css";
 // import 'bulma-badge/dist/css/bulma-badge.sass'
@@ -62,27 +61,27 @@ router.beforeEach((to, from, next) => {
   next();
 });
 
-// router.beforeEach((to, from, next) => {
-//   if (to.matched.some(record => record.meta.requiresVisitor)) {
-//     if (store.getters.loggedIn) {
-//       next({
-//         path: "/logged"
-//       });
-//     } else {
-//       next();
-//     }
-//   } else if (to.matched.some(record => record.meta.requiresAuth)) {
-//     if (!store.getters.loggedIn) {
-//       next({
-//         path: "/"
-//       });
-//     } else {
-//       next();
-//     }
-//   } else {
-//     next(); // make sure to always call next()!
-//   }
-// });
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresVisitor)) {
+    if (store.getters.loggedIn) {
+      next({
+        path: "/logged"
+      });
+    } else {
+      next();
+    }
+  } else if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!store.getters.loggedIn) {
+      next({
+        path: "/"
+      });
+    } else {
+      next();
+    }
+  } else {
+    next(); // make sure to always call next()!
+  }
+});
 
 
 new Vue({
