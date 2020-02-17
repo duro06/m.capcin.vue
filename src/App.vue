@@ -5,7 +5,7 @@
     </div>
     <div>
       <transition class="slideInLeft" v-wow data-wow-duration="1s">
-        <router-view class="route" />
+        <router-view :class="kelas" />
       </transition>
     </div>
     <div>
@@ -30,6 +30,15 @@ export default {
   computed: {
     loggedIn() {
       return this.$store.getters.loggedIn;
+    },
+    kelas() {
+      let kelas = "";
+      if (this.loggedIn) {
+        kelas = "route";
+      } else {
+        kelas = "";
+      }
+      return kelas;
     }
   }
   // watch: {
@@ -41,14 +50,17 @@ export default {
   // }
 };
 </script>
-
-<style lang="scss">
-@import "./assets/css/animate.css";
-@import "~bulma";
+<style scooped>
 .route {
   padding-top: 55px;
   padding-bottom: 55px;
 }
+</style>
+
+<style lang="scss">
+@import "./assets/css/animate.css";
+@import "~bulma";
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

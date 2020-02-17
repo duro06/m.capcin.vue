@@ -187,9 +187,19 @@ export default {
       serverError: ""
     };
   },
-  // computed: {
-
-  // },
+  updated() {
+    if (localStorage.getItem("access_token")) {
+      this.$router.replace(
+        this.$route.query.redirect || { name: "logged" },
+        () => {}
+      );
+    }
+  },
+  computed: {
+    logged() {
+      return this.$store.getters.loggedIn;
+    }
+  },
   methods: {
     signup() {
       this.$router.replace("/signup");
@@ -202,20 +212,17 @@ export default {
 
       if (vm.Vpass == true && vm.Vmail == true) {
         vm.loading = "is-loading";
+        const params = new URLSearchParams();
+        params.append("email", vm.email);
+        params.append("password", vm.password);
         vm.$store
-          .dispatch("retrieveToken", {
-            email: vm.email,
-            password: vm.password
-          })
-          .then(response => {
-            // console.log(response.data.data)
-            const token = response.data.data.token;
-            const level = response.data.data.level;
-            localStorage.setItem("access_token", token);
-            this.$store.commit("retrieveToken", token);
-            this.$store.commit("setAccessLevel", level);
-            vm.loading = "";
-            vm.$router.replace("/logged");
+          .dispatch("retrieveToken", params)
+          .then(respons => {
+            if (respons && vm.logged) {
+              vm.loading = "";
+              vm.$router.replace({ name: "logged" }, () => {});
+            }
+            console.log(vm.logged);
           })
           .catch(error => {
             vm.loading = "";

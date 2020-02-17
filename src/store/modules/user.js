@@ -91,39 +91,38 @@ export default {
         "Bearer " + context.state.token;
 
       if (context.getters.loggedIn) {
-        return new Promise((resolve, reject) => {
-          axios
-            .post("api/user/logout")
-            .then(response => {
-              localStorage.removeItem("access_token");
-              context.commit("destroyToken");
-              resolve(response);
-              // console.log(response);
-              // context.commit('addTodo', response.data)
-            })
-            .catch(error => {
-              localStorage.removeItem("access_token");
-              context.commit("destroyToken");
-              reject(error);
-            });
-        });
+        // return new Promise((resolve, reject) =>
+        // {
+        // axios
+        //   .post("api/user/logout")
+        //   .then(
+        // response => {
+        localStorage.removeItem("access_token"), context.commit("destroyToken");
+        // resolve(response);
+        // console.log(response);
+        // context.commit('addTodo', response.data)
+        // }
+        // )
+        // .catch(
+        //   localStorage.removeItem("access_token"),
+        //   context.commit("destroyToken")
+        //   // reject(error);
+        // );
+        // });
       }
     },
     retrieveToken(context, credentials) {
       return new Promise((resolve, reject) => {
-        const params = new URLSearchParams();
-        params.append("email", credentials.email);
-        params.append("password", credentials.password);
         axios
-          .post("api/user/login", params)
+          .post("api/user/login", credentials)
           .then(response => {
             // console.log(response.data.data)
-            // const token = response.data.data.token;
-            // const level = response.data.data.level;
+            const token = response.data.data.token;
+            const level = response.data.data.level;
+            localStorage.setItem("access_token", token);
+            context.commit("retrieveToken", token);
+            context.commit("setAccessLevel", level);
             resolve(response);
-            // localStorage.setItem("access_token", token);
-            // context.commit("retrieveToken", token);
-            // context.commit("setAccessLevel", level);
           })
           .catch(error => {
             // console.log(error)

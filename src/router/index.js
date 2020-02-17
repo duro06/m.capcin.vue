@@ -1,6 +1,7 @@
 /* eslint-disable */
 import Vue from "vue";
 import VueRouter from "vue-router";
+import store from "../store";
 // import Login from '../views/Login.vue'
 
 Vue.use(VueRouter);
@@ -18,22 +19,37 @@ const routes = [{
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import( /* webpackChunkName: "about" */ "../views/Login.vue"),
-    meta: {
-      requiresVisitor: true
+    beforeEnter: (to, from, next) => {
+      if (store.state.loggedIn == true) {
+        next("/logged");
+      } else {
+        next();
+      }
     }
   },
   {
     path: "/signup",
     name: "signup",
     component: () => import("../components/auth/SignUp.vue"),
-    meta: {
-      requiresVisitor: true
-    }
+    // beforeEnter: (to, from, next) => {
+    //   if (store.state.loggedIn == true) {
+    //     next("/logged");
+    //   } else {
+    //     next();
+    //   }
+    // }
   },
   {
     path: "/test",
     name: "test",
-    component: () => import("../views/Test.vue")
+    component: () => import("../views/Test.vue"),
+    // beforeEnter: (to, from, next) => {
+    //   if (store.state.waitingVerified == true) {
+    //     next("/login");
+    //   } else {
+    //     next();
+    //   }
+    // }
   },
   {
     path: "/home",
@@ -44,9 +60,13 @@ const routes = [{
     path: "/logged",
     name: "logged",
     component: () => import("../views/Logged.vue"),
-    meta: {
-      requiresAuth: true
-    }
+    // beforeEnter: (to, from, next) => {
+    //   if (!store.state.loggedIn) {
+    //     next("/login");
+    //   } else {
+    //     next();
+    //   }
+    // }
   },
   {
     path: "/logout",
@@ -59,9 +79,13 @@ const routes = [{
     component: () =>
       import(
         "../components/LoginTemplate.vue"),
-    meta: {
-      requiresVisitor: true
-    }
+    // beforeEnter: (to, from, next) => {
+    //   if (store.state.loggedIn) {
+    //     next("/logged");
+    //   } else {
+    //     next();
+    //   }
+    // }
   },
   {
     path: "/level3",
