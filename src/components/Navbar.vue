@@ -46,41 +46,45 @@
       v-wow
     >
       <div class="navbar-end">
-        <a
+        <router-link
           class="navbar-item wow slideInDown"
-          to="/level3"
+          :to="{ path: '/level3' }"
+          replace
           v-wow
           data-wow-duration="1s"
           data-wow-delay="0.4s"
-          >Level 3</a
-        >
+          >Level 3
+        </router-link>
 
-        <a
+        <router-link
           class="navbar-item wow slideInDown"
-          to="/level 4"
+          to="/level4"
+          replace
           v-wow
           data-wow-duration="1s"
           data-wow-delay="0.4s"
-          >Level 4</a
-        >
+          >Level 4
+        </router-link>
 
-        <a
+        <router-link
           class="navbar-item wow slideInDown"
-          to="/level 5"
+          to="/level5"
+          replace
           v-wow
           data-wow-duration="1s"
           data-wow-delay="0.6s"
-          >Level 5</a
-        >
+          >Level 5
+        </router-link>
 
-        <a
+        <router-link
           class="navbar-item wow slideInDown"
-          to="/level 6"
+          to="/level6"
+          replace
           v-wow
           data-wow-duration="1s"
           data-wow-delay="0.8s"
-          >Level 6</a
-        >
+          >Level 6
+        </router-link>
       </div>
     </div>
   </nav>

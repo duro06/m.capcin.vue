@@ -197,6 +197,7 @@ export default {
   },
   computed: {
     logged() {
+      console.log(this.$store.getters.loggedIn);
       return this.$store.getters.loggedIn;
     }
   },
@@ -221,8 +222,8 @@ export default {
             if (respons && vm.logged) {
               vm.loading = "";
               vm.$router.replace({ name: "logged" }, () => {});
+              console.log(vm.logged);
             }
-            console.log(vm.logged);
           })
           .catch(error => {
             vm.loading = "";

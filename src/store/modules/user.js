@@ -29,28 +29,28 @@ export default {
     setAccessLevel(state, level) {
       state.level = level;
     },
-    retrieveVerifie(state, msg) {
+    setRetrieveVerifie(state, msg) {
       state.adminVerified = msg;
     },
-    destroyverifie(state) {
+    setDestroyverifie(state) {
       state.adminVerified = null;
     },
 
-    retrieveToken(state, token) {
+    setRetrieveToken(state, token) {
       state.token = token;
     },
-    destroyToken(state) {
+    setDestroyToken(state) {
       state.token = null;
     }
   },
   actions: {
     destroyVerifie(context) {
       localStorage.removeItem("waiting_verivication");
-      context.commit("destroyverifie");
+      context.commit("setDestroyverifie");
     },
     retrieveVerifie(contex) {
       localStorage.setItem("waiting_verivication", contex);
-      contex.commit("retrieveVerifie");
+      contex.commit("setRetrieveVerifie");
     },
     retrieveName(context) {
       axios.defaults.headers.common["Authorization"] =
@@ -97,7 +97,8 @@ export default {
         //   .post("api/user/logout")
         //   .then(
         // response => {
-        localStorage.removeItem("access_token"), context.commit("destroyToken");
+        localStorage.removeItem("access_token"),
+          context.commit("setDestroyToken");
         // resolve(response);
         // console.log(response);
         // context.commit('addTodo', response.data)
@@ -120,7 +121,7 @@ export default {
             const token = response.data.data.token;
             const level = response.data.data.level;
             localStorage.setItem("access_token", token);
-            context.commit("retrieveToken", token);
+            context.commit("setRetrieveToken", token);
             context.commit("setAccessLevel", level);
             resolve(response);
           })

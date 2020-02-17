@@ -311,6 +311,11 @@ export default {
       reg: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/
     };
   },
+  // beforeRouteEnter(to, from, next) {
+  //   to({ path: "/signup" });
+  //   from("*");
+  //   if(store.getter)
+  // },
   updated() {
     if (localStorage.getItem("waiting_verivication")) {
       this.$router.replace(this.$route.query.redirect || "/test");

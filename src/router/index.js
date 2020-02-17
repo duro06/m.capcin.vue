@@ -20,7 +20,7 @@ const routes = [{
     // which is lazy-loaded when the route is visited.
     component: () => import( /* webpackChunkName: "about" */ "../views/Login.vue"),
     beforeEnter: (to, from, next) => {
-      if (store.state.loggedIn == true) {
+      if (store.state.loggedIn) {
         next("/logged");
       } else {
         next();
@@ -31,25 +31,25 @@ const routes = [{
     path: "/signup",
     name: "signup",
     component: () => import("../components/auth/SignUp.vue"),
-    // beforeEnter: (to, from, next) => {
-    //   if (store.state.loggedIn == true) {
-    //     next("/logged");
-    //   } else {
-    //     next();
-    //   }
-    // }
+    beforeEnter: (to, from, next) => {
+      if (store.state.loggedIn) {
+        next("/logged");
+      } else {
+        next();
+      }
+    }
   },
   {
     path: "/test",
     name: "test",
     component: () => import("../views/Test.vue"),
-    // beforeEnter: (to, from, next) => {
-    //   if (store.state.waitingVerified == true) {
-    //     next("/login");
-    //   } else {
-    //     next();
-    //   }
-    // }
+    beforeEnter: (to, from, next) => {
+      if (store.state.waitingVerified) {
+        next();
+      } else {
+        next("/login");
+      }
+    }
   },
   {
     path: "/home",
@@ -60,13 +60,13 @@ const routes = [{
     path: "/logged",
     name: "logged",
     component: () => import("../views/Logged.vue"),
-    // beforeEnter: (to, from, next) => {
-    //   if (!store.state.loggedIn) {
-    //     next("/login");
-    //   } else {
-    //     next();
-    //   }
-    // }
+    beforeEnter: (to, from, next) => {
+      if (store.state.loggedIn) {
+        next();
+      } else {
+        next("/login");
+      }
+    }
   },
   {
     path: "/logout",
@@ -79,13 +79,14 @@ const routes = [{
     component: () =>
       import(
         "../components/LoginTemplate.vue"),
-    // beforeEnter: (to, from, next) => {
-    //   if (store.state.loggedIn) {
-    //     next("/logged");
-    //   } else {
-    //     next();
-    //   }
-    // }
+    beforeEnter: (to, from, next) => {
+      console.log(store.state.loggedIn);
+      if (store.state.loggedIn) {
+        next("/logged");
+      } else {
+        next();
+      }
+    }
   },
   {
     path: "/level3",
@@ -93,6 +94,14 @@ const routes = [{
     component: () =>
       import(
         "../components/Level3.vue"),
+    beforeEnter: (to, from, next) => {
+      console.log(store.getters.levelAccess);
+      if (store.state.levelAccess == 3) {
+        next();
+      } else {
+        next("/logged");
+      }
+    }
   },
   {
     path: "/level4",
@@ -100,18 +109,42 @@ const routes = [{
     component: () =>
       import(
         "../components/Level4.vue"),
+    beforeEnter: (to, from, next) => {
+      console.log(store.getters.levelAccess);
+      if (store.state.levelAccess == 4) {
+        next();
+      } else {
+        next("/logged");
+      }
+    }
   }, {
     path: "/level5",
     name: "level5",
     component: () =>
       import(
         "../components/Level5.vue"),
+    beforeEnter: (to, from, next) => {
+      console.log(store.getters.levelAccess);
+      if (store.state.levelAccess == 5) {
+        next();
+      } else {
+        next("/logged");
+      }
+    }
   }, {
     path: "/level6",
     name: "level6",
     component: () =>
       import(
         "../components/Level6.vue"),
+    beforeEnter: (to, from, next) => {
+      console.log(store.getters.levelAccess);
+      if (store.state.levelAccess == 6) {
+        next();
+      } else {
+        next("/logged");
+      }
+    }
   }
 ];
 

@@ -18,6 +18,10 @@ export default {
           () => {}
         )
       );
+  },
+  destroyed() {
+    console.log("destroyed");
+    location.reload();
   }
 };
 </script>
