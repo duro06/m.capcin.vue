@@ -29,6 +29,9 @@ export default {
     setAccessLevel(state, level) {
       state.level = level;
     },
+    setDestroyLevel(state) {
+      state.level = null;
+    },
     setRetrieveVerifie(state, msg) {
       state.adminVerified = msg;
     },
@@ -98,7 +101,9 @@ export default {
         //   .then(
         // response => {
         localStorage.removeItem("access_token"),
+          localStorage.removeItem("access_level"),
           context.commit("setDestroyToken");
+        context.commit("setDestroyaLevel");
         // resolve(response);
         // console.log(response);
         // context.commit('addTodo', response.data)
@@ -121,6 +126,7 @@ export default {
             const token = response.data.data.token;
             const level = response.data.data.level;
             localStorage.setItem("access_token", token);
+            localStorage.setItem("access_level", level);
             context.commit("setRetrieveToken", token);
             context.commit("setAccessLevel", level);
             resolve(response);

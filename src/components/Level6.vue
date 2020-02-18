@@ -18,6 +18,6 @@
 </template>
 <script>
 export default {
-  name: "level 6"
+  name: "level6"
 };
 </script>
