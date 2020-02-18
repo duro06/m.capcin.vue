@@ -57,7 +57,44 @@ const routes = [{
 {
   path: "/home",
   name: "home",
-  component: () => import("../views/Home.vue")
+  component: () => import("../views/Home.vue"),
+  children: [
+    {
+      path: 'navbar',
+      component: () => import("../components/Navbar.vue")
+    },
+    {
+      path: 'footer',
+      component: () => import("../components/Footer.vue")
+    },
+    {
+      path: 'level3',
+      component: () => import("../components/Level3.vue")
+    }
+  ]
+},
+{
+  path: "*",
+  name: "hello",
+  component: () => import("../components/HelloWorld.vue"),
+  children: [
+    {
+      path: 'navbar',
+      component: () => import("../components/Navbar.vue")
+    },
+    {
+      path: 'footer',
+      component: () => import("../components/Footer.vue")
+    }
+  ],
+  beforeEnter: (to, from, next) => {
+    console.log('logged get ', store.getters.loggedIn);
+    if (store.getters.loggedIn) {
+      next();
+    } else {
+      next("/login");
+    }
+  }
 },
 {
   path: "/logged",

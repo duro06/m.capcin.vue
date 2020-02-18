@@ -10,7 +10,7 @@
     <div class="navbar-brand">
       <router-link
         class="navbar-item wow slideInLeft"
-        to="/"
+        to="/home"
         data-wow-duration="1s"
         v-wow
         >Home</router-link

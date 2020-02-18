@@ -1,21 +1,11 @@
 <template>
   <div id="app">
-    <div>
-      <Navbar v-if="loggedIn" />
-    </div>
-    <div>
-      <transition class="slideInLeft" v-wow data-wow-duration="1s">
-        <router-view :class="kelas" />
-      </transition>
-    </div>
-    <div>
-      <Footer v-if="loggedIn" />
-    </div>
+    <transition class="slideInLeft" v-wow data-wow-duration="1s">
+      <router-view :class="kelas" />
+    </transition>
   </div>
 </template>
 <script>
-import Navbar from "@/components/Navbar.vue";
-import Footer from "@/components/Footer.vue";
 export default {
   name: "app",
   data() {
@@ -23,14 +13,7 @@ export default {
       ngiri: ""
     };
   },
-  components: {
-    Navbar,
-    Footer
-  },
   computed: {
-    loggedIn() {
-      return this.$store.getters.loggedIn;
-    },
     kelas() {
       let kelas = "";
       if (this.loggedIn) {

@@ -1,4 +1,5 @@
 import axios from "axios";
+// import axios from "@/backend/vue-axios";
 
 // const _urlOriginApi = "http://192.168.43.231/capcin/";
 const _LurlApi = "http://localhost/capcin/";
@@ -90,8 +91,8 @@ export default {
       });
     },
     destroyToken(context) {
-      axios.defaults.headers.common["Authorization"] =
-        "Bearer " + context.state.token;
+      // axios.defaults.headers.common["Authorization"] =
+      //   "Bearer " + context.state.token;
 
       if (context.getters.loggedIn) {
         // return new Promise((resolve, reject) =>
