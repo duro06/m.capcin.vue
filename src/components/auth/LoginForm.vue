@@ -262,12 +262,6 @@ export default {
       }
       return vm.validPass;
     }
-    //================= Re-render componen data ==============
-    // forceRendere() {
-    //  const vm = this
-    //  vm.logo = vm.logo
-    //  // console.log(vm.logo)
-    // },
   }
   //  mounted: function () {
   //   //========================= ambil data ====================

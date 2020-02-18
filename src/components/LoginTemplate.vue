@@ -187,14 +187,14 @@ export default {
       serverError: ""
     };
   },
-  updated() {
-    if (localStorage.getItem("access_token")) {
-      this.$router.replace(
-        this.$route.query.redirect || { name: "logged" },
-        () => {}
-      );
-    }
-  },
+  // updated() {
+  //   if (localStorage.getItem("access_token")) {
+  //     this.$router.replace(
+  //       this.$route.query.redirect || { name: "logged" },
+  //       () => {}
+  //     );
+  //   }
+  // },
   computed: {
     logged() {
       console.log(this.$store.getters.loggedIn);
@@ -213,7 +213,8 @@ export default {
 
       if (vm.Vpass == true && vm.Vmail == true) {
         vm.loading = "is-loading";
-        const params = new URLSearchParams();
+        // const params = new URLSearchParams();
+        const params = new FormData();
         params.append("email", vm.email);
         params.append("password", vm.password);
         vm.$store

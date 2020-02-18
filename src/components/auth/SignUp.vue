@@ -332,14 +332,15 @@ export default {
       }
       if (vm.Vpass == true && vm.Vmail == true && vm.selected != "") {
         vm.loading = "is-loading";
+        const params = new URLSearchParams();
+        params.append("nama", vm.nama);
+        params.append("username", vm.username);
+        params.append("email", vm.email);
+        params.append("id_level", vm.id_level);
+        params.append("password", vm.password);
+
         vm.$store
-          .dispatch("register", {
-            nama: vm.name,
-            username: vm.username,
-            email: vm.email,
-            id_level: vm.selected,
-            password: vm.password
-          })
+          .dispatch("register", params)
           .then(function(response) {
             console.log(response.data);
             vm.$store.dispatch(

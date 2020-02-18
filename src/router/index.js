@@ -20,7 +20,7 @@ const routes = [{
   // which is lazy-loaded when the route is visited.
   component: () => import( /* webpackChunkName: "about" */ "../views/Login.vue"),
   beforeEnter: (to, from, next) => {
-    console.log('get ', store.getters.loggedIn);
+    console.log('login 2 get ', store.getters.loggedIn);
     if (store.getters.loggedIn) {
       next("/logged");
     } else {
@@ -33,7 +33,7 @@ const routes = [{
   name: "signup",
   component: () => import("../components/auth/SignUp.vue"),
   beforeEnter: (to, from, next) => {
-    console.log('get ', store.getters.loggedIn);
+    console.log('signup get ', store.getters.loggedIn);
     if (store.getters.loggedIn) {
       next("/logged");
     } else {
@@ -46,8 +46,7 @@ const routes = [{
   name: "test",
   component: () => import("../views/Test.vue"),
   beforeEnter: (to, from, next) => {
-    console.log('get ', store.getters.waitingVerified);
-    console.log('store ', store.store.waitingVerified);
+    console.log('tetst get ', store.getters.waitingVerified);
     if (store.getters.waitingVerified) {
       next();
     } else {
@@ -65,7 +64,7 @@ const routes = [{
   name: "logged",
   component: () => import("../views/Logged.vue"),
   beforeEnter: (to, from, next) => {
-    console.log('get ', store.getters.loggedIn);
+    console.log('logged get ', store.getters.loggedIn);
     if (store.getters.loggedIn) {
       next();
     } else {
@@ -85,7 +84,7 @@ const routes = [{
     import(
       "../components/LoginTemplate.vue"),
   beforeEnter: (to, from, next) => {
-    console.log('get ', store.getters.loggedIn);
+    console.log('login get ', store.getters.loggedIn);
     if (store.getters.loggedIn) {
       next("/logged");
     } else {
