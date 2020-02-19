@@ -47,18 +47,18 @@
     >
       <div class="navbar-end">
         <router-link
-          class="navbar-item wow slideInDown"
+          class="navbar-item wow slideInDown button is-danger"
           :to="{ path: '/level3' }"
           replace
           v-wow
           data-wow-duration="1s"
           data-wow-delay="0.4s"
-          @click="route"
+          @click.prevent="pesan"
           >Level 3
         </router-link>
-
+        <br />
         <router-link
-          class="navbar-item wow slideInDown"
+          class="navbar-item wow slideInDown button is-danger"
           to="/level4"
           replace
           v-wow
@@ -66,9 +66,9 @@
           data-wow-delay="0.4s"
           >Level 4
         </router-link>
-
+        <br />
         <router-link
-          class="navbar-item wow slideInDown"
+          class="navbar-item wow slideInDown button is-danger"
           to="/level5"
           replace
           v-wow
@@ -76,9 +76,9 @@
           data-wow-delay="0.6s"
           >Level 5
         </router-link>
-
+        <br />
         <router-link
-          class="navbar-item wow slideInDown"
+          class="navbar-item wow slideInDown button is-danger"
           to="/level6"
           replace
           v-wow
@@ -109,13 +109,13 @@ export default {
     switchMenu() {
       this.isActive = !this.isActive;
     },
-    route() {
-      if (!this.auth) {
-        this.flashMessage.error({
-          message: "anda belum login",
-          time: 5000
-        });
-      }
+    pesan() {
+      // if (!this.auth) {
+      this.flashMessage.error({
+        message: "anda belum login",
+        time: 5000
+      });
+      // }
     }
   }
 };

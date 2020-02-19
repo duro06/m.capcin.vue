@@ -67,12 +67,12 @@ const routes = [{
         component: () => import("../components/Navbar.vue")
       },
       {
-        path: 'footer',
-        component: () => import("../components/Footer.vue")
-      },
-      {
         path: 'level3',
         component: () => import("../components/Level3.vue")
+      },
+      {
+        path: 'footer',
+        component: () => import("../components/Footer.vue")
       }
     ]
   },

@@ -1,8 +1,12 @@
 <template>
   <div class="home">
     <Navbar />
+    <br />
     <Level3 />
     <Welcome />
+    <Button type="button" class="button is-success" @click="message"
+      >Test</Button
+    >
     <Footer />
   </div>
 </template>
@@ -21,6 +25,14 @@ export default {
     Navbar,
     Level3,
     Footer
+  },
+  methods: {
+    message() {
+      this.flashMessage.error({
+        message: "anda belum login",
+        time: 5000
+      });
+    }
   }
 };
 </script>

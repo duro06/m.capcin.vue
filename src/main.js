@@ -8,6 +8,7 @@ import Bulma from "bulma";
 import Vuex from "vuex";
 import axios from "axios";
 import vWow from "v-wow";
+import FlashMessage from '@smartweb/vue-flash-message';
 
 import "bulma/bulma.sass";
 import "bulma/css/bulma.css";
@@ -21,6 +22,7 @@ Vue.config.productionTip = false;
 Vue.use(Vuex, axios);
 Vue.use(Bulma);
 Vue.use(vWow);
+Vue.use(FlashMessage);
 // Vue.use(Pusher);
 
 // This callback runs before every route change, including on page load.
@@ -44,17 +46,17 @@ router.beforeEach((to, from, next) => {
 
   // Turn the meta tag definitions into actual elements in the head.
   nearestWithMeta.meta.metaTags.map(tagDef => {
-    const tag = document.createElement('meta');
+      const tag = document.createElement('meta');
 
-    Object.keys(tagDef).forEach(key => {
-      tag.setAttribute(key, tagDef[key]);
-    });
+      Object.keys(tagDef).forEach(key => {
+        tag.setAttribute(key, tagDef[key]);
+      });
 
-    // We use this to track which meta tags we create, so we don't interfere with other ones.
-    tag.setAttribute('data-vue-router-controlled', '');
+      // We use this to track which meta tags we create, so we don't interfere with other ones.
+      tag.setAttribute('data-vue-router-controlled', '');
 
-    return tag;
-  })
+      return tag;
+    })
     // Add the meta tags to the document head.
     .forEach(tag => document.head.appendChild(tag));
 

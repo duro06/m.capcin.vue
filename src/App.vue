@@ -3,6 +3,10 @@
     <transition class="slideInLeft" v-wow data-wow-duration="1s">
       <router-view :class="kelas" />
     </transition>
+    <FlashMessage
+      position="right top"
+      style="z-index: 19999 !important; position: fixed;"
+    ></FlashMessage>
   </div>
 </template>
 <script>
