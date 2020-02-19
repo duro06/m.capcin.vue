@@ -1,14 +1,9 @@
-import axios from "axios";
+// import axios from "axios";
+import { httpd } from "../../services/service";
+import { http } from "../../services/service";
+import store from "..";
 // import axios from "@/backend/vue-axios";
 
-// const _urlOriginApi = "http://192.168.43.231/capcin/";
-const _LurlApi = "http://localhost/capcin/";
-// const _LurlApi = "http://localhost/capcin-copy/";
-// const _newUrlApp = _LurlApi + "app";
-// const _newUrlUser = _LurlApi + "user/login";
-// const _newUrlApiLogin = _LurlApi + "apilogin";
-
-axios.defaults.baseURL = _LurlApi;
 export default {
   state: {
     token: localStorage.getItem("access_token") || null,
@@ -50,18 +45,19 @@ export default {
   actions: {
     destroyVerifie(context) {
       localStorage.removeItem("waiting_verivication");
-      context.commit("setDestroyverifie", { root: true });
+      context.commit("setDestroyverifie", {
+        root: true
+      });
     },
     retrieveVerifie(contex) {
       localStorage.setItem("waiting_verivication", contex);
-      contex.commit("setRetrieveVerifie", { root: true });
+      contex.commit("setRetrieveVerifie", {
+        root: true
+      });
     },
-    retrieveName(context) {
-      axios.defaults.headers.common["Authorization"] =
-        "Bearer " + context.state.token;
-
+    retrieveName() {
       return new Promise((resolve, reject) => {
-        axios
+        http()
           .get("api/user")
           .then(response => {
             resolve(response);
@@ -73,15 +69,8 @@ export default {
     },
     register(context, data) {
       return new Promise((resolve, reject) => {
-        const params = new URLSearchParams();
-        params.append("nama", data.nama);
-        params.append("username", data.username);
-        params.append("email", data.email);
-        params.append("id_level", data.id_level);
-        params.append("password", data.password);
-
-        axios
-          .post("api/user/register", params)
+        httpd()
+          .post("api/user/register", data)
           .then(response => {
             resolve(response);
           })
@@ -90,21 +79,22 @@ export default {
           });
       });
     },
-    destroyToken(context) {
-      // axios.defaults.headers.common["Authorization"] =
-      //   "Bearer " + context.state.token;
-
-      if (context.getters.loggedIn) {
+    destroyToken({ commit }) {
+      if (store.getters.loggedIn) {
         // return new Promise((resolve, reject) =>
         // {
-        // axios
+        // http()
         //   .post("api/user/logout")
         //   .then(
         // response => {
         localStorage.removeItem("access_token"),
           localStorage.removeItem("access_level"),
-          context.commit("setDestroyToken", { root: true });
-        context.commit("setDestroyLevel", { root: true });
+          commit("setDestroyToken", {
+            root: true
+          });
+        commit("setDestroyLevel", {
+          root: true
+        });
         // resolve(response);
         // console.log(response);
         // context.commit('addTodo', response.data)
@@ -118,10 +108,10 @@ export default {
         // });
       }
     },
-    retrieveToken(context, credentials) {
+    retrieveToken({ commit }, credentials) {
       return new Promise((resolve, reject) => {
         console.log(credentials);
-        axios
+        httpd()
           .post("api/user/login", credentials)
           .then(response => {
             // console.log(response.data.data)
@@ -129,8 +119,12 @@ export default {
             const level = response.data.data.level;
             localStorage.setItem("access_token", token);
             localStorage.setItem("access_level", level);
-            context.commit("setRetrieveToken", token, { root: true });
-            context.commit("setAccessLevel", level, { root: true });
+            commit("setRetrieveToken", token, {
+              root: true
+            });
+            commit("setAccessLevel", level, {
+              root: true
+            });
             resolve(response);
           })
           .catch(error => {

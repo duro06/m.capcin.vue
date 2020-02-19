@@ -62,6 +62,14 @@ router.beforeEach((to, from, next) => {
 });
 
 
+// const _urlOriginApi = "http://192.168.43.231/capcin/";
+const _LurlApi = "http://localhost/capcin/";
+// const _LurlApi = "http://localhost/capcin-copy/";
+// const _newUrlApp = _LurlApi + "app";
+// const _newUrlUser = _LurlApi + "user/login";
+// const _newUrlApiLogin = _LurlApi + "apilogin";
+
+axios.defaults.baseURL = _LurlApi;
 
 new Vue({
   router,

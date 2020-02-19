@@ -332,11 +332,11 @@ export default {
       }
       if (vm.Vpass == true && vm.Vmail == true && vm.selected != "") {
         vm.loading = "is-loading";
-        const params = new URLSearchParams();
-        params.append("nama", vm.nama);
+        const params = new FormData();
+        params.append("nama", vm.name);
         params.append("username", vm.username);
         params.append("email", vm.email);
-        params.append("id_level", vm.id_level);
+        params.append("id_level", vm.selected);
         params.append("password", vm.password);
 
         vm.$store
@@ -351,9 +351,9 @@ export default {
             this.$router.replace("/test");
           })
           .catch(error => {
-            // console.log(error.response.data.errors)
             // vm.splitError(error.response.data.errors)
             if (error) {
+              console.log(error);
               if (error.response.data.errors.username == "username") {
                 vm.classUser = "is-danger";
                 vm.visUser = "visible";

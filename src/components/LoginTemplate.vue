@@ -222,11 +222,12 @@ export default {
           .then(respons => {
             if (respons && vm.logged) {
               vm.loading = "";
-              vm.$router.replace({ name: "logged" }, () => {});
+              vm.$router.replace({ name: "home" }, () => {});
               console.log(vm.logged);
             }
           })
           .catch(error => {
+            console.log(error);
             vm.loading = "";
             vm.serverError = error.response.data.message;
             vm.password = "";

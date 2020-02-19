@@ -170,11 +170,11 @@ export default {
       const vm = this;
       if (vm.Vpass == true && vm.Vmail == true) {
         vm.loading = "is-loading";
+        const params = new FormData();
+        params.append("email", vm.email);
+        params.append("password", vm.password);
         vm.$store
-          .dispatch("retrieveToken", {
-            email: vm.email,
-            password: vm.password
-          })
+          .dispatch("ambilToken", params)
           .then(response => {
             vm.loading = "";
             console.log(response);
