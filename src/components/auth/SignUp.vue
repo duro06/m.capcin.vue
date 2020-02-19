@@ -263,15 +263,17 @@ export default {
       pesan: "",
 
       name: "",
+      username: "",
+      email: "",
+      selected: "",
+      password: "",
+
       className: "",
       validName: "",
-
-      email: "",
       classDanger: "",
       visClass: "hidden",
       validMail: "",
 
-      selected: "",
       levels: [
         { id: "", nama: "Pilih bagian" },
         { id: 3, nama: "Produksi" },
@@ -287,7 +289,6 @@ export default {
       // classAddres: '',
       // validAddres: '',
       valSelect: "",
-      password: "",
       validPass: "",
       visPass: "hidden",
       passCheck: "",
@@ -299,7 +300,6 @@ export default {
 
       ServerError: "",
 
-      username: "",
       classUser: "",
       visUser: "hidden",
       validUser: "",
@@ -311,11 +311,6 @@ export default {
       reg: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/
     };
   },
-  // beforeRouteEnter(to, from, next) {
-  //   to({ path: "/signup" });
-  //   from("*");
-  //   if(store.getter)
-  // },
   updated() {
     if (localStorage.getItem("waiting_verivication")) {
       this.$router.replace(this.$route.query.redirect || "/test");
@@ -341,17 +336,20 @@ export default {
 
         vm.$store
           .dispatch("register", params)
-          .then(function(response) {
-            console.log(response.data);
+          .then(response => {
+            console.log(response);
             vm.$store.dispatch(
               "retrieveVerifie",
               "asdasdadasdasdadasdasdasdasdasdasdasdasdsad"
             );
+            this.flashMessage.success({
+              message: response.data.message,
+              time: 5000
+            });
             vm.loading = "";
-            this.$router.replace("/test");
+            this.$router.replace({ name: "test" }, () => {});
           })
           .catch(error => {
-            // vm.splitError(error.response.data.errors)
             if (error) {
               console.log(error);
               if (error.response.data.errors.username == "username") {
@@ -366,6 +364,10 @@ export default {
                 vm.validMail = "Email sudah terdaftar, harap diganti";
                 vm.email = "";
               }
+              this.flashMessage.error({
+                message: error.response.data.message,
+                time: 5000
+              });
               if (error.response.data.errors == "") {
                 vm.pesan = error.response.data.message;
               }
@@ -380,11 +382,27 @@ export default {
             // always executed
           });
         // alert(postData)
-      } else if (vm.name == "" || vm.phone == "" || vm.addres == "") {
+      } else if (
+        vm.name == "" ||
+        vm.email == "" ||
+        vm.slected == "" ||
+        vm.username == "" ||
+        vm.password == ""
+      ) {
         vm.NameValidation();
-        vm.phoneValidation();
-        vm.addresValidation();
+        vm.validasiSelect();
+        vm.UserValidation();
+        vm.formValidation();
+        vm.passOk();
+        this.flashMessage.error({
+          message: "silahkan isi dahulu yang belum di isi",
+          time: 5000
+        });
       } else {
+        this.flashMessage.error({
+          message: "silahkan isi dahulu yang belum di isi",
+          time: 5000
+        });
         vm.show = true;
         setTimeout(function() {
           vm.show = false;
