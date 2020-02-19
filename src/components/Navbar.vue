@@ -53,6 +53,7 @@
           v-wow
           data-wow-duration="1s"
           data-wow-delay="0.4s"
+          @click="route"
           >Level 3
         </router-link>
 
@@ -99,10 +100,22 @@ export default {
   data: () => ({
     isActive: false
   }),
-
+  computed: {
+    auth() {
+      return this.$store.getters.loggedIn;
+    }
+  },
   methods: {
     switchMenu() {
       this.isActive = !this.isActive;
+    },
+    route() {
+      if (!this.auth) {
+        this.flashMessage.error({
+          message: "anda belum login",
+          time: 5000
+        });
+      }
     }
   }
 };
