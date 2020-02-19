@@ -41,7 +41,7 @@ export default {
 </style>
 
 <style lang="scss">
-@import "./assets/css/animate.css";
+// @import "./assets/css/animate.css";
 @import "~bulma";
 
 #app {
