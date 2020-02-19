@@ -21,34 +21,12 @@
               data-wow-delay="0s"
               data-wow-duration="2s"
             >
-              <p class="subtitle has-text-black" v-if="!show">
+              <p class="subtitle has-text-black">
                 Please login to proceed.
-              </p>
-            </div>
-            <div class="notification is-warning is-light" v-if="show">
-              <span class="icon is-medium has-text-danger">
-                <i class="fas fa-2x fa-ban"></i>
-              </span>
-              <p>
-                <strong>Oh Snap!</strong>
-                Diisi dulu om.. jangan buru-buru
               </p>
             </div>
           </transition>
           <form action>
-            <div class="notification is-warning is-light" v-if="successMessage">
-              <span class="icon is-medium has-text-danger">
-                <i class="fas fa-2x fa-ban"></i>
-              </span>
-              <p>{{ successMessage }}</p>
-            </div>
-            <div class="notification is-warning is-light" v-if="serverError">
-              <span class="icon is-medium has-text-danger">
-                <i class="fas fa-2x fa-ban"></i>
-              </span>
-              <p>{{ serverError }}</p>
-            </div>
-
             <div class="login-form">
               <form role="form" method="post">
                 <div
@@ -164,17 +142,16 @@
 export default {
   name: "Login2",
   props: {
-    msg: String,
-    dataSucccessMessage: String
+    msg: String
   },
   data() {
     return {
       email: "",
+      password: "",
       classDanger: "",
       visClass: "hidden",
       validMail: "",
       reg: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
-      password: "",
       visPass: "hidden",
       passCheck: "",
       validPass: "",
@@ -182,19 +159,9 @@ export default {
       Vmail: false,
       Vpass: false,
       show: false,
-      loading: "",
-      successMessage: this.dataSucccessMessage,
-      serverError: ""
+      loading: ""
     };
   },
-  // updated() {
-  //   if (localStorage.getItem("access_token")) {
-  //     this.$router.replace(
-  //       this.$route.query.redirect || { name: "logged" },
-  //       () => {}
-  //     );
-  //   }
-  // },
   computed: {
     logged() {
       console.log(this.$store.getters.loggedIn);
@@ -220,6 +187,10 @@ export default {
         vm.$store
           .dispatch("retrieveToken", params)
           .then(respons => {
+            this.flashMessage.success({
+              message: respons.data.message,
+              time: 5000
+            });
             if (respons && vm.logged) {
               vm.loading = "";
               vm.$router.replace({ name: "home" }, () => {});
@@ -227,20 +198,39 @@ export default {
             }
           })
           .catch(error => {
-            console.log(error);
             vm.loading = "";
-            vm.serverError = error.response.data.message;
             vm.password = "";
-            vm.successMessage = "";
-            setTimeout(function() {
-              vm.serverError = "";
-            }, 2000);
+            console.log(error.response.data.message);
+
+            switch (error.response.status) {
+              case 422:
+                this.errors = error.response.data.errors;
+                break;
+              case 500:
+                this.flashMessage.error({
+                  message: error.response.data.message,
+                  time: 5000
+                });
+                break;
+              case 401:
+                this.flashMessage.error({
+                  message: error.response.data.message,
+                  time: 5000
+                });
+                break;
+              default:
+                this.flashMessage.error({
+                  message: "Some error occured, Please Try Again!",
+                  time: 5000
+                });
+                break;
+            }
           });
       } else {
-        vm.show = true;
-        setTimeout(function() {
-          vm.show = false;
-        }, 1500);
+        this.flashMessage.error({
+          message: "Jangan buru-buru Om, di isi dulu",
+          time: 4000
+        });
       }
     },
     //====================== ngisi pesan aja ===============

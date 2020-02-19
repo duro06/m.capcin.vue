@@ -53,7 +53,6 @@
           v-wow
           data-wow-duration="1s"
           data-wow-delay="0.4s"
-          @click.prevent="pesan"
           >Level 3
         </router-link>
         <br />
@@ -108,14 +107,6 @@ export default {
   methods: {
     switchMenu() {
       this.isActive = !this.isActive;
-    },
-    pesan() {
-      // if (!this.auth) {
-      this.flashMessage.error({
-        message: "anda belum login",
-        time: 5000
-      });
-      // }
     }
   }
 };
