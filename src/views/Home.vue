@@ -1,30 +1,31 @@
 <template>
-  <div class="home">
-    <Navbar />
-    <br />
-    <Level3 />
-    <Welcome />
-    <Button type="button" class="button is-success" @click="message"
-      >Test</Button
-    >
-    <Footer />
+  <div class="container">
+    <Navbar class="navbar" />
+    <div class=" hero-body  has-text-centered">
+      <Welcome />
+    </div>
+    <Footer class="navbar " />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Navbar from "@/components/Navbar.vue";
+import Navbar from "@/components/element/bulmaNav.vue";
 import Welcome from "@/components/Welcome.vue";
-import Footer from "@/components/Footer.vue";
-import Level3 from "@/components/Level3.vue";
+import Footer from "@/components/element/bulmaFooter.vue";
+// import Level3 from "@/components/Level3.vue";
 
 export default {
   name: "Home",
   components: {
     Welcome,
     Navbar,
-    Level3,
+    // Level3,
     Footer
+  },
+
+  created() {
+    document.querySelector("body").style.backgroundColor = "#aef";
   },
   methods: {
     message() {
@@ -36,3 +37,11 @@ export default {
   }
 };
 </script>
+<style scoped>
+.content {
+  padding: 60px 10px 53px 10px;
+}
+.mu {
+  background-color: rgb(37, 221, 235);
+}
+</style>

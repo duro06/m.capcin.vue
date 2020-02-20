@@ -1,7 +1,6 @@
 <template>
-  <div id="app">
-    <section class=" is-fullheight">
-      <!-- <div class="column is-4 is-offset-4 box"> -->
+  <section id="app" class="hero is-danger is-small is-fullheight">
+    <div class="hero-head">
       <FlashMessage
         position="right top"
         style="z-index: 19999 !important; position: fixed;"
@@ -9,9 +8,8 @@
       <transition class="slideInLeft" v-wow data-wow-duration="1s">
         <router-view :class="kelas" />
       </transition>
-      <!-- </div> -->
-    </section>
-  </div>
+    </div>
+  </section>
 </template>
 <script>
 export default {

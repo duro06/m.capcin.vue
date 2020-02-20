@@ -1,6 +1,6 @@
 <template>
-  <div id="foot" class="fadeInDown" v-wow data-wow-duration="0.5s">
-    <div class="mobile-bottom-nav is-hidden-desktop">
+  <div id="foot" class="field">
+    <div class="message-body mobile-bottom-nav is-hidden-desktop">
       <a href="home" data-toggle="page" class="mobile-bottom-nav__item">
         <div class="mobile-bottom-nav__item-content">
           <i
@@ -81,7 +81,7 @@ export default {
   background-color: #fff;
 }
 .mobile-bottom-nav i {
-  font-size: 20px;
+  font-size: 15;
 }
 a.mobile-bottom-nav__item {
   flex-grow: 1;
