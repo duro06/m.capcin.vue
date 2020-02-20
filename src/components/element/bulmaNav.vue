@@ -46,7 +46,7 @@
             v-wow
             data-wow-duration="1s"
             data-wow-delay="0.4s"
-            >Level 3</router-link
+            >Produksi</router-link
           >
           <router-link
             class="navbar-item slideInDown "
@@ -56,7 +56,7 @@
             v-wow
             data-wow-duration="1s"
             data-wow-delay="0.4s"
-            >Level 4</router-link
+            >Packing</router-link
           >
           <router-link
             class="navbar-item slideInDown "
@@ -66,7 +66,7 @@
             v-wow
             data-wow-duration="1s"
             data-wow-delay="0.4s"
-            >Level 5</router-link
+            >Suplier</router-link
           >
           <router-link
             class="navbar-item slideInDown "
@@ -76,7 +76,7 @@
             v-wow
             data-wow-duration="1s"
             data-wow-delay="0.4s"
-            >Level 6</router-link
+            >Mitra</router-link
           >
         </div>
       </div>

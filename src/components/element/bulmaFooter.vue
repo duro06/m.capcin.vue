@@ -12,9 +12,14 @@
             <i
               class="fas fa-home fa-2x slideInRight title"
               v-wow
-              data-wow-duration="1s"
+              data-wow-duration="2s"
             />
-            <p class="heading" style="color: white">
+            <p
+              class="heading slideInLeft"
+              style="color: white"
+              v-wow
+              data-wow-duration="2s"
+            >
               Beranda
             </p>
           </a>
@@ -24,10 +29,16 @@
             <i
               class="fas fa-info-circle slideInRight title"
               v-wow
-              data-wow-duration="1s"
-              data-wow-delay="0.3s"
+              data-wow-duration="2s"
+              data-wow-delay="0.5s"
             ></i>
-            <p class="heading" style="color: white">
+            <p
+              class="heading slideInLeft"
+              style="color: white"
+              v-wow
+              data-wow-duration="2s"
+              data-wow-delay="0.5s"
+            >
               Informasi
             </p>
           </a>
@@ -37,10 +48,16 @@
             <i
               class="fas fa-user-tie slideInRight title"
               v-wow
-              data-wow-duration="1s"
-              data-wow-delay="0.3s"
+              data-wow-duration="2s"
+              data-wow-delay="0.7s"
             ></i>
-            <p class="heading" style="color: white">
+            <p
+              class="heading slideInLeft"
+              style="color: white"
+              v-wow
+              data-wow-duration="2s"
+              data-wow-delay="0.7s"
+            >
               Profile
             </p>
           </a>
@@ -50,10 +67,16 @@
             <i
               class="fas fa-sign-in-alt slideInRight title"
               v-wow
-              data-wow-duration="1s"
-              data-wow-delay="0.3s"
+              data-wow-duration="2s"
+              data-wow-delay="0.9s"
             ></i>
-            <p class="heading" style="color: white">
+            <p
+              class="heading slideInLeft"
+              style="color: white"
+              v-wow
+              data-wow-duration="2s"
+              data-wow-delay="0.9s"
+            >
               Login
             </p>
           </a>
@@ -63,10 +86,16 @@
             <i
               class="fas fa-sign-out-alt slideInRight title"
               v-wow
-              data-wow-duration="1s"
-              data-wow-delay="0.3s"
+              data-wow-duration="2s"
+              data-wow-delay="0.9s"
             ></i>
-            <p class="heading" style="color: white">
+            <p
+              class="heading slideInLeft"
+              style="color: white"
+              v-wow
+              data-wow-duration="2s"
+              data-wow-delay="0.9s"
+            >
               Logout
             </p>
           </a>

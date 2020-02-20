@@ -26,14 +26,6 @@ export default {
 
   created() {
     document.querySelector("body").style.backgroundColor = "#aef";
-  },
-  methods: {
-    message() {
-      this.flashMessage.error({
-        message: "anda belum login",
-        time: 5000
-      });
-    }
   }
 };
 </script>
