@@ -40,6 +40,7 @@
         <div class="navbar-end  has-text-centered">
           <router-link
             class="navbar-item slideInDown "
+            v-if="level == 3"
             :to="{ path: '/level3' }"
             replace
             v-wow
@@ -49,6 +50,7 @@
           >
           <router-link
             class="navbar-item slideInDown "
+            v-if="level == 4"
             :to="{ path: '/level4' }"
             replace
             v-wow
@@ -58,6 +60,7 @@
           >
           <router-link
             class="navbar-item slideInDown "
+            v-if="level == 5"
             :to="{ path: '/level5' }"
             replace
             v-wow
@@ -67,6 +70,7 @@
           >
           <router-link
             class="navbar-item slideInDown "
+            v-if="level == 6"
             :to="{ path: '/level6' }"
             replace
             v-wow
