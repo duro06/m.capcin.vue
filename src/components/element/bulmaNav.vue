@@ -83,6 +83,14 @@
 export default {
   name: "navbar",
   data: () => ({ isActive: false }),
+  computed: {
+    level() {
+      return this.$store.getters.levelAccess;
+    },
+    check() {
+      return console.log(this.level);
+    }
+  },
   methods: {
     switchMenu() {
       this.isActive = !this.isActive;
