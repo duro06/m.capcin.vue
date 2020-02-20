@@ -4,15 +4,15 @@ import App from "./App.vue";
 import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
-import Bulma from "bulma";
+// import Bulma from "bulma";
 import Vuex from "vuex";
 import axios from "axios";
 import vWow from "v-wow";
 import FlashMessage from '@smartweb/vue-flash-message';
 
-import "bulma/bulma.sass";
-import "bulma/css/bulma.css";
-import "bulma/css/bulma.min.css";
+// import "bulma/bulma.sass";
+// import "bulma/css/bulma.css";
+// import "bulma/css/bulma.min.css";
 import "bulma-badge/dist/css/bulma-badge.min.css";
 // import 'bulma-badge/dist/css/bulma-badge.sass'
 
@@ -20,7 +20,7 @@ import "bulma-badge/dist/css/bulma-badge.min.css";
 
 Vue.config.productionTip = false;
 Vue.use(Vuex, axios);
-Vue.use(Bulma);
+// Vue.use(Bulma);
 Vue.use(vWow);
 Vue.use(FlashMessage);
 // Vue.use(Pusher);
@@ -66,6 +66,7 @@ router.beforeEach((to, from, next) => {
 
 // const _urlOriginApi = "http://192.168.43.231/capcin/";
 const _LurlApi = "http://localhost/capcin/";
+// const _LurlApi = "http://192.168.1.100/capcin/";
 // const _LurlApi = "http://localhost/capcin-copy/";
 // const _newUrlApp = _LurlApi + "app";
 // const _newUrlUser = _LurlApi + "user/login";

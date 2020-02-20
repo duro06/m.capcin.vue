@@ -26,8 +26,9 @@
       </div>
       <a
         role="button"
+        id="burger"
         v-wow
-        class="navbar-burger has-text-white slideInRight"
+        class="burger navbar-burger has-text-white slideInRight"
         :class="{ 'is-active': isActive }"
         aria-label="menu"
         aria-expanded="false"
@@ -112,48 +113,9 @@ export default {
 };
 </script>
 <style scoped>
-#navbar {
+.navbar {
   padding-left: 1px;
   padding-right: 5px;
   padding-top: 5px;
 }
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    -webkit-transform: translate3d(0, 30%, 0);
-    -ms-transform: translate3d(0, 30%, 0);
-    transform: translate3d(0, 30%, 0);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: none;
-    -ms-transform: none;
-    transform: none;
-  }
-}
-
-/* @keyframes fadeInDown {
-  0% {
-    opacity: 0;
-    -webkit-transform: translate3d(0, 30%, 0);
-    -ms-transform: translate3d(0, 30%, 0);
-    transform: translate3d(0, 30%, 0);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: none;
-    -ms-transform: none;
-    transform: none;
-  }
-} */
-
-.fadeInUp {
-  animation-name: fadeInUp;
-  animation-timing-function: ease-out;
-}
-
-/* .fadeInDown {
-  animation-name: fadeInDown;
-  animation-timing-function: ease-in;
-} */
 </style>

@@ -368,14 +368,8 @@ export default {
                 message: error.response.data.message,
                 time: 5000
               });
-              if (error.response.data.errors == "") {
-                vm.pesan = error.response.data.message;
-              }
+
               vm.loading = "";
-              // if(error.response.data.errors)
-              setTimeout(function() {
-                vm.pesan = "";
-              }, 5000);
             }
           })
           .then(function() {

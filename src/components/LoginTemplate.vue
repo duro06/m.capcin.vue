@@ -218,6 +218,12 @@ export default {
                   time: 5000
                 });
                 break;
+              case 404:
+                this.flashMessage.error({
+                  message: error.response.data.message,
+                  time: 5000
+                });
+                break;
               default:
                 this.flashMessage.error({
                   message: "Some error occured, Please Try Again!",
