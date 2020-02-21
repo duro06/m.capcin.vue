@@ -10,7 +10,8 @@
         <div class="level-item has-text-centered">
           <a href="home">
             <i
-              class="fas fa-home fa-2x slideInRight title"
+              class="fas fa-home slideInRight"
+              style="color: white"
               v-wow
               data-wow-duration="2s"
             />
@@ -27,7 +28,8 @@
         <div class="level-item has-text-centered">
           <a href="/">
             <i
-              class="fas fa-info-circle slideInRight title"
+              class="fas fa-info-circle slideInRight"
+              style="color: white"
               v-wow
               data-wow-duration="2s"
               data-wow-delay="0.5s"
@@ -46,7 +48,8 @@
         <div class="level-item has-text-centered">
           <a href="/">
             <i
-              class="fas fa-user-tie slideInRight title"
+              class="fas fa-user-tie slideInRight "
+              style="color: white"
               v-wow
               data-wow-duration="2s"
               data-wow-delay="0.7s"
@@ -65,7 +68,8 @@
         <div v-if="!loggedIn" class="level-item has-text-centered">
           <a href="login">
             <i
-              class="fas fa-sign-in-alt slideInRight title"
+              class="fas fa-sign-in-alt slideInRight"
+              style="color: white"
               v-wow
               data-wow-duration="2s"
               data-wow-delay="0.9s"
@@ -84,7 +88,8 @@
         <div v-if="loggedIn" class="level-item has-text-centered">
           <a href="Logout">
             <i
-              class="fas fa-sign-out-alt slideInRight title"
+              class="fas fa-sign-out-alt slideInRight"
+              style="color: white"
               v-wow
               data-wow-duration="2s"
               data-wow-delay="0.9s"

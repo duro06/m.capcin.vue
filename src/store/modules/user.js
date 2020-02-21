@@ -70,7 +70,7 @@ export default {
     register(context, data) {
       return new Promise((resolve, reject) => {
         httpd()
-          .post("api/user/register", data)
+          .post("api/auth/register", data)
           .then(response => {
             resolve(response);
           })
@@ -81,42 +81,42 @@ export default {
     },
     destroyToken({ commit }) {
       if (store.getters.loggedIn) {
-        // return new Promise((resolve, reject) =>
-        // {
-        // http()
-        //   .post("api/user/logout")
-        //   .then(
-        // response => {
-        localStorage.removeItem("access_token"),
-          localStorage.removeItem("access_level"),
-          commit("setDestroyToken", {
-            root: true
-          });
-        commit("setDestroyLevel", {
-          root: true
+        return new Promise((resolve, reject) => {
+          http()
+            .post("api/user/logout")
+            .then(response => {
+              localStorage.removeItem("access_token"),
+                localStorage.removeItem("access_level"),
+                commit("setDestroyToken", {
+                  root: true
+                });
+              commit("setDestroyLevel", {
+                root: true
+              });
+              resolve(response);
+              console.log(response);
+            })
+            .catch(error => {
+              localStorage.removeItem("access_level"),
+                localStorage.removeItem("access_token");
+              commit("setDestroyLevel", {
+                root: true
+              });
+              commit("setDestroyToken", { root: true });
+              reject(error);
+            });
         });
-        // resolve(response);
-        // console.log(response);
-        // context.commit('addTodo', response.data)
-        // }
-        // )
-        // .catch(
-        //   localStorage.removeItem("access_token"),
-        //   context.commit("destroyToken")
-        //   // reject(error);
-        // );
-        // });
       }
     },
     retrieveToken({ commit }, credentials) {
       return new Promise((resolve, reject) => {
         console.log(credentials);
-        httpd()
-          .post("api/user/login", credentials)
+        http()
+          .post("api/auth/login", credentials)
           .then(response => {
-            // console.log(response.data.data)
-            const token = response.data.data.token;
-            const level = response.data.data.level;
+            console.log(response);
+            const token = response.data.access_token;
+            const level = response.data.token_scope;
             localStorage.setItem("access_token", token);
             localStorage.setItem("access_level", level);
             commit("setRetrieveToken", token, {

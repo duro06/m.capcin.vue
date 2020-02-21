@@ -21,9 +21,7 @@
               data-wow-delay="0s"
               data-wow-duration="2s"
             >
-              <p class="subtitle has-text-black">
-                Please login to proceed.
-              </p>
+              <p class="subtitle has-text-black">Please login to proceed.</p>
             </div>
           </transition>
           <form action>
@@ -41,7 +39,7 @@
                       type="email"
                       placeholder="Email"
                       data-lpignore="true"
-                      v-model="email"
+                      v-model="user.email"
                     />
                     <span class="icon is-small is-left">
                       <i class="fas fa-envelope"></i>
@@ -70,7 +68,7 @@
                       type="password"
                       placeholder="Password"
                       data-lpignore="true"
-                      v-model="password"
+                      v-model="user.password"
                     />
                     <span class="icon is-small is-left">
                       <i class="fas fa-lock"></i>
@@ -90,7 +88,8 @@
                 <div class="field" style="visibility:hidden">
                   <p class="control">
                     <label class="checkbox">
-                      <input type="checkbox" />Remember me
+                      <input type="checkbox" v-model="user.remember" />Remember
+                      me
                     </label>
                   </p>
                 </div>
@@ -146,8 +145,12 @@ export default {
   },
   data() {
     return {
-      email: "",
-      password: "",
+      user: {
+        email: "",
+        password: "",
+        remember: false
+      },
+
       classDanger: "",
       visClass: "hidden",
       validMail: "",
@@ -181,11 +184,11 @@ export default {
       if (vm.Vpass == true && vm.Vmail == true) {
         vm.loading = "is-loading";
         // const params = new URLSearchParams();
-        const params = new FormData();
-        params.append("email", vm.email);
-        params.append("password", vm.password);
+        // const params = new FormData();
+        // params.append("email", vm.user.email);
+        // params.append("password", vm.user.password);
         vm.$store
-          .dispatch("retrieveToken", params)
+          .dispatch("retrieveToken", this.user)
           .then(respons => {
             this.flashMessage.success({
               message: respons.data.message,
@@ -199,8 +202,10 @@ export default {
           })
           .catch(error => {
             vm.loading = "";
-            vm.password = "";
-            console.log(error.response.data.message);
+            vm.user.password = "";
+            // if (error) {
+            //   console.log(error.response.data.message);
+            // }
 
             switch (error.response.status) {
               case 422:
@@ -258,15 +263,15 @@ export default {
     formValidation: function() {
       const vm = this;
 
-      if (vm.email != "") {
-        if (vm.reg.test(vm.email) == false) {
+      if (vm.user.email != "") {
+        if (vm.reg.test(vm.user.email) == false) {
           vm.mailString(
             "is-danger",
             "visible",
             "periksa kembali email anda",
             false
           );
-        } else if (vm.reg.test(vm.email) == true) {
+        } else if (vm.reg.test(vm.user.email) == true) {
           vm.mailString("is-success", "hidden", "", true);
         }
       } else {
@@ -277,8 +282,8 @@ export default {
     //=================== validasi Password ==================
     passOk: function() {
       const vm = this;
-      if (vm.email != "" && vm.validMail == "" && vm.password != "") {
-        if (vm.password.length <= 5) {
+      if (vm.user.email != "" && vm.validMail == "" && vm.user.password != "") {
+        if (vm.user.password.length <= 5) {
           vm.passString(
             "is-danger",
             "hidden",
@@ -288,11 +293,11 @@ export default {
         } else {
           vm.passString("is-success", "visible", "", true);
         }
-      } else if (vm.password != "" && vm.email == "") {
+      } else if (vm.user.password != "" && vm.user.email == "") {
         vm.passString("is-danger", "hidden", "Email anda kosong", false);
-      } else if (vm.password != "" && vm.validMail != "") {
+      } else if (vm.user.password != "" && vm.validMail != "") {
         vm.passString("is-danger", "hidden", "Email anda belum valid", false);
-      } else if (vm.password == "" && vm.email != "") {
+      } else if (vm.user.password == "" && vm.user.email != "") {
         vm.passString(
           "is-warning",
           "hidden",

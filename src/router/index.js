@@ -74,7 +74,17 @@ const routes = [{
         path: 'footer',
         component: () => import("../components/Footer.vue")
       }
-    ]
+    ],
+    beforeEnter: (to, from, next) => {
+      console.log('logged get ', store.getters.loggedIn);
+      if (store.getters.loggedIn) {
+        next();
+      } else if (store.getters.waitingVerified) {
+        next('/test');
+      } else {
+        next("/login");
+      }
+    }
   },
   {
     path: "*",

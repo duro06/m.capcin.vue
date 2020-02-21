@@ -13,7 +13,7 @@ import FlashMessage from '@smartweb/vue-flash-message';
 // import "bulma/bulma.sass";
 // import "bulma/css/bulma.css";
 // import "bulma/css/bulma.min.css";
-import "bulma-badge/dist/css/bulma-badge.min.css";
+// import "bulma-badge/dist/css/bulma-badge.min.css";
 // import 'bulma-badge/dist/css/bulma-badge.sass'
 
 // import 'https://js.pusher.com/5.1/pusher.min.js'
@@ -65,7 +65,8 @@ router.beforeEach((to, from, next) => {
 
 
 // const _urlOriginApi = "http://192.168.43.231/capcin/";
-const _LurlApi = "http://localhost/capcin/";
+const _LurlApi = "http://localhost:8000/";
+// const _LurlApi = "http://localhost/capcin/";
 // const _LurlApi = "http://192.168.1.100/capcin/";
 // const _LurlApi = "http://localhost/capcin-copy/";
 // const _newUrlApp = _LurlApi + "app";

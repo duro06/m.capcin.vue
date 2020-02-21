@@ -39,35 +39,3 @@ export default {
   // }
 };
 </script>
-
-<style lang="scss">
-// @import "./assets/css/animate.css";
-// @import "~bulma";
-
-// #app {
-//   font-family: Avenir, Helvetica, Arial, sans-serif;
-//   -webkit-font-smoothing: antialiased;
-//   -moz-osx-font-smoothing: grayscale;
-//   text-align: center;
-//   color: #2c3e50;
-// }
-
-// #nav {
-//   padding-bottom: 3%;
-
-//   a {
-//     font-weight: bold;
-//     color: #2c3e50;
-
-//     &.router-link-exact-active {
-//       color: #42b983;
-//     }
-//   }
-// }
-// #fot {
-//   padding-top: 2%;
-// }
-// #view {
-//   padding-bottom: 2%;
-// }
-</style>
