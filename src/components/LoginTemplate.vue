@@ -87,7 +87,12 @@
                   </p>
                 </div>
 
-                <div class="field" style="visibility:hidden">
+                <div
+                  class="field fadeInUp"
+                  v-wow
+                  data-wow-delay="0s"
+                  data-wow-duration="2s"
+                >
                   <p class="control">
                     <label class="checkbox">
                       <input type="checkbox" v-model="user.remember" />Remember

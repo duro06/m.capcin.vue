@@ -9,7 +9,7 @@ Vue.use(VueRouter);
 const routes = [{
     path: "/",
     redirect: {
-      name: "login"
+      name: "home"
     }
   },
   {
@@ -74,6 +74,35 @@ const routes = [{
         path: 'footer',
         component: () => import("../components/Footer.vue")
       }
+    ],
+    beforeEnter: (to, from, next) => {
+      console.log('logged get ', store.getters.loggedIn);
+      if (store.getters.loggedIn) {
+        next();
+      } else if (store.getters.waitingVerified) {
+        next('/test');
+      } else {
+        next("/login");
+      }
+    }
+  },
+  
+  {
+    path: "/profile",
+    name: "profile",
+    component: () => import("../components/Profile.vue"),
+    children: [{
+      path: 'navbar',
+      component: () => import("../components/Navbar.vue")
+    },
+    {
+      path: 'level3',
+      component: () => import("../components/Level3.vue")
+    },
+    {
+      path: 'footer',
+      component: () => import("../components/Footer.vue")
+    }
     ],
     beforeEnter: (to, from, next) => {
       console.log('logged get ', store.getters.loggedIn);

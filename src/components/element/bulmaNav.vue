@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar is-fixed-top fadeInUp " v-wow data-wow-duration="2s">
     <div class="container ">
-      <div class="navbar-brand level">
+      <div class="navbar-brand level is-mobile">
         <div class="level-item has-text-centered">
           <span>
             <router-link
@@ -17,6 +17,12 @@
               />
               Home</router-link
             >
+          </span>
+        </div>
+        <div class="level-item has-text-centered">
+          <span>
+            <p class="is-size-7">Logged in as :</p>
+            <p class="is-size-7">{{ (" ", level) }} Capcin</p>
           </span>
         </div>
         <span

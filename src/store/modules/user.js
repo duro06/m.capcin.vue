@@ -1,5 +1,5 @@
 // import axios from "axios";
-import { httpd, http } from "../../services/service";
+import { http, httpNot } from "../../services/service";
 import store from "..";
 import { setToken } from "../../services/auth_service";
 // import axios from "@/backend/vue-axios";
@@ -9,6 +9,7 @@ export default {
     token: localStorage.getItem("access_token") || null,
     adminVerified: localStorage.getItem("waiting_verivication") || null,
     level: localStorage.getItem("access_level") || null,
+    // userProfile: {},
     profile: {}
   },
   getters: {
@@ -20,9 +21,27 @@ export default {
     },
     waitingVerified(state) {
       return state.adminVerified !== null;
+    },
+    myProfile(state) {
+      return state.profile;
+    },
+    akunProfile(state) {
+      return state.userProfile;
     }
   },
   mutations: {
+    // setUserProfile(state, payload) {
+    //   state.userProfile = payload;
+    // },
+    // delUserProfile(state) {
+    //   state.userProfile = {};
+    // },
+    setAuthenticate(state, payload) {
+      state.profile = payload;
+    },
+    delAuthenticate(state) {
+      state.profile = {};
+    },
     setAccessLevel(state, level) {
       state.level = level;
     },
@@ -44,6 +63,9 @@ export default {
     }
   },
   actions: {
+    aunthenticate({ commit }, payload) {
+      commit("setAuthenticate", payload, { root: true });
+    },
     destroyVerifie(context) {
       localStorage.removeItem("waiting_verivication");
       context.commit("setDestroyverifie", {
@@ -59,18 +81,20 @@ export default {
     retrieveName() {
       return new Promise((resolve, reject) => {
         http()
-          .get("api/user")
+          .get("api/auth/profile")
           .then(response => {
+            console.log(response);
             resolve(response);
           })
           .catch(error => {
+            console.log(error);
             reject(error);
           });
       });
     },
     register(context, data) {
       return new Promise((resolve, reject) => {
-        httpd()
+        httpNot()
           .post("api/auth/register", data)
           .then(response => {
             resolve(response);
@@ -92,6 +116,9 @@ export default {
         commit("setDestroyLevel", {
           root: true
         });
+        commit("delAuthenticate", {
+          root: true
+        });
       }
     },
     retrieveToken(context, credentials) {
@@ -101,16 +128,6 @@ export default {
           .post("api/auth/login", credentials)
           .then(response => {
             console.log(response);
-            // const token = response.data.access_token;
-            // const level = response.data.token_scope;
-            // localStorage.setItem("access_token", token);
-            // localStorage.setItem("access_level", level);
-            // commit("setRetrieveToken", token, {
-            //   root: true
-            // });
-            // commit("setAccessLevel", level, {
-            //   root: true
-            // });
             setToken(response.data);
             resolve(response);
           })

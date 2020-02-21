@@ -46,7 +46,7 @@
           </a>
         </div>
         <div class="level-item has-text-centered">
-          <a href="/">
+          <a href="/profile">
             <i
               class="fas fa-user-tie slideInRight "
               style="color: white"
