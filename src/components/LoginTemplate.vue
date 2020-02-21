@@ -21,7 +21,9 @@
               data-wow-delay="0s"
               data-wow-duration="2s"
             >
-              <p class="subtitle has-text-black">Please login to proceed.</p>
+              <p id="log" class="subtitle has-text-black">
+                Please login to proceed.
+              </p>
             </div>
           </transition>
           <form action>
@@ -191,8 +193,8 @@ export default {
           .dispatch("retrieveToken", this.user)
           .then(respons => {
             this.flashMessage.success({
-              message: respons.data.message,
-              time: 5000
+              message: "Login success",
+              time: 2000
             });
             if (respons && vm.logged) {
               vm.loading = "";
@@ -313,37 +315,7 @@ export default {
 };
 </script>
 <style scoped>
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    -webkit-transform: translate3d(0, 30%, 0);
-    -ms-transform: translate3d(0, 30%, 0);
-    transform: translate3d(0, 30%, 0);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: none;
-    -ms-transform: none;
-    transform: none;
-  }
-}
-
-.fadeInUp {
-  animation-name: fadeInUp;
-  animation-timing-function: ease-out;
-}
-/* @import "../assets/css/login.css"; */
-/* Enter and leave animations can use different */
-/* durations and timing functions.              */
-.slide-fade-enter-active {
-  transition: all 0.8s ease;
-}
-.slide-fade-leave-active {
-  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
-}
-.slide-fade-enter, .slide-fade-leave-to
-/* .slide-fade-leave-active below version 2.1.8 */ {
-  transform: translateX(10px);
-  opacity: 0;
+#log {
+  padding-bottom: 10px;
 }
 </style>
