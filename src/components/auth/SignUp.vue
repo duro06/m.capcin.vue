@@ -53,7 +53,7 @@
                     :class="['input', className, 'is-small']"
                     type="name"
                     placeholder="Nama"
-                    v-model="name"
+                    v-model="user.name"
                   />
                   <span class="icon is-small is-left">
                     <i class="fas fa-portrait"></i>
@@ -65,7 +65,7 @@
               </div>
             </div>
 
-            <div
+            <!-- <div
               class="field fadeInUp"
               v-wow
               data-wow-delay="0s"
@@ -94,7 +94,7 @@
                   {{ validUser }}
                 </p>
               </div>
-            </div>
+            </div> -->
 
             <div
               class="field fadeInUp"
@@ -109,7 +109,7 @@
                     :class="['input', classDanger, 'is-small']"
                     type="email"
                     placeholder="Email"
-                    v-model="email"
+                    v-model="user.email"
                   />
                   <span class="icon is-small is-left">
                     <i class="fas fa-envelope"></i>
@@ -127,7 +127,7 @@
               </div>
             </div>
 
-            <div
+            <!-- <div
               class="field fadeInUp"
               v-wow
               data-wow-delay="0s"
@@ -151,7 +151,7 @@
                   </span>
                 </div>
               </div>
-            </div>
+            </div> -->
 
             <div
               class="field fadeInUp"
@@ -166,7 +166,7 @@
                     :class="['input', validPass, 'is-small']"
                     type="password"
                     placeholder="Password"
-                    v-model="password"
+                    v-model="user.password"
                   />
                   <span class="icon is-small is-left">
                     <i class="fas fa-lock"></i>
@@ -194,7 +194,7 @@
                     :class="['input', classKonfirm, 'is-small']"
                     type="password"
                     placeholder="Konfirmasi Password"
-                    v-model="Kpassword"
+                    v-model="user.password_confirmation"
                   />
                   <span class="icon is-small is-left">
                     <i class="fas fa-lock"></i>
@@ -244,7 +244,7 @@
           data-wow-duration="2s"
         >
           <div class="has-text-centered">
-            <a @click="toLogin">
+            <a @click="toLogin" style="color: white">
               Sudah Punya Akun?
               <strong style="text-decoration:underline;">Log in</strong>
               Sekarang !
@@ -262,11 +262,15 @@ export default {
     return {
       pesan: "",
 
-      name: "",
-      username: "",
-      email: "",
+      user: {
+        name: "",
+        email: "",
+        password: "",
+        password_confirmation: ""
+      },
+
       selected: "",
-      password: "",
+      username: "",
 
       className: "",
       validName: "",
@@ -293,7 +297,6 @@ export default {
       visPass: "hidden",
       passCheck: "",
 
-      Kpassword: "",
       classKonfirm: "",
       kPass: "hidden",
       passKonfirm: "",
@@ -322,20 +325,20 @@ export default {
     },
     register: function() {
       const vm = this;
-      if (vm.selected == "") {
-        vm.valSelect = "is-danger";
-      }
-      if (vm.Vpass == true && vm.Vmail == true && vm.selected != "") {
+      // if (vm.selected == "") {
+      //   vm.valSelect = "is-danger";
+      // }
+      if (vm.Vpass == true && vm.Vmail == true) {
         vm.loading = "is-loading";
-        const params = new FormData();
-        params.append("nama", vm.name);
-        params.append("username", vm.username);
-        params.append("email", vm.email);
-        params.append("id_level", vm.selected);
-        params.append("password", vm.password);
+        // const params = new FormData();
+        // params.append("nama", vm.name);
+        // params.append("username", vm.username);
+        // params.append("email", vm.email);
+        // params.append("id_level", vm.selected);
+        // params.append("password", vm.password);
 
         vm.$store
-          .dispatch("register", params)
+          .dispatch("register", this.user)
           .then(response => {
             console.log(response);
             vm.$store.dispatch(
@@ -352,22 +355,35 @@ export default {
           .catch(error => {
             if (error) {
               console.log(error);
-              if (error.response.data.errors.username == "username") {
-                vm.classUser = "is-danger";
-                vm.visUser = "visible";
-                (vm.validUser = "Username sudah ada, harap diganti"),
-                  (vm.username = "");
-              }
+              // if (error.response.data.errors.username == "username") {
+              //   vm.classUser = "is-danger";
+              //   vm.visUser = "visible";
+              //   (vm.validUser = "Username sudah ada, harap diganti"),
+              //     (vm.username = "");
+              // }
               if (error.response.data.errors.email == "email") {
                 vm.classDanger = "is-danger";
                 vm.visClass = "visible";
                 vm.validMail = "Email sudah terdaftar, harap diganti";
-                vm.email = "";
+                vm.user.email = "";
               }
-              this.flashMessage.error({
-                message: error.response.data.message,
-                time: 5000
-              });
+              switch (error.response.status) {
+                case 422:
+                  this.errors = error.response.data.errors;
+                  break;
+                case 500:
+                  this.flashMessage.error({
+                    message: error.response.data.message,
+                    time: 5000
+                  });
+                  break;
+                default:
+                  this.flashMessage.error({
+                    message: "Some error occured, Please Try Again!",
+                    time: 5000
+                  });
+                  break;
+              }
 
               vm.loading = "";
             }
@@ -377,15 +393,15 @@ export default {
           });
         // alert(postData)
       } else if (
-        vm.name == "" ||
-        vm.email == "" ||
-        vm.slected == "" ||
-        vm.username == "" ||
-        vm.password == ""
+        vm.user.name == "" ||
+        vm.user.email == "" ||
+        // vm.slected == "" ||
+        // vm.username == "" ||
+        vm.user.password == ""
       ) {
         vm.NameValidation();
-        vm.validasiSelect();
-        vm.UserValidation();
+        // vm.validasiSelect();
+        // vm.UserValidation();
         vm.formValidation();
         vm.passOk();
         this.flashMessage.error({
@@ -454,35 +470,41 @@ export default {
     //  }
     // },
     //= ================== validasi username ============
-    UserValidation() {
-      const vm = this;
-      if (vm.username == "") {
-        vm.classUser = "is-danger";
-        vm.visUser = "visible";
-        vm.validUser = "Tidak boleh kosong";
-      } else if (vm.reg2.test(vm.username) == false) {
-        vm.classUser = "is-danger";
-        vm.visUser = "visible";
-        vm.validUser =
-          "gunakan karakter alpha-numerik (a-z / 0-9) dalam satu kata";
-      } else if (vm.username >= 20) {
-        vm.classUser = "is-danger";
-        vm.visUser = "visible";
-        vm.validUser = "tidak boleh lebih dari 20 karakter";
-      } else {
-        vm.classUser = "is-success";
-        vm.visUser = "hidden";
-        vm.validUser = "";
-      }
-    },
+    // UserValidation() {
+    //   const vm = this;
+    //   if (vm.username == "") {
+    //     vm.classUser = "is-danger";
+    //     vm.visUser = "visible";
+    //     vm.validUser = "Tidak boleh kosong";
+    //   } else if (vm.reg2.test(vm.username) == false) {
+    //     vm.classUser = "is-danger";
+    //     vm.visUser = "visible";
+    //     vm.validUser =
+    //       "gunakan karakter alpha-numerik (a-z / 0-9) dalam satu kata";
+    //   } else if (vm.username >= 20) {
+    //     vm.classUser = "is-danger";
+    //     vm.visUser = "visible";
+    //     vm.validUser = "tidak boleh lebih dari 20 karakter";
+    //   } else {
+    //     vm.classUser = "is-success";
+    //     vm.visUser = "hidden";
+    //     vm.validUser = "";
+    //   }
+    // },
     konfirm() {
       const vm = this;
-      if (vm.password != vm.Kpassword && vm.Kpassword != "") {
+      if (
+        vm.user.password != vm.user.password_confirmation &&
+        vm.user.password_confirmation != ""
+      ) {
         vm.classKonfirm = "is-danger";
         vm.kPass = "hidden";
         vm.passKonfirm = "Tidak sama";
         vm.Vpass = false;
-      } else if (vm.password == vm.Kpassword && vm.Kpassword != "") {
+      } else if (
+        vm.user.password == vm.user.password_confirmation &&
+        vm.user.password_confirmation != ""
+      ) {
         vm.classKonfirm = "is-success";
         vm.kPass = "visible";
         vm.passKonfirm = "";
@@ -497,18 +519,18 @@ export default {
     formValidation: function() {
       const vm = this;
 
-      if (vm.email != "") {
-        if (vm.reg.test(vm.email) == false) {
+      if (vm.user.email != "") {
+        if (vm.reg.test(vm.user.email) == false) {
           vm.mailString(
             "is-danger",
             "visible",
             "periksa kembali email anda",
             false
           );
-        } else if (vm.reg.test(vm.email) == true) {
+        } else if (vm.reg.test(vm.user.email) == true) {
           vm.mailString("is-success", "hidden", "", true);
         }
-      } else if (vm.email >= 80) {
+      } else if (vm.user.email >= 80) {
         vm.mailString(
           "is-danger",
           "visible",
@@ -523,8 +545,8 @@ export default {
     //= ================== validasi Password ==================
     passOk: function() {
       const vm = this;
-      if (vm.email != "" && vm.validMail == "" && vm.password != "") {
-        if (vm.password.length <= 5) {
+      if (vm.user.email != "" && vm.validMail == "" && vm.user.password != "") {
+        if (vm.user.password.length <= 5) {
           vm.passString(
             "is-danger",
             "hidden",
@@ -534,11 +556,11 @@ export default {
         } else {
           vm.passString("is-success", "visible", "", true);
         }
-      } else if (vm.password != "" && vm.email == "") {
+      } else if (vm.user.password != "" && vm.user.email == "") {
         vm.passString("is-danger", "hidden", "Email anda kosong", false);
-      } else if (vm.password != "" && vm.validMail != "") {
+      } else if (vm.user.password != "" && vm.validMail != "") {
         vm.passString("is-danger", "hidden", "Email anda belum valid", false);
-      } else if (vm.password == "" && vm.email != "") {
+      } else if (vm.user.password == "" && vm.user.email != "") {
         vm.passString(
           "is-warning",
           "hidden",

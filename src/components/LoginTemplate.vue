@@ -88,17 +88,17 @@
                 </div>
 
                 <div
-                  class="field fadeInUp"
+                  class="field fadeInUp level"
                   v-wow
                   data-wow-delay="0s"
                   data-wow-duration="2s"
                 >
-                  <p class="control">
-                    <label class="checkbox">
-                      <input type="checkbox" v-model="user.remember" />Remember
-                      me
+                  <div class="level-item has-text-centered ">
+                    <input type="checkbox" v-model="user.remember" />
+                    <label class="checkbox is-size-7 ">
+                      Remember me
                     </label>
-                  </p>
+                  </div>
                 </div>
                 <div
                   class="field fadeInUp"
