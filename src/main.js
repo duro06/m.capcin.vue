@@ -9,7 +9,7 @@ import axios from "axios";
 import vWow from "v-wow";
 import FlashMessage from '@smartweb/vue-flash-message';
 
-
+import "bulma-carousel"
 
 // import 'https://js.pusher.com/5.1/pusher.min.js'
 
