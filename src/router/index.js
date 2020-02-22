@@ -241,6 +241,23 @@ const routes = [{
         next("/home");
       }
     }
+  },
+  {
+    path: "/card",
+    name: "card",
+    component: () =>
+      import(
+        "../components/element/Card.vue"),
+    // beforeEnter: (to, from, next) => {
+    //   console.log('get level ', store.getters.levelAccess);
+    //   if (store.getters.levelAccess == 6) {
+    //     next();
+    //   } else if (store.getters.waitingVerified) {
+    //     next('/test');
+    //   } else {
+    //     next("/home");
+    //   }
+    // }
   }
 ];
 

@@ -64,7 +64,7 @@
                   data-wow-delay="0s"
                   data-wow-duration="2s"
                 >
-                  <p class="control has-icons-left">
+                  <p class="control has-icons-left has-icons-right">
                     <input
                       :class="['input', passOk(), 'is-small']"
                       type="password"
@@ -210,38 +210,38 @@ export default {
           .catch(error => {
             vm.loading = "";
             vm.user.password = "";
-            // if (error) {
-            //   console.log(error.response.data.message);
-            // }
+            if (error) {
+              //   console.log(error.response.data.message);
 
-            switch (error.response.status) {
-              case 422:
-                this.errors = error.response.data.errors;
-                break;
-              case 500:
-                this.flashMessage.error({
-                  message: error.response.data.message,
-                  time: 5000
-                });
-                break;
-              case 401:
-                this.flashMessage.error({
-                  message: error.response.data.message,
-                  time: 5000
-                });
-                break;
-              case 404:
-                this.flashMessage.error({
-                  message: error.response.data.message,
-                  time: 5000
-                });
-                break;
-              default:
-                this.flashMessage.error({
-                  message: "Some error occured, Please Try Again!",
-                  time: 5000
-                });
-                break;
+              switch (error.response.status) {
+                case 422:
+                  this.errors = error.response.data.errors;
+                  break;
+                case 500:
+                  this.flashMessage.error({
+                    message: error.response.data.message,
+                    time: 5000
+                  });
+                  break;
+                case 401:
+                  this.flashMessage.error({
+                    message: error.response.data.message,
+                    time: 5000
+                  });
+                  break;
+                case 404:
+                  this.flashMessage.error({
+                    message: error.response.data.message,
+                    time: 5000
+                  });
+                  break;
+                default:
+                  this.flashMessage.error({
+                    message: "Some error occured, Please Try Again!",
+                    time: 5000
+                  });
+                  break;
+              }
             }
           });
       } else {

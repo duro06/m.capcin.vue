@@ -1,14 +1,55 @@
 <template>
-  <div>
-    {{ user }}
+  <div class="container">
+    <div class="hero-body has-text-centered">
+      <div class="section">
+        <div>
+          <div class="card">
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <img
+                  src="https://bulma.io/images/placeholders/1280x960.png"
+                  alt="Placeholder image"
+                />
+              </figure>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-left">
+                  <figure class="image is-48x48">
+                    <img
+                      src="https://bulma.io/images/placeholders/96x96.png"
+                      alt="Placeholder image"
+                    />
+                  </figure>
+                </div>
+                <div class="media-content">
+                  <p class="title is-4" style="color: black">{{ user.name }}</p>
+                  <p class="subtitle is-6" style="color: black">
+                    {{ user.email }}
+                  </p>
+                </div>
+              </div>
 
-    <router-link
-      class="button is-info"
-      type="primary"
-      :to="{ path: '/home' }"
-      replace
-      >Kembali</router-link
-    >
+              <div class="content">
+                {{ user.role }} Capcin
+                <br />
+                <time datetime="now"></time>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <br />
+          <router-link
+            class="button is-info"
+            type="primary"
+            :to="{ path: '/home' }"
+            replace
+            >Kembali</router-link
+          >
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -24,10 +65,9 @@ export default {
     // this.$store.dispatch("retrieveName");
     getProfile()
       .then(response => {
-        console.log(response);
+        this.user = response.data;
       })
       .catch(error => {
-        console.log(error.response);
         switch (error.response.status) {
           case 422:
             this.errors = error.response.data.errors;

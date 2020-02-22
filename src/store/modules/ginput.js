@@ -1,5 +1,5 @@
 // import axios from "axios";
-import { httpd } from "../../services/service";
+import { http } from "../../services/service";
 export default {
   state: {},
   getters: {},
@@ -8,7 +8,7 @@ export default {
     ambilToken(context, payload) {
       return new Promise((resolve, reject) => {
         console.log(payload);
-        httpd()
+        http()
           .post("api/user/login", payload)
           .then(response => {
             // console.log(response.data.data)

@@ -58,7 +58,6 @@ router.beforeEach((to, from, next) => {
   next();
 });
 
-
 // const _urlOriginApi = "http://192.168.43.231/capcin/";
 const _LurlApi = "http://localhost:8000/";
 // const _LurlApi = "http://localhost/capcin/";

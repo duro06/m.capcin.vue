@@ -12,25 +12,20 @@
   </section>
 </template>
 <script>
-// import * as auth from "./services/auth_service";
-// import store from "./store";
+import * as auth from "./services/auth_service";
+import store from "./store";
 export default {
   name: "app",
-  // beforeCreate: async function() {
-  //   console.log("App masuk");
-  //   console.log("App", store.getters.loggedIn);
-  //   try {
-  //     if (store.getters.loggedIn) {
-  //       const response = await auth.getProfile();
-  //       this.$store.dispatch("aunthenticate", response.data);
-  //       console.log("App", response);
-  //       console.log("App", store.getters.loggedIn);
-  //     }
-  //   } catch (error) {
-  //     console.log("App Logout");
-  //     this.$store.dispatch("destroyToken");
-  //   }
-  // },
+  beforeCreate: async function() {
+    try {
+      if (store.getters.loggedIn) {
+        const response = await auth.getProfile();
+        this.$store.dispatch("aunthenticate", response.data);
+      }
+    } catch (error) {
+      this.$store.dispatch("destroyToken");
+    }
+  },
   data() {
     return {
       ngiri: ""
@@ -46,9 +41,6 @@ export default {
       }
       return kelas;
     }
-  },
-  mounted() {
-    console.log(" aku sudah kerender jo");
   }
 };
 </script>

@@ -6,13 +6,17 @@ import { setToken } from "../../services/auth_service";
 
 export default {
   state: {
+    // server: "http://localhost:8000/",
     token: localStorage.getItem("access_token") || null,
     adminVerified: localStorage.getItem("waiting_verivication") || null,
-    level: localStorage.getItem("access_level") || null,
+    // level: localStorage.getItem("access_level") || null,
     // userProfile: {},
     profile: {}
   },
   getters: {
+    // serverUrl(state) {
+    //   return state.server;
+    // },
     loggedIn(state) {
       return state.token !== null;
     },
@@ -106,7 +110,18 @@ export default {
     },
     destroyToken({ commit }) {
       if (store.getters.loggedIn) {
-        http("api/auth/logout");
+        http()
+          .get("api/auth/logout")
+          .then(response => {
+            this.flashMessage.success({
+              message: response.data.message,
+              time: 2000
+            });
+            console.log(response);
+          })
+          .catch(error => {
+            console.log(error);
+          });
 
         localStorage.removeItem("access_token"),
           localStorage.removeItem("access_level"),

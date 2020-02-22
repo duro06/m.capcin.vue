@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <Navbar class="navbar" />
-    <div class=" hero-body  has-text-centered">
+    <div class=" hero-body has-text-centered">
       <Welcome />
     </div>
     <Footer class="navbar " />

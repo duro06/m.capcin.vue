@@ -95,7 +95,7 @@ export default {
   data: () => ({ isActive: false }),
   computed: {
     level() {
-      return this.$store.getters.levelAccess;
+      return this.$store.getters.myProfile.role;
     },
     check() {
       return console.log(this.level);

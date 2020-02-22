@@ -4,11 +4,9 @@ import * as set from "./service";
 
 export function setToken(user) {
   const token = jwt.sign({ user: user }, "secretkeynyajwtpluginokee2020");
-  const level = user.user.role;
   localStorage.setItem("access_token", token);
-  localStorage.setItem("access_level", level);
   store.commit("setRetrieveToken", token, { root: true });
-  store.commit("setAccessLevel", level, { root: true });
+  this.$store.dispatch("aunthenticate", user.user);
 }
 
 export function getAccessToken() {
@@ -18,7 +16,6 @@ export function getAccessToken() {
   }
 
   const tokenData = jwt.decode(token);
-  console.log(tokenData.user.access_token);
   return tokenData.user.access_token;
 }
 
