@@ -145,6 +145,7 @@
   </section>
 </template>
 <script>
+import { login } from "../services/auth_service";
 export default {
   name: "Login2",
   props: {
@@ -157,6 +158,7 @@ export default {
         password: "",
         remember: false
       },
+      errors: {},
 
       classDanger: "",
       visClass: "hidden",
@@ -172,12 +174,20 @@ export default {
       loading: ""
     };
   },
-  computed: {
-    logged() {
-      console.log(this.$store.getters.loggedIn);
-      return this.$store.getters.loggedIn;
+  updated() {
+    if (localStorage.getItem("access_token")) {
+      this.$router.replace(
+        this.$route.query.redirect || { name: "home" },
+        () => {}
+      );
     }
   },
+  // computed: {
+  //   logged() {
+  //     console.log(this.$store.getters.loggedIn);
+  //     return this.$store.getters.loggedIn;
+  //   }
+  // },
   methods: {
     signup() {
       this.$router.replace("/signup");
@@ -185,65 +195,65 @@ export default {
     forgot() {
       this.$router.replace("/forgot");
     },
-    submitForm: function() {
+    submitForm: async function() {
       const vm = this;
 
       if (vm.Vpass == true && vm.Vmail == true) {
         vm.loading = "is-loading";
-        // const params = new URLSearchParams();
-        // const params = new FormData();
-        // params.append("email", vm.user.email);
-        // params.append("password", vm.user.password);
-        vm.$store
-          .dispatch("retrieveToken", this.user)
-          .then(respons => {
-            this.flashMessage.success({
-              message: "Login success",
-              time: 2000
-            });
-            if (respons && vm.logged) {
-              vm.loading = "";
-              vm.$router.replace({ name: "home" }, () => {});
-              console.log(vm.logged);
-            }
-          })
-          .catch(error => {
+        // vm.$store
+        //   .dispatch("retrieveToken", this.user)
+        //   .then(respons => {
+        try {
+          const response = await login(this.user);
+          console.log(response);
+          vm.loading = "";
+          vm.$router.replace({ name: "home" }, () => {});
+          this.flashMessage.success({
+            message: "Login success",
+            time: 2000
+          });
+          this.errors = {};
+          // console.log(vm.logged);
+          // if (response) {
+          // }
+        } catch (error) {
+          console.log(error.response);
+          if (error.response != undefined) {
             vm.loading = "";
             vm.user.password = "";
-            if (error) {
-              //   console.log(error.response.data.message);
+            //   console.log(error.response.data.message);
 
-              switch (error.response.status) {
-                case 422:
-                  this.errors = error.response.data.errors;
-                  break;
-                case 500:
-                  this.flashMessage.error({
-                    message: error.response.data.message,
-                    time: 5000
-                  });
-                  break;
-                case 401:
-                  this.flashMessage.error({
-                    message: error.response.data.message,
-                    time: 5000
-                  });
-                  break;
-                case 404:
-                  this.flashMessage.error({
-                    message: error.response.data.message,
-                    time: 5000
-                  });
-                  break;
-                default:
-                  this.flashMessage.error({
-                    message: "Some error occured, Please Try Again!",
-                    time: 5000
-                  });
-                  break;
-              }
+            switch (error.response.status) {
+              case 422:
+                this.errors = error.response.data.errors;
+                break;
+              case 500:
+                this.flashMessage.error({
+                  message: error.response.data.message,
+                  time: 5000
+                });
+                break;
+              case 401:
+                this.flashMessage.error({
+                  message: error.response.data.message,
+                  time: 5000
+                });
+                break;
+              case 404:
+                this.flashMessage.error({
+                  message: error.response.data.message,
+                  time: 5000
+                });
+                break;
+              default:
+                this.flashMessage.error({
+                  message: "Some error occured, Please Try Again!",
+                  time: 5000
+                });
+                break;
             }
-          });
+          }
+        }
       } else {
         this.flashMessage.error({
           message: "Jangan buru-buru Om, di isi dulu",

@@ -2,11 +2,29 @@ import jwt from "jsonwebtoken";
 import store from "../store";
 import * as set from "./service";
 
+export function register(user) {
+  return set.http().post("api/auth/register", user);
+}
+
+export function login(user) {
+  return set
+    .http()
+    .post("api/auth/login", user)
+    .then(response => {
+      if (response.status === 200) {
+        setToken(response.data);
+      }
+
+      return response.data;
+    });
+}
+
 export function setToken(user) {
   const token = jwt.sign({ user: user }, "secretkeynyajwtpluginokee2020");
   localStorage.setItem("access_token", token);
   store.commit("setRetrieveToken", token, { root: true });
-  this.$store.dispatch("aunthenticate", user.user);
+  store.dispatch("aunthenticate", user.user);
+  return;
 }
 
 export function getAccessToken() {

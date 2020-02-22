@@ -21,17 +21,17 @@ export default {
       return state.token !== null;
     },
     levelAccess(state) {
-      return state.level;
+      return state.profile.role;
     },
     waitingVerified(state) {
       return state.adminVerified !== null;
     },
     myProfile(state) {
       return state.profile;
-    },
-    akunProfile(state) {
-      return state.userProfile;
     }
+    // akunProfile(state) {
+    //   return state.userProfile;
+    // }
   },
   mutations: {
     // setUserProfile(state, payload) {
@@ -69,6 +69,9 @@ export default {
   actions: {
     aunthenticate({ commit }, payload) {
       commit("setAuthenticate", payload, { root: true });
+    },
+    actToken({ commit }, payload) {
+      commit("setRetrieveToken", payload, { root: true });
     },
     destroyVerifie(context) {
       localStorage.removeItem("waiting_verivication");
@@ -120,7 +123,7 @@ export default {
             console.log(response);
           })
           .catch(error => {
-            console.log(error);
+            console.log(error.response);
           });
 
         localStorage.removeItem("access_token"),
@@ -144,11 +147,17 @@ export default {
           .then(response => {
             console.log(response);
             setToken(response.data);
+            this.flashMessage.success({
+              message: "Login success",
+              time: 2000
+            });
             resolve(response);
           })
           .catch(error => {
             // console.log(error)
-            reject(error);
+            if (error.response != undefined) {
+              reject(error);
+            }
           });
       });
     }
