@@ -1,8 +1,8 @@
 <template>
-  <div class="card">
-    <carousel :per-page="2">
-      <slide v-for="(item, apem) in items" :key="apem">
-        <ElementCard :data="item"></ElementCard>
+  <div class="card  ">
+    <carousel :per-page="1">
+      <slide v-for="(item, apem) in items" :key="apem" style="align: center">
+        <ElementCard class="dat" :data="item"></ElementCard>
       </slide>
     </carousel>
   </div>
@@ -31,13 +31,10 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped>
-ElementCard {
+<style scoped>
+.dat {
   max-width: 128px;
   height: auto;
 }
-// @import "../../assets/css/debug.css";
-// Import Bulma core
-// @import "~bulma-carousel/dist/css/bulma-carausel.min.css"; // Import component
-// @import "bulmaCarousel.sass";
+/* @import "../../assets/css/debug.css"; */
 </style>

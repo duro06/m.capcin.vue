@@ -258,6 +258,23 @@ const routes = [{
     //     next("/home");
     //   }
     // }
+  },
+  {
+    path: "/produksi",
+    name: "produksi",
+    component: () =>
+      import(
+        "../components/produksi/ProduksiCard.vue"),
+    // beforeEnter: (to, from, next) => {
+    //   console.log('get level ', store.getters.levelAccess);
+    //   if (store.getters.levelAccess == 6) {
+    //     next();
+    //   } else if (store.getters.waitingVerified) {
+    //     next('/test');
+    //   } else {
+    //     next("/home");
+    //   }
+    // }
   }
 ];
 

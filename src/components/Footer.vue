@@ -5,6 +5,7 @@
         <div class="mobile-bottom-nav__item-content">
           <i
             class="fas fa-home fa-2x slideInRight"
+            style="width: unset"
             v-wow
             data-wow-duration="1s"
           />
@@ -15,6 +16,7 @@
         <div class="mobile-bottom-nav__item-content">
           <i
             class="fas fa-info-circle fa-2x slideInRight"
+            style="width: unset"
             v-wow
             data-wow-duration="1s"
             data-wow-delay="0.3s"
@@ -26,6 +28,7 @@
         <div class="mobile-bottom-nav__item-content">
           <i
             class="fas fa-user-tie fa-2x slideInRight"
+            style="width: unset"
             v-wow
             data-wow-duration="1s"
             data-wow-delay="0.5s"
@@ -36,7 +39,13 @@
 
       <a v-if="!loggedIn" href="login" class="mobile-bottom-nav__item">
         <div class="mobile-bottom-nav__item-content">
-          <i class="fas fa-sign-in-alt fa-2x"></i>
+          <i
+            class="fas fa-sign-in-alt fa-2x"
+            style="width: unset"
+            v-wow
+            data-wow-duration="1s"
+            data-wow-delay="0.7s"
+          ></i>
           Login
         </div>
       </a>
@@ -45,6 +54,7 @@
         <div class="mobile-bottom-nav__item-content">
           <i
             class="fas fa-sign-out-alt fa-2x slideInRight"
+            style="width: unset"
             v-wow
             data-wow-duration="1s"
             data-wow-delay="0.7s"

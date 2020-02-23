@@ -1,5 +1,5 @@
 <template>
-  <section id="app" class="hero is-danger is-small is-fullheight">
+  <section id="app" class="hero is-danger is-small">
     <div class="hero-head">
       <FlashMessage
         position="right top"

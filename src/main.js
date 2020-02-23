@@ -9,6 +9,7 @@ import axios from "axios";
 import vWow from "v-wow";
 import FlashMessage from '@smartweb/vue-flash-message';
 import VueCarousel from "vue-carousel"
+import BulmaCarousel from "bulma-carousel"
 // import "bulma-carousel"
 
 // import 'https://js.pusher.com/5.1/pusher.min.js'
@@ -19,6 +20,7 @@ Vue.use(Vuex, axios);
 Vue.use(vWow);
 Vue.use(FlashMessage);
 Vue.use(VueCarousel);
+// Vue.use(BulmaCarousel)
 // Vue.use(Pusher);
 
 // This callback runs before every route change, including on page load.
