@@ -8,13 +8,13 @@
       </div>
       <div class="card-content">
         <div class="media">
-          <div class="media-left">
+          <!-- <div class="media-left">
             <figure class="image is-48x48">
               <img :src="dataImageSmall" alt="Placeholder image" />
             </figure>
-          </div>
+          </div> -->
           <div class="media-content">
-            <p class="title is-6" style="color: black">{{ name }}</p>
+            <p class="title is-6" style="color: black">{{ nama }}</p>
             <p class="subtitle is-7" style="color: black">{{ email }}</p>
           </div>
         </div>
@@ -46,23 +46,23 @@ export default {
         return "https://bulma.io/images/placeholders/96x96.png";
       }
     },
-    name: function() {
-      if (this.data.name) {
-        return this.data.name;
+    nama: function() {
+      if (this.data.nama) {
+        return this.data.nama;
       } else {
         return "";
       }
     },
     email: function() {
-      if (this.data.email) {
-        return this.data.email;
+      if (this.data.harga_beli) {
+        return this.data.harga_beli;
       } else {
         return "";
       }
     },
     message: function() {
-      if (this.data.message) {
-        return this.data.message;
+      if (this.data.stok_awal) {
+        return this.data.stok_awal;
       } else {
         return "";
       }

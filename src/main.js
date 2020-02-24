@@ -14,7 +14,7 @@ import VueGoodTablePlugin from "vue-good-table"
 import "vue-good-table/dist/vue-good-table.min.css"
 
 // import BulmaCarousel from "bulma-carousel"
-// import "bulma-carousel"
+import "bulma-carousel"
 
 // import 'https://js.pusher.com/5.1/pusher.min.js'
 
