@@ -3,13 +3,13 @@ import store from "../store";
 import * as set from "./service";
 
 export function register(user) {
-  return set.http().post("api/auth/register", user);
+  return set.http().post("auth/register", user);
 }
 
 export function login(user) {
   return set
     .http()
-    .post("api/auth/login", user)
+    .post("auth/login", user)
     .then(response => {
       if (response.status === 200) {
         setToken(response.data);
@@ -38,5 +38,5 @@ export function getAccessToken() {
 }
 
 export function getProfile() {
-  return set.http().get("api/auth/profile");
+  return set.http().get("auth/profile");
 }

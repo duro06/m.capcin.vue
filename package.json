@@ -19,7 +19,9 @@
     "vue": "^2.6.11",
     "vue-axios": "^2.1.5",
     "vue-carousel": "^0.18.0",
+    "vue-data-tables": "^3.4.5",
     "vue-flash-message": "^0.7.2",
+    "vue-good-table": "^2.19.0",
     "vue-router": "^3.1.5",
     "vuex": "^3.1.2"
   },

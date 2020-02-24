@@ -9,7 +9,11 @@ import axios from "axios";
 import vWow from "v-wow";
 import FlashMessage from '@smartweb/vue-flash-message';
 import VueCarousel from "vue-carousel"
-import BulmaCarousel from "bulma-carousel"
+import VueGoodTablePlugin from "vue-good-table"
+
+import "vue-good-table/dist/vue-good-table.min.css"
+
+// import BulmaCarousel from "bulma-carousel"
 // import "bulma-carousel"
 
 // import 'https://js.pusher.com/5.1/pusher.min.js'
@@ -20,6 +24,7 @@ Vue.use(Vuex, axios);
 Vue.use(vWow);
 Vue.use(FlashMessage);
 Vue.use(VueCarousel);
+Vue.use(VueGoodTablePlugin)
 // Vue.use(BulmaCarousel)
 // Vue.use(Pusher);
 
@@ -62,7 +67,7 @@ router.beforeEach((to, from, next) => {
 });
 
 // const _urlOriginApi = "http://192.168.43.231/capcin/";
-const _LurlApi = "http://localhost:8000/";
+const _LurlApi = "http://localhost:8000/api/";
 // const _LurlApi = "http://localhost/capcin/";
 // const _LurlApi = "http://192.168.1.100/capcin/";
 // const _LurlApi = "http://localhost/capcin-copy/";
