@@ -14,8 +14,9 @@ export function httpTry() {
   return axios.create({
     // baseURL: store.getters.serverUrl,
     headers: {
-      Accept: "aplication/json",
-      Authorization: "Bearer" + auth.getAccessToken()
+      username: "farhan",
+      password: "farhan"
+      // Authorization: "Bearer" + auth.getAccessToken()
     }
   });
 }
