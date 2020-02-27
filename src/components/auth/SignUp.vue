@@ -127,7 +127,7 @@
               </div>
             </div>
 
-            <!-- <div
+            <div
               class="field fadeInUp"
               v-wow
               data-wow-delay="0s"
@@ -136,12 +136,8 @@
               <div class="field">
                 <div class="control has-icons-left">
                   <div :class="['select', valSelect, 'is-small']">
-                    <select v-model="selected" @change="validasiSelect">
-                      <option
-                        v-for="(level, t) in levels"
-                        :key="t"
-                        v-bind:value="level.id"
-                      >
+                    <select v-model="user.role" @change="validasiSelect">
+                      <option v-for="(level, t) in levels" :key="t">
                         {{ level.nama }}
                       </option>
                     </select>
@@ -151,7 +147,7 @@
                   </span>
                 </div>
               </div>
-            </div> -->
+            </div>
 
             <div
               class="field fadeInUp"
@@ -265,11 +261,11 @@ export default {
       user: {
         name: "",
         email: "",
+        role: "",
         password: "",
         password_confirmation: ""
       },
 
-      selected: "",
       username: "",
 
       className: "",
@@ -325,7 +321,7 @@ export default {
     },
     register: function() {
       const vm = this;
-      // if (vm.selected == "") {
+      // if (vm.role == "") {
       //   vm.valSelect = "is-danger";
       // }
       if (vm.Vpass == true && vm.Vmail == true) {
@@ -334,7 +330,7 @@ export default {
         // params.append("nama", vm.name);
         // params.append("username", vm.username);
         // params.append("email", vm.email);
-        // params.append("id_level", vm.selected);
+        // params.append("id_level", vm.role);
         // params.append("password", vm.password);
 
         vm.$store
@@ -395,12 +391,12 @@ export default {
       } else if (
         vm.user.name == "" ||
         vm.user.email == "" ||
-        // vm.slected == "" ||
+        vm.slected == "" ||
         // vm.username == "" ||
         vm.user.password == ""
       ) {
         vm.NameValidation();
-        // vm.validasiSelect();
+        vm.validasiSelect();
         // vm.UserValidation();
         vm.formValidation();
         vm.passOk();
@@ -452,7 +448,7 @@ export default {
     //= ===================== Validasi Level ===============
 
     validasiSelect() {
-      if (this.selected == "") {
+      if (this.role == "") {
         this.valSelect = "is-danger";
       } else {
         this.valSelect = "";

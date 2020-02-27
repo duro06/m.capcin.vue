@@ -9,7 +9,7 @@ export function register(user) {
 export function login(user) {
   return set
     .http()
-    .post("api/auth/login", user)
+    .post("auth/login", user)
     .then(response => {
       if (response.status === 200) {
         setToken(response.data);
@@ -38,5 +38,5 @@ export function getAccessToken() {
 }
 
 export function getProfile() {
-  return set.http().get("api/auth/profile");
+  return set.http().get("auth/profile");
 }

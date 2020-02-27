@@ -88,7 +88,7 @@ export default {
     retrieveName() {
       return new Promise((resolve, reject) => {
         http()
-          .get("api/auth/profile")
+          .get("auth/profile")
           .then(response => {
             console.log(response);
             resolve(response);
@@ -102,7 +102,7 @@ export default {
     register(context, data) {
       return new Promise((resolve, reject) => {
         httpNot()
-          .post("api/auth/register", data)
+          .post("client/register", data)
           .then(response => {
             resolve(response);
           })
@@ -114,7 +114,7 @@ export default {
     destroyToken({ commit }) {
       if (store.getters.loggedIn) {
         http()
-          .get("api/auth/logout")
+          .get("auth/logout")
           .then(response => {
             this.flashMessage.success({
               message: response.data.message,
@@ -143,7 +143,7 @@ export default {
       return new Promise((resolve, reject) => {
         console.log(credentials);
         http()
-          .post("api/auth/login", credentials)
+          .post("auth/login", credentials)
           .then(response => {
             console.log(response);
             setToken(response.data);
