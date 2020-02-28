@@ -248,6 +248,10 @@ const routes = [{
     path: "/logout",
     name: "logout",
     component: () => import("../components/auth/Logout.vue")
+  },{
+    path: "/tabel",
+    name: "tabel",
+    component: () => import("../components/element/Tabel.vue")
   }
   // {
   //   path: "/produksi",

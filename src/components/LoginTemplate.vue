@@ -235,25 +235,11 @@ export default {
         // default:
         //   // this.$router.push({ name: "home" }, () => {});
         //   console.log(this.$store.getters.serverUrl);
-        //   // window.open(this.$store.getters.serverUrl);
+        //   window.location = this.$store.getters.serverUrl + "/home";
         //   this.flashMessage.success({
         //     message: "Anda login sebagai " + item + " Capcin",
         //     time: 3000
         //   });
-        //   this.$store
-        //     .dispatch("redirect")
-        //     .then(
-        //       this.$router.replace(
-        //         this.$route.query.redirect || { name: "login" },
-        //         () => {}
-        //       )
-        //     )
-        //     .catch(
-        //       this.$router.replace(
-        //         this.$route.query.redirect || { name: "login" },
-        //         () => {}
-        //       )
-        //     );
         //   break;
       }
     },
@@ -275,6 +261,7 @@ export default {
           //   time: 2000
           // });
           this.errors = {};
+
           this.findRole(response.token_scope);
           // console.log(vm.logged);
           // if (response) {
