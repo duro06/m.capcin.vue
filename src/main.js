@@ -14,7 +14,6 @@ import "bulma-carousel"
 
 // import 'https://js.pusher.com/5.1/pusher.min.js'
 
-Vue.config.productionTip = false;
 Vue.use(Vuex, axios);
 // Vue.use(Bulma);
 Vue.use(vWow);
@@ -72,9 +71,10 @@ const _LurlApi = "http://localhost:8000/api/";
 
 axios.defaults.baseURL = _LurlApi;
 
+Vue.config.productionTip = false;
 new Vue({
-  router,
   store,
+  router,
   axios,
   // Pusher,
   render: h => h(App)

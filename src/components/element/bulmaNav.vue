@@ -46,8 +46,8 @@
         <div class="navbar-end  has-text-centered">
           <router-link
             class="navbar-item slideInDown "
-            v-if="level == 3"
-            :to="{ path: '/level3' }"
+            v-if="level == 'Produksi'"
+            :to="{ path: '/produksi' }"
             replace
             v-wow
             data-wow-duration="1s"
@@ -56,8 +56,8 @@
           >
           <router-link
             class="navbar-item slideInDown "
-            v-if="level == 4"
-            :to="{ path: '/level4' }"
+            v-if="level == 'Packing'"
+            :to="{ path: '/packing' }"
             replace
             v-wow
             data-wow-duration="1s"
@@ -66,8 +66,8 @@
           >
           <router-link
             class="navbar-item slideInDown "
-            v-if="level == 5"
-            :to="{ path: '/level5' }"
+            v-if="level == 'Mitra'"
+            :to="{ path: '/mitra' }"
             replace
             v-wow
             data-wow-duration="1s"
@@ -76,8 +76,8 @@
           >
           <router-link
             class="navbar-item slideInDown "
-            v-if="level == 6"
-            :to="{ path: '/level6' }"
+            v-if="level == 'Supplier'"
+            :to="{ path: '/supplier' }"
             replace
             v-wow
             data-wow-duration="1s"

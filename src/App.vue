@@ -17,6 +17,7 @@ import store from "./store";
 export default {
   name: "app",
   beforeCreate: async function() {
+    console.log("App Get Profile");
     try {
       if (store.getters.loggedIn) {
         const response = await auth.getProfile();

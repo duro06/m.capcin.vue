@@ -195,6 +195,55 @@ export default {
     forgot() {
       this.$router.replace("/forgot");
     },
+    findRole(item) {
+      console.log(item);
+      localStorage.setItem("role", item);
+      switch (item) {
+        case "Produksi":
+          console.log(" Login Switch to produksi");
+          this.$router.push("/produksi", () => {});
+          this.flashMessage.success({
+            message: "Anda login sebagai " + item + " Capcin",
+            time: 3000
+          });
+          break;
+        case "Packing":
+          console.log("Switch to Packing");
+          this.$router.push({ name: "packing" }, () => {});
+          this.flashMessage.success({
+            message: "Anda login sebagai " + item + " Capcin",
+            time: 3000
+          });
+          break;
+        case "Supplier":
+          console.log("Switch to Supplier");
+          this.$router.push({ name: "supplier" }, () => {});
+          this.flashMessage.success({
+            message: "Anda login sebagai " + item + " Capcin",
+            time: 3000
+          });
+          break;
+        case "Mitra":
+          console.log("Switch to Mitra");
+          this.$router.push({ name: "mitra" }, () => {});
+          this.flashMessage.success({
+            message: "Anda login sebagai " + item + " Capcin",
+            time: 3000
+          });
+          break;
+        // default:
+        //   this.$router.push({ name: "home" }, () => {});
+        //   this.flashMessage.success({
+        //     message:
+        //       "Anda login sebagai " +
+        //       item +
+        //       " Capcin",
+        //     time: 3000
+        //   });
+        //   break;
+      }
+    },
+
     submitForm: async function() {
       const vm = this;
 
@@ -207,12 +256,12 @@ export default {
           const response = await login(this.user);
           console.log(response);
           vm.loading = "";
-          vm.$router.replace({ name: "home" }, () => {});
-          this.flashMessage.success({
-            message: "Login success",
-            time: 2000
-          });
+          // this.flashMessage.success({
+          //   message: "Login success",
+          //   time: 2000
+          // });
           this.errors = {};
+          this.findRole(response.token_scope);
           // console.log(vm.logged);
           // if (response) {
           // }

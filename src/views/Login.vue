@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import LoginForm from "@/components/auth/LoginForm.vue";
+import LoginForm from "@/components/LoginTemplate.vue";
 export default {
   name: "login",
   components: {
@@ -12,6 +12,4 @@ export default {
   }
 };
 </script>
-<style scoped>
-@import "../assets/css/login.css";
-</style>
+<style scoped></style>

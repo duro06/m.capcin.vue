@@ -6,7 +6,7 @@ import { setToken } from "../../services/auth_service";
 
 export default {
   state: {
-    // server: "http://localhost:8000/",
+    server: "http://localhost:8000/home/",
     token: localStorage.getItem("access_token") || null,
     adminVerified: localStorage.getItem("waiting_verivication") || null,
     // level: localStorage.getItem("access_level") || null,
@@ -21,12 +21,14 @@ export default {
       return state.token !== null;
     },
     levelAccess(state) {
+      console.log("Returning Role access");
       return state.profile.role;
     },
     waitingVerified(state) {
       return state.adminVerified !== null;
     },
     myProfile(state) {
+      console.log("Returning profile state");
       return state.profile;
     }
     // akunProfile(state) {
@@ -42,16 +44,17 @@ export default {
     // },
     setAuthenticate(state, payload) {
       state.profile = payload;
+      console.log("Profile written");
     },
     delAuthenticate(state) {
       state.profile = {};
     },
-    setAccessLevel(state, level) {
-      state.level = level;
-    },
-    setDestroyLevel(state) {
-      state.level = null;
-    },
+    // setAccessLevel(state, level) {
+    //   state.level = level;
+    // },
+    // setDestroyLevel(state) {
+    //   state.level = null;
+    // },
     setRetrieveVerifie(state, msg) {
       state.adminVerified = msg;
     },

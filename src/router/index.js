@@ -5,16 +5,16 @@ import store from "../store";
 // import Login from '../views/Login.vue'
 
 Vue.use(VueRouter);
-
+const role = localStorage.getItem("role");
 const routes = [{
     path: "/",
     redirect: {
-      name: "home"
+      name: "home",
     }
   },
   {
-    path: "/login2",
-    name: "Login2",
+    path: "/login",
+    name: "login",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
@@ -62,19 +62,7 @@ const routes = [{
     path: "/home",
     name: "home",
     component: () => import("../views/Home.vue"),
-    children: [{
-        path: 'navbar',
-        component: () => import("../components/Navbar.vue")
-      },
-      {
-        path: 'level3',
-        component: () => import("../components/Level3.vue")
-      },
-      {
-        path: 'footer',
-        component: () => import("../components/Footer.vue")
-      }
-    ],
+    
     beforeEnter: (to, from, next) => {
       console.log('logged get ', store.getters.loggedIn);
       if (store.getters.loggedIn) {
@@ -94,10 +82,6 @@ const routes = [{
     children: [{
       path: 'navbar',
       component: () => import("../components/Navbar.vue")
-    },
-    {
-      path: 'level3',
-      component: () => import("../components/Level3.vue")
     },
     {
       path: 'footer',
@@ -155,53 +139,45 @@ const routes = [{
     }
   },
   {
-    path: "/logout",
-    name: "logout",
-    component: () => import("../components/auth/Logout.vue")
-  },
-  {
-    path: "/login",
-    name: "login",
+    path: "/produksi",
+    name: "produksi",
     component: () =>
       import(
-        "../components/LoginTemplate.vue"),
+        "../views/Produksi.vue"),
+            children: [{
+      path: 'produk',
+      component: () => import("../components/produksi/ProduksiCard.vue")
+    },
+   
+    ],
+
     beforeEnter: (to, from, next) => {
-      console.log('login get ', store.getters.loggedIn);
-      if (store.getters.loggedIn) {
-        next("/home");
+      // console.log(store.getters.levelAccess);
+      // console.log("router get Profile ",store.getters.myProfile.role);
+      // console.log("router access Profile ",store.getters.levelAccess);
+      console.log("router Get storage ",role);
+      if (role === "Produksi" || store.getters.levelAccess === "Produksi") {
+        next();
+        console.log("Produksi confirm")
       } else if (store.getters.waitingVerified) {
+        console.log("Produksi look for verified")
         next('/test');
       } else {
-        next();
-      }
-    }
-  },
-  {
-    path: "/level3",
-    name: "level3",
-    component: () =>
-      import(
-        "../components/Level3.vue"),
-    beforeEnter: (to, from, next) => {
-      console.log(store.getters.levelAccess);
-      if (store.getters.levelAccess == 3) {
-        next();
-      } else if (store.getters.waitingVerified) {
-        next('/test');
-      } else {
+        console.log("Produksi none are true")
         next("/home");
       }
     }
   },
   {
-    path: "/level4",
-    name: "level4",
+    path: "/packing",
+    name: "packing",
     component: () =>
       import(
-        "../components/Level4.vue"),
+        "../views/Packing.vue"),
     beforeEnter: (to, from, next) => {
-      console.log(store.getters.levelAccess);
-      if (store.getters.levelAccess == 4) {
+      console.log("router get Profile ",store.getters.myProfile.role);
+      console.log("router get Profile ",store.getters.levelAccess);
+      if (store.getters.myProfile.role == "Packing") {
         next();
       } else if (store.getters.waitingVerified) {
         next('/test');
@@ -210,11 +186,11 @@ const routes = [{
       }
     }
   }, {
-    path: "/level5",
-    name: "level5",
+    path: "/supplier",
+    name: "supplier",
     component: () =>
       import(
-        "../components/Level5.vue"),
+        "../views/Supplier.vue"),
     beforeEnter: (to, from, next) => {
       console.log(store.getters.levelAccess);
       if (store.getters.levelAccess == 5) {
@@ -226,11 +202,11 @@ const routes = [{
       }
     }
   }, {
-    path: "/level6",
-    name: "level6",
+    path: "/mitra",
+    name: "mitra",
     component: () =>
       import(
-        "../components/Level6.vue"),
+        "../views/Mitra.vue"),
     beforeEnter: (to, from, next) => {
       console.log('get level ', store.getters.levelAccess);
       if (store.getters.levelAccess == 6) {
@@ -260,22 +236,44 @@ const routes = [{
     // }
   },
   {
-    path: "/produksi",
-    name: "produksi",
-    component: () =>
-      import(
-        "../components/produksi/ProduksiCard.vue"),
-    // beforeEnter: (to, from, next) => {
-    //   console.log('get level ', store.getters.levelAccess);
-    //   if (store.getters.levelAccess == 6) {
-    //     next();
-    //   } else if (store.getters.waitingVerified) {
-    //     next('/test');
-    //   } else {
-    //     next("/home");
-    //   }
-    // }
+    path: "/logout",
+    name: "logout",
+    component: () => import("../components/auth/Logout.vue")
   }
+  // {
+  //   path: "/produksi",
+  //   name: "produksi",
+  //   component: () =>
+  //     import(
+  //       "../components/produksi/ProduksiCard.vue"),
+  //   // beforeEnter: (to, from, next) => {
+  //   //   console.log('get level ', store.getters.levelAccess);
+  //   //   if (store.getters.levelAccess == 6) {
+  //   //     next();
+  //   //   } else if (store.getters.waitingVerified) {
+  //   //     next('/test');
+  //   //   } else {
+  //   //     next("/home");
+  //   //   }
+  //   // }
+  // }
+  // {
+  //   path: "/login",
+  //   name: "login",
+  //   component: () =>
+  //     import(
+  //       "../components/LoginTemplate.vue"),
+  //   beforeEnter: (to, from, next) => {
+  //     console.log('login get ', store.getters.loggedIn);
+  //     if (store.getters.loggedIn) {
+  //       next("/home");
+  //     } else if (store.getters.waitingVerified) {
+  //       next('/test');
+  //     } else {
+  //       next();
+  //     }
+  //   }
+  // },
 ];
 
 const router = new VueRouter({

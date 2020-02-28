@@ -1,5 +1,5 @@
 <template>
-  <div class="produksi">
+  <div class="produk">
     <div class="section">
       <h1 class="has-text-centered">Pengumuman</h1>
       <carousel
@@ -43,7 +43,7 @@ import Bilboard from "../element/ElementCard.vue";
 import * as itemService from "../../services/item_services.js";
 
 export default {
-  name: "produksi",
+  name: "produk",
   components: {
     Produksi,
     Bilboard

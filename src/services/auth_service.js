@@ -3,7 +3,7 @@ import store from "../store";
 import * as set from "./service";
 
 export function register(user) {
-  return set.http().post("api/auth/register", user);
+  return set.http().post("auth/register", user);
 }
 
 export function login(user) {
