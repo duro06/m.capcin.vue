@@ -110,6 +110,6 @@ export default {
 <style scoped>
 /* @import "../../assets/css/debug.css"; */
 .wrapper {
-  padding: 0px 20px 50px 20px;
+  padding: 0px 20px 55px 20px;
 }
 </style>

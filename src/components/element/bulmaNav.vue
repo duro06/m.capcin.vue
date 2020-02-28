@@ -72,7 +72,7 @@
             v-wow
             data-wow-duration="1s"
             data-wow-delay="0.4s"
-            >Suplier</router-link
+            >Mitra</router-link
           >
           <router-link
             class="navbar-item slideInDown "
@@ -82,7 +82,7 @@
             v-wow
             data-wow-duration="1s"
             data-wow-delay="0.4s"
-            >Mitra</router-link
+            >Suplier</router-link
           >
         </div>
       </div>

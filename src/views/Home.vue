@@ -9,6 +9,8 @@
 </template>
 
 <script>
+// import * as auth from "../services/auth_service";
+// import store from "../store";
 // @ is an alias to /src
 import Navbar from "@/components/element/bulmaNav.vue";
 import Welcome from "@/components/Welcome.vue";

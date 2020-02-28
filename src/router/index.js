@@ -64,8 +64,16 @@ const routes = [{
     component: () => import("../views/Home.vue"),
     
     beforeEnter: (to, from, next) => {
+      // if(from=={path:"/login"}){
+      //   console.log("I'am come from login")
+      //   console.log("from ",from)
+      // }else{
+      //   console.log("From ",from)
+      //   console.log("to ",to)
+      // }
       console.log('logged get ', store.getters.loggedIn);
       if (store.getters.loggedIn) {
+      console.log('Entering Home ');
         next();
       } else if (store.getters.waitingVerified) {
         next('/test');
@@ -147,14 +155,15 @@ const routes = [{
             children: [{
       path: 'produk',
       component: () => import("../components/produksi/ProduksiCard.vue")
-    },
-   
+    },   
     ],
 
     beforeEnter: (to, from, next) => {
+      // console.log("to ",to)
+      // console.log("from ",from)
       // console.log(store.getters.levelAccess);
       // console.log("router get Profile ",store.getters.myProfile.role);
-      // console.log("router access Profile ",store.getters.levelAccess);
+      console.log("router get access Profile ",store.getters.levelAccess);
       console.log("router Get storage ",role);
       if (role === "Produksi" || store.getters.levelAccess === "Produksi") {
         next();
@@ -193,7 +202,7 @@ const routes = [{
         "../views/Supplier.vue"),
     beforeEnter: (to, from, next) => {
       console.log(store.getters.levelAccess);
-      if (store.getters.levelAccess == 5) {
+      if (store.getters.levelAccess == "Supplier") {
         next();
       } else if (store.getters.waitingVerified) {
         next('/test');
@@ -209,7 +218,7 @@ const routes = [{
         "../views/Mitra.vue"),
     beforeEnter: (to, from, next) => {
       console.log('get level ', store.getters.levelAccess);
-      if (store.getters.levelAccess == 6) {
+      if (store.getters.levelAccess == "Mitra") {
         next();
       } else if (store.getters.waitingVerified) {
         next('/test');

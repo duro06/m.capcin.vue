@@ -1,11 +1,10 @@
 <template>
   <nav
-    class="navbar is-fixed-bottom-touch fadeInUp is-hidden-desktop"
+    class="navbar is-fixed-bottom-touch fadeInUp is-hidden-desktop "
     v-wow
     data-wow-duration="2s"
-    style="color: aqua"
   >
-    <div class="container ">
+    <div class="container " style="background-color: grey">
       <div class="navbar-brand level is-mobile">
         <div class="level-item has-text-centered">
           <a href="home">

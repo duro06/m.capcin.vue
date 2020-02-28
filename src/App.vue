@@ -20,8 +20,12 @@ export default {
     console.log("App Get Profile");
     try {
       if (store.getters.loggedIn) {
+        console.log("Login = true");
         const response = await auth.getProfile();
         this.$store.dispatch("aunthenticate", response.data);
+      } else {
+        console.log("Login = false");
+        this.$store.dispatch("destroyToken");
       }
     } catch (error) {
       this.$store.dispatch("destroyToken");

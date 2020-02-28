@@ -174,14 +174,14 @@ export default {
       loading: ""
     };
   },
-  updated() {
-    if (localStorage.getItem("access_token")) {
-      this.$router.replace(
-        this.$route.query.redirect || { name: "home" },
-        () => {}
-      );
-    }
-  },
+  // updated() {
+  //   if (localStorage.getItem("access_token")) {
+  //     this.$router.replace(
+  //       this.$route.query.redirect || { name: "home" },
+  //       () => {}
+  //     );
+  //   }
+  // },
   // computed: {
   //   logged() {
   //     console.log(this.$store.getters.loggedIn);
@@ -197,10 +197,11 @@ export default {
     },
     findRole(item) {
       console.log(item);
-      localStorage.setItem("role", item);
+      // localStorage.setItem("role", item);
       switch (item) {
         case "Produksi":
           console.log(" Login Switch to produksi");
+          console.log(this.$route.params);
           this.$router.push("/produksi", () => {});
           this.flashMessage.success({
             message: "Anda login sebagai " + item + " Capcin",
@@ -232,14 +233,27 @@ export default {
           });
           break;
         // default:
-        //   this.$router.push({ name: "home" }, () => {});
+        //   // this.$router.push({ name: "home" }, () => {});
+        //   console.log(this.$store.getters.serverUrl);
+        //   // window.open(this.$store.getters.serverUrl);
         //   this.flashMessage.success({
-        //     message:
-        //       "Anda login sebagai " +
-        //       item +
-        //       " Capcin",
+        //     message: "Anda login sebagai " + item + " Capcin",
         //     time: 3000
         //   });
+        //   this.$store
+        //     .dispatch("redirect")
+        //     .then(
+        //       this.$router.replace(
+        //         this.$route.query.redirect || { name: "login" },
+        //         () => {}
+        //       )
+        //     )
+        //     .catch(
+        //       this.$router.replace(
+        //         this.$route.query.redirect || { name: "login" },
+        //         () => {}
+        //       )
+        //     );
         //   break;
       }
     },

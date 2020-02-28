@@ -14,9 +14,9 @@ export default {
     profile: {}
   },
   getters: {
-    // serverUrl(state) {
-    //   return state.server;
-    // },
+    serverUrl(state) {
+      return state.server;
+    },
     loggedIn(state) {
       return state.token !== null;
     },
@@ -72,6 +72,7 @@ export default {
   actions: {
     aunthenticate({ commit }, payload) {
       commit("setAuthenticate", payload, { root: true });
+      // localStorage.setItem("role", payload.role);
     },
     actToken({ commit }, payload) {
       commit("setRetrieveToken", payload, { root: true });
@@ -130,16 +131,18 @@ export default {
           });
 
         localStorage.removeItem("access_token"),
-          localStorage.removeItem("access_level"),
+          localStorage.removeItem("role"),
           commit("setDestroyToken", {
             root: true
           });
-        commit("setDestroyLevel", {
-          root: true
-        });
+        // commit("setDestroyLevel", {
+        //   root: true
+        // });
         commit("delAuthenticate", {
           root: true
         });
+      } else {
+        localStorage.removeItem("role");
       }
     },
     retrieveToken(context, credentials) {
