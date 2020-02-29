@@ -17,18 +17,18 @@
         </slide>
       </carousel>
     </div>
-    <div class="wrapper">
+    <div class="wrapper ">
       <h2 class="has-text-centered">Produksi</h2>
-      <div class="content">
+      <div class="content ">
         <div class="columns">
           <div class="column">
             <div>
               <div
-                class="columns is-mobile is-hidden-desktop"
+                class="columns is-hidden-desktop"
                 v-for="(item, apem) in items"
                 :key="apem"
               >
-                <Produksi :data="item" class="column " />
+                <Produksi :data="item" class="column  is-flex-mobile" />
               </div>
             </div>
           </div>
@@ -64,8 +64,9 @@ export default {
       items: {},
       item: {},
       hal: {},
+      apem: 1,
       current_page: 1, //DEFAULT PAGE YANG AKTIF ADA PAGE 1
-      per_page: 10, //DEFAULT LOAD PERPAGE ADALAH 5
+      per_page: 6, //DEFAULT LOAD PERPAGE ADALAH 5
       search: "",
       sortBy: "created_at", //DEFAULT SORTNYA ADALAH CREATED_AT
       sortByDesc: false //ASCEDING
@@ -74,6 +75,16 @@ export default {
   created() {
     this.req();
   },
+  // computed: {
+  //   kunci() {
+  //     let c = [];
+  //     let i = this.items.length / 2;
+  //     for (let a = 0; a < this.items.length; a++) {
+  //       c = [this.items[i], this.items[i + 1]];
+  //     }
+  //     return c;
+  //   }
+  // },
 
   methods: {
     req: async function() {

@@ -1,7 +1,7 @@
 <template>
   <keep-alive>
     <div class="produk">
-      <article class="message is-primary is-small">
+      <!-- <article class="message is-primary is-small">
         <div class="message-header">
           <p>{{ name }}</p>
           <button class="button is-small is-info" aria-label="Edit">
@@ -9,8 +9,8 @@
           </button>
         </div>
         <div class="notification is-info is-light">
-          <p class="title is-6 ">Harga : {{ harga }}</p>
-          <p class="title is-6">Stok awal : {{ message }}</p>
+          <p class="title is-7 ">Harga : {{ harga }}</p>
+          <p class="title is-7">Stok awal : {{ message }}</p>
         </div>
       </article>
       <article class="message is-primary is-small">
@@ -21,10 +21,12 @@
           </button>
         </div>
         <div class="notification is-info is-light">
-          <p class="title is-6 ">Harga : {{ harga }}</p>
-          <p class="title is-6">Stok awal : {{ message }}</p>
+          <p class="title is-7 ">Harga : {{ harga }}</p>
+          <p class="title is-7">Stok awal : {{ message }}</p>
         </div>
-      </article>
+      </article> -->
+
+      <button class="button is-info">check</button>
 
       <!-- <div class="card-content">
         <div class="media">
@@ -86,15 +88,25 @@ export default {
       }
     },
     message: function() {
+      console.log(this.data);
       if (this.data.stok_awal) {
         return this.data.stok_awal;
       } else {
         return "";
       }
     }
+  },
+  methods: {
+    print() {
+      console.log(this.data);
+    }
   }
 };
 </script>
 <style scoped>
+article {
+  padding: 0px 5px 0px 5px;
+  background-color: #f14668;
+}
 @import "../../assets/css/debug.css";
 </style>

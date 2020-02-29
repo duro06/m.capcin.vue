@@ -6,7 +6,7 @@ import { setToken } from "../../services/auth_service";
 
 export default {
   state: {
-    server: "http://localhost:8000",
+    server: "http://localhost:8000/home",
     token: localStorage.getItem("access_token") || null,
     adminVerified: localStorage.getItem("waiting_verivication") || null,
     // level: localStorage.getItem("access_level") || null,

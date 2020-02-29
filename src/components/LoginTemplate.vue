@@ -118,6 +118,7 @@
                         loading,
                         'is-rounded'
                       ]"
+                      :disabled="disable"
                     >
                       Login
                     </button>
@@ -159,7 +160,7 @@ export default {
         remember: false
       },
       errors: {},
-
+      disable: false,
       classDanger: "",
       visClass: "hidden",
       validMail: "",
@@ -182,12 +183,12 @@ export default {
   //     );
   //   }
   // },
-  // computed: {
-  //   logged() {
-  //     console.log(this.$store.getters.loggedIn);
-  //     return this.$store.getters.loggedIn;
-  //   }
-  // },
+  computed: {
+    logged() {
+      console.log(this.$store.getters.loggedIn);
+      return this.$store.getters.loggedIn;
+    }
+  },
   methods: {
     signup() {
       this.$router.replace("/signup");
@@ -197,6 +198,8 @@ export default {
     },
     findRole(item) {
       console.log(item);
+      const url = this.$store.getters.serverUrl;
+
       // localStorage.setItem("role", item);
       switch (item) {
         case "Produksi":
@@ -232,15 +235,39 @@ export default {
             time: 3000
           });
           break;
-        // default:
-        //   // this.$router.push({ name: "home" }, () => {});
-        //   console.log(this.$store.getters.serverUrl);
-        //   window.location = this.$store.getters.serverUrl + "/home";
-        //   this.flashMessage.success({
-        //     message: "Anda login sebagai " + item + " Capcin",
-        //     time: 3000
-        //   });
-        //   break;
+        default:
+          // this.$router.push({ name: "home" }, () => {});
+          console.log(url);
+          this.disable = true;
+          this.loading = "is-loading";
+          this.$store
+            .dispatch("destroyToken")
+            .then(
+              this.flashMessage.success({
+                message: "anda akan diarahkan ke halaman " + item,
+                time: 5000
+              }),
+              this.$router.replace(
+                this.$route.query.redirect || { name: "login" },
+                () => {}
+              )
+            )
+            .catch(
+              this.flashMessage.success({
+                message: "anda akan diarahkan ke halaman " + item,
+                time: 5000
+              }),
+              this.$router.replace(
+                this.$route.query.redirect || { name: "login" },
+                () => {}
+              )
+            );
+          setTimeout(function() {
+            this.loading = "";
+            window.location = url;
+            this.disable = false;
+          }, 5000);
+          break;
       }
     },
 
@@ -329,7 +356,6 @@ export default {
     //================= validasi email =====================
     formValidation: function() {
       const vm = this;
-
       if (vm.user.email != "") {
         if (vm.reg.test(vm.user.email) == false) {
           vm.mailString(
