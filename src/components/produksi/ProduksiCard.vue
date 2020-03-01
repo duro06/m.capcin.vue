@@ -19,6 +19,12 @@
     </div>
     <div class="wrapper">
       <h2 class="has-text-centered">Produksi</h2>
+      <Search
+        @search="handleSearch"
+        class="is-small is-right is-7"
+        v-model="search"
+        :load="loading"
+      />
       <div class="level">
         <div class="level-item has-text-centered">
           <p class="is-7 title">Show :</p>
@@ -54,6 +60,7 @@ import Produksi from "./ProduksiEl.vue";
 import Bilboard from "../element/ElementCard.vue";
 import Pagination from "../element/Pagination.vue";
 import Dropdown from "../element/Dropdown.vue";
+import Search from "../element/Search.vue";
 import * as itemService from "../../services/item_services.js";
 
 export default {
@@ -61,6 +68,7 @@ export default {
   components: {
     Produksi,
     Dropdown,
+    Search,
     Pagination,
     Bilboard
   },
@@ -85,7 +93,8 @@ export default {
       search: "",
       sortBy: "created_at", //DEFAULT SORTNYA ADALAH CREATED_AT
       sortByDesc: false, //ASCEDING
-      totaldata: null
+      totaldata: null,
+      loading: ""
     };
   },
   created() {
@@ -104,14 +113,15 @@ export default {
 
   methods: {
     req: async function() {
-      let current_page = this.search == "" ? this.current_page : 1;
+      this.loading = "is-loading";
+      // let current_page = this.search == "" ? this.current_page : 1;
       let sorting = this.sortByDesc ? "DESC" : "ASC";
       let params = {
         //kalo ga ada params servernya ga mau.. karena sudah di setting gitu..
         //dan params ini sudah sesuai dengan permintaan server, kepala ga boleh diganti
         // yang boleh diganti itu ekornya
         params: {
-          page: current_page,
+          page: this.current_page,
           per_page: this.per_page,
           q: this.search,
           sortby: this.sortBy,
@@ -134,6 +144,7 @@ export default {
           to: getData.to,
           last: getData.last_page
         };
+        this.loading = "";
         console.log(this.items);
       } catch (error) {
         console.log("" + error);
@@ -148,8 +159,14 @@ export default {
       this.current_page = val; // masukkan nilai halaman yang aktif
       this.req(); //reload data
     },
+    //jika ada emmit jumlah data tiap halaman
     handleDropdown(val) {
       this.per_page = val; // masukkan nilai perhalaman
+      this.req(); //reload data
+    },
+    //jika ada emmit jumlah data tiap halaman
+    handleSearch(val) {
+      this.search = val; // masukkan nilai perhalaman
       this.req(); //reload data
     }
   }
@@ -168,5 +185,8 @@ export default {
   background-color: #f14668;
   width: 50%;
   height: auto;
+}
+.search {
+  padding: 5px;
 }
 </style>
