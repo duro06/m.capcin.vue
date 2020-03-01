@@ -21,15 +21,6 @@
       <h2 class="has-text-centered">Produksi</h2>
       <div class="level">
         <div class="level-item has-text-centered">
-          <p class="is-7 title">Show :</p>
-          <p>
-            <Dropdown
-              :pages="page"
-              :current="per_page"
-              @dropdown="handleDropdown"
-              class="is-small is-right is-7"
-            />
-          </p>
           <Search
             @search="handleSearch"
             class="is-small is-right is-7 search"
@@ -44,13 +35,31 @@
           </p>
         </div>
       </div>
-      <Pagination :meta="meta" @pagination="handlePagination" />
+      <!-- <ul class="infinite-list" v-infinite-scroll="load" style="overflow:auto">
+  <li v-for="i in count" class="infinite-list-item">{{ i }}</li>
+</ul> -->
       <div class="content">
         <div class="iterasi is-hidden-desktop">
-          <div v-for="(item, apem) in items" :key="apem">
+          <div
+            v-for="(item, apem) in items"
+            :key="apem"
+            class="infinite-list-item"
+          >
             <Produksi class="produksi" :data="item" />
           </div>
+          <div
+            v-infinite-scroll="Scroll"
+            infinite-scroll-disabled="busy"
+            infinite-scroll-distance="0"
+            infinite-scroll-throttle-delay="2000"
+          ></div>
         </div>
+        <button
+          v-if="this.more_exist"
+          class="button is-info is-fullwidth is-loading"
+        >
+          Button loading
+        </button>
       </div>
     </div>
   </div>
@@ -58,8 +67,6 @@
 <script>
 import Produksi from "./ProduksiEl.vue";
 import Bilboard from "../element/ElementCard.vue";
-import Pagination from "../element/Pagination.vue";
-import Dropdown from "../element/Dropdown.vue";
 import Search from "../element/Search.vue";
 import * as itemService from "../../services/item_services.js";
 
@@ -67,9 +74,9 @@ export default {
   name: "produk",
   components: {
     Produksi,
-    Dropdown,
+
     Search,
-    Pagination,
+
     Bilboard
   },
   data() {
@@ -87,18 +94,19 @@ export default {
       units: {},
       items: {},
       meta: {},
-      page: [4, 8, 10, 20, 30, 40, 50],
       current_page: 1, //DEFAULT PAGE YANG AKTIF ADA PAGE 1
-      per_page: 4, //DEFAULT LOAD PERPAGE ADALAH 4
+      per_page: 8, //DEFAULT LOAD PERPAGE ADALAH 4
       search: "",
       sortBy: "created_at", //DEFAULT SORTNYA ADALAH CREATED_AT
       sortByDesc: false, //ASCEDING
-      totaldata: null,
-      loading: ""
+      loading: "",
+      more_exist: true,
+      last_page: null
     };
   },
   created() {
     this.req();
+    // this.Scroll();
   },
   // computed: {
   //   kunci() {
@@ -135,6 +143,7 @@ export default {
         this.items = getData.data; //ambil data yang dibutuhkan
         this.units = response.data.data_unit; //untuk sementara ini ga usah ga papa sih, selama ga bikin data baru
         this.totaldata = getData.total;
+        this.last_page = getData.last_page;
         // masukkan data meta
         this.meta = {
           total: getData.total,
@@ -159,13 +168,74 @@ export default {
       this.current_page = val; // masukkan nilai halaman yang aktif
       this.req(); //reload data
     },
-    //jika ada emmit jumlah data tiap halaman
-    handleDropdown(val) {
-      this.per_page = val; // masukkan nilai perhalaman
-      this.req(); //reload data
+    //jika ada scroll event
+    Scroll: async function() {
+      let current_page;
+      if (this.current_page <= this.last_page && this.search == "") {
+        current_page = this.current_page + 1;
+        this.more_exist = true;
+        this.busy = false;
+        console.log("Last page  :  ", this.meta.last);
+        console.log("Current page  :  ", this.current_page);
+      } else if (this.current_page < this.last_page && this.search != "") {
+        current_page = this.current_page + 1;
+        this.more_exist = true;
+        this.busy = false;
+        console.log("Last page  :  ", this.meta.last);
+        console.log("Current page  :  ", this.current_page);
+      } else {
+        this.busy = true;
+        this.more_exist = false;
+      }
+      let sorting = this.sortByDesc ? "DESC" : "ASC";
+      let params = {
+        //kalo ga ada params servernya ga mau.. karena sudah di setting gitu..
+        //dan params ini sudah sesuai dengan permintaan server, kepala ga boleh diganti
+        // yang boleh diganti itu ekornya
+        params: {
+          page: current_page,
+          per_page: this.per_page,
+          q: this.search,
+          sortby: this.sortBy,
+          sortbydesc: sorting
+        }
+      };
+      try {
+        this.busy = true;
+        if (this.more_exist) {
+          const response = await itemService.loadData(params);
+
+          console.log(response);
+          let getData = response.data.data;
+          getData.data.forEach(data => {
+            this.items.push(data);
+          }); //ambil data yang dibutuhkan
+          this.units = response.data.data_unit; //untuk sementara ini ga usah ga papa sih, selama ga bikin data baru
+          this.totaldata = getData.total;
+          this.current_page = getData.current_page;
+          // masukkan data meta
+          this.meta = {
+            total: getData.total,
+            current: getData.current_page,
+            per_page: getData.per_page,
+            from: getData.from,
+            to: getData.to,
+            last: getData.last_page
+          };
+        }
+        this.loading = "";
+        console.log(this.items);
+      } catch (error) {
+        console.log("" + error);
+        this.flashMessage.error({
+          message: "" + error,
+          time: 5000
+        });
+      }
     },
     //jika ada emmit jumlah data tiap halaman
     handleSearch(val) {
+      this.current_page = 1; //reset halaman ke halaman satu
       this.search = val; // masukkan nilai perhalaman
       this.req(); //reload data
     }
@@ -180,7 +250,8 @@ export default {
 .iterasi {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  /* justify-content: space-evenly; */
+  /* height: 500px; */
 }
 .iterasi > div {
   background-color: #f14668;
