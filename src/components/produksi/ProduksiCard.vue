@@ -17,20 +17,14 @@
         </slide>
       </carousel>
     </div>
-    <div class="wrapper ">
+    <div class="wrapper  has-text-centered">
       <h2 class="has-text-centered">Produksi</h2>
-      <div class="content ">
-        <div class="columns">
-          <div class="column">
-            <div>
-              <div
-                class="columns is-hidden-desktop"
-                v-for="(item, apem) in items"
-                :key="apem"
-              >
-                <Produksi :data="item" class="column  is-flex-mobile" />
-              </div>
-            </div>
+
+      <Pagination :meta="meta" @pagination="handlePagination" />
+      <div class="content">
+        <div class="iterasi is-hidden-desktop">
+          <div v-for="(item, apem) in items" :key="apem">
+            <Produksi class="produksi" :data="item" />
           </div>
         </div>
       </div>
@@ -40,12 +34,14 @@
 <script>
 import Produksi from "./ProduksiEl.vue";
 import Bilboard from "../element/ElementCard.vue";
+import Pagination from "../element/Pagination.vue";
 import * as itemService from "../../services/item_services.js";
 
 export default {
   name: "produk",
   components: {
     Produksi,
+    Pagination,
     Bilboard
   },
   data() {
@@ -62,11 +58,9 @@ export default {
       ],
       units: {},
       items: {},
-      item: {},
-      hal: {},
-      apem: 1,
-      current_page: 1, //DEFAULT PAGE YANG AKTIF ADA PAGE 1
-      per_page: 6, //DEFAULT LOAD PERPAGE ADALAH 5
+      meta: {},
+      current_page: 4, //DEFAULT PAGE YANG AKTIF ADA PAGE 1
+      per_page: 4, //DEFAULT LOAD PERPAGE ADALAH 6
       search: "",
       sortBy: "created_at", //DEFAULT SORTNYA ADALAH CREATED_AT
       sortByDesc: false //ASCEDING
@@ -91,6 +85,9 @@ export default {
       let current_page = this.search == "" ? this.current_page : 1;
       let sorting = this.sortByDesc ? "DESC" : "ASC";
       let params = {
+        //kalo ga ada params servernya ga mau.. karena sudah di setting gitu..
+        //dan params ini sudah sesuai dengan permintaan server, kepala ga boleh diganti
+        // yang boleh diganti itu ekornya
         params: {
           page: current_page,
           per_page: this.per_page,
@@ -103,9 +100,21 @@ export default {
         const response = await itemService.loadData(params);
         console.log(response);
         let getData = response.data.data;
-        this.items = getData.data;
-        this.units = response.data.data_unit;
-        this.item = this.items[0];
+        this.items = getData.data; //ambil data yang dibutuhkan
+        this.units = response.data.data_unit; //untuk sementara ini ga usah ga papa sih, selama ga bikin data baru
+        // masukkan data meta
+        this.meta = {
+          total: getData.total,
+          current: getData.current_page,
+          per_page: getData.per_page,
+          from: getData.from,
+          to: getData.to,
+          last: getData.last_page,
+          next_url: getData.next_page_url,
+          prev_url: getData.prev_page_url,
+          first_url: getData.first_page_url,
+          last_url: getData.last_page_url
+        };
         console.log(this.items);
       } catch (error) {
         console.log("" + error);
@@ -114,6 +123,11 @@ export default {
           time: 5000
         });
       }
+    },
+    //jika ada emmit halaman yang akan dituju
+    handlePagination(val) {
+      this.current_page = val; // masukkan nilai halaman yang aktif
+      this.req(); //reload data
     }
   }
 };
@@ -122,5 +136,14 @@ export default {
 /* @import "../../assets/css/debug.css"; */
 .wrapper {
   padding: 0px 20px 55px 20px;
+}
+.iterasi {
+  display: flex;
+  flex-wrap: wrap;
+}
+.iterasi > div {
+  background-color: #f14668;
+  width: 50%;
+  height: auto;
 }
 </style>

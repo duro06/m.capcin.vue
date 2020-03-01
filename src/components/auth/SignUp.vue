@@ -143,7 +143,7 @@
                     </select>
                   </div>
                   <span class="icon is-small is-left">
-                    <i class="fas fa-phone"></i>
+                    <i class="far fa-id-card"></i>
                   </span>
                 </div>
               </div>
