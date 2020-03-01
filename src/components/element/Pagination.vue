@@ -1,7 +1,7 @@
 <template>
   <keep-alive>
     <nav
-      class="pagination is-small is-rounded"
+      class="pagination is-small is-rounded is-centered"
       role="navigation"
       aria-label="pagination"
     >

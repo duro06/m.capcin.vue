@@ -19,12 +19,6 @@
     </div>
     <div class="wrapper">
       <h2 class="has-text-centered">Produksi</h2>
-      <Search
-        @search="handleSearch"
-        class="is-small is-right is-7"
-        v-model="search"
-        :load="loading"
-      />
       <div class="level">
         <div class="level-item has-text-centered">
           <p class="is-7 title">Show :</p>
@@ -36,6 +30,12 @@
               class="is-small is-right is-7"
             />
           </p>
+          <Search
+            @search="handleSearch"
+            class="is-small is-right is-7 search"
+            v-model="search"
+            :load="loading"
+          />
         </div>
         <div class="level-item has-text-centered">
           <p class="subtitle is-7">
@@ -180,6 +180,7 @@ export default {
 .iterasi {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 .iterasi > div {
   background-color: #f14668;

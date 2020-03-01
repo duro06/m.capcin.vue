@@ -5,7 +5,7 @@
     >
       <div class="dropdown-trigger">
         <button
-          class="button"
+          class="button is-small"
           aria-haspopup="true"
           aria-controls="dropdown-menu3"
           @click.prevent="dropdown"
