@@ -17,9 +17,27 @@
         </slide>
       </carousel>
     </div>
-    <div class="wrapper  has-text-centered">
+    <div class="wrapper">
       <h2 class="has-text-centered">Produksi</h2>
-
+      <div class="level">
+        <div class="level-item has-text-centered">
+          <p class="is-7 title">Show :</p>
+          <p>
+            <Dropdown
+              :pages="page"
+              :current="per_page"
+              @dropdown="handleDropdown"
+              class="is-small is-right is-7"
+            />
+          </p>
+        </div>
+        <div class="level-item has-text-centered">
+          <p class="subtitle is-7">
+            Data ke {{ meta.from }} sampai {{ meta.to }}, dari total
+            {{ meta.total }} data ditemukan
+          </p>
+        </div>
+      </div>
       <Pagination :meta="meta" @pagination="handlePagination" />
       <div class="content">
         <div class="iterasi is-hidden-desktop">
@@ -35,12 +53,14 @@
 import Produksi from "./ProduksiEl.vue";
 import Bilboard from "../element/ElementCard.vue";
 import Pagination from "../element/Pagination.vue";
+import Dropdown from "../element/Dropdown.vue";
 import * as itemService from "../../services/item_services.js";
 
 export default {
   name: "produk",
   components: {
     Produksi,
+    Dropdown,
     Pagination,
     Bilboard
   },
@@ -59,11 +79,13 @@ export default {
       units: {},
       items: {},
       meta: {},
-      current_page: 4, //DEFAULT PAGE YANG AKTIF ADA PAGE 1
-      per_page: 4, //DEFAULT LOAD PERPAGE ADALAH 6
+      page: [4, 8, 10, 20, 30, 40, 50],
+      current_page: 1, //DEFAULT PAGE YANG AKTIF ADA PAGE 1
+      per_page: 4, //DEFAULT LOAD PERPAGE ADALAH 4
       search: "",
       sortBy: "created_at", //DEFAULT SORTNYA ADALAH CREATED_AT
-      sortByDesc: false //ASCEDING
+      sortByDesc: false, //ASCEDING
+      totaldata: null
     };
   },
   created() {
@@ -102,6 +124,7 @@ export default {
         let getData = response.data.data;
         this.items = getData.data; //ambil data yang dibutuhkan
         this.units = response.data.data_unit; //untuk sementara ini ga usah ga papa sih, selama ga bikin data baru
+        this.totaldata = getData.total;
         // masukkan data meta
         this.meta = {
           total: getData.total,
@@ -109,11 +132,7 @@ export default {
           per_page: getData.per_page,
           from: getData.from,
           to: getData.to,
-          last: getData.last_page,
-          next_url: getData.next_page_url,
-          prev_url: getData.prev_page_url,
-          first_url: getData.first_page_url,
-          last_url: getData.last_page_url
+          last: getData.last_page
         };
         console.log(this.items);
       } catch (error) {
@@ -127,6 +146,10 @@ export default {
     //jika ada emmit halaman yang akan dituju
     handlePagination(val) {
       this.current_page = val; // masukkan nilai halaman yang aktif
+      this.req(); //reload data
+    },
+    handleDropdown(val) {
+      this.per_page = val; // masukkan nilai perhalaman
       this.req(); //reload data
     }
   }

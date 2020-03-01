@@ -15,7 +15,7 @@
       <a
         style="background-color:white"
         class="pagination-next"
-        v-if="meta.current < beforeLast"
+        v-if="meta.current <= beforeLast"
         @click.prevent="nextPage"
         >Next page</a
       >
