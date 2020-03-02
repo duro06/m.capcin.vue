@@ -7,12 +7,12 @@ import store from "../store";
 Vue.use(VueRouter);
 const role = localStorage.getItem("role");
 const routes = [
-  // {
-  //   path: "/",
-  //   redirect: {
-  //     name: "home",
-  //   }
-  // },
+  {
+    path: "/",
+    redirect: {
+      name: "home",
+    }
+  },
   {
     path: "/login",
     name: "login",
@@ -72,8 +72,8 @@ const routes = [
         "../views/Produksi.vue"),
 
     beforeEnter: (to, from, next) => {
-      console.log("to ",to)
-      console.log("from ",from)
+      // console.log("to ",to)
+      // console.log("from ",from)
       // console.log(store.getters.levelAccess);
       // console.log("router get Profile ",store.getters.myProfile.role);
       console.log("router get access Profile ",store.getters.levelAccess);
@@ -89,6 +89,17 @@ const routes = [
         next("/home");
       }
     }
+    // beforeEnter: (to, from, next) => {     
+    //   console.log('logged get ', store.getters.loggedIn);
+    //   if (store.getters.loggedIn) {
+    //   console.log('Entering Home ');
+    //     next();
+    //   } else if (store.getters.waitingVerified) {
+    //     next('/test');
+    //   } else {
+    //     next("/login");
+    //   }
+    // }
   },
       ],
     

@@ -205,7 +205,7 @@ export default {
         case "Produksi":
           console.log(" Login Switch to produksi");
           console.log(this.$route.params);
-          this.$router.push("/produksi", () => {});
+          this.$router.push({ name: "produksi" }, () => {});
           this.flashMessage.success({
             message: "Anda login sebagai " + item + " Capcin",
             time: 3000
@@ -276,6 +276,7 @@ export default {
 
       if (vm.Vpass == true && vm.Vmail == true) {
         vm.loading = "is-loading";
+        this.disable = true;
         // vm.$store
         //   .dispatch("retrieveToken", this.user)
         //   .then(respons => {
@@ -283,6 +284,7 @@ export default {
           const response = await login(this.user);
           console.log(response);
           vm.loading = "";
+          this.disable = false;
           // this.flashMessage.success({
           //   message: "Login success",
           //   time: 2000
@@ -295,6 +297,7 @@ export default {
           // }
         } catch (error) {
           console.log(error.response);
+          this.disable = false;
           if (error.response != undefined) {
             vm.loading = "";
             vm.user.password = "";

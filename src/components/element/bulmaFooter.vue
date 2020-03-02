@@ -7,7 +7,7 @@
     <div class="container " style="background-color: grey">
       <div class="navbar-brand level is-mobile">
         <div class="level-item has-text-centered">
-          <a href="home">
+          <router-link :to="{ path: '/home' }">
             <i
               class="fas fa-home slideInRight"
               style="color: white"
@@ -22,10 +22,10 @@
             >
               Beranda
             </p>
-          </a>
+          </router-link>
         </div>
         <div class="level-item has-text-centered">
-          <a href="/">
+          <router-link :to="{ path: '/' }">
             <i
               class="fas fa-info-circle slideInRight"
               style="color: white"
@@ -42,10 +42,10 @@
             >
               Informasi
             </p>
-          </a>
+          </router-link>
         </div>
         <div class="level-item has-text-centered">
-          <a href="/profile">
+          <router-link :to="{ path: '/profile' }">
             <i
               class="fas fa-user-tie slideInRight "
               style="color: white"
@@ -62,10 +62,10 @@
             >
               Profile
             </p>
-          </a>
+          </router-link>
         </div>
         <div v-if="!loggedIn" class="level-item has-text-centered">
-          <a href="login">
+          <router-link :to="{ path: '/login' }">
             <i
               class="fas fa-sign-in-alt slideInRight"
               style="color: white"
@@ -82,10 +82,10 @@
             >
               Login
             </p>
-          </a>
+          </router-link>
         </div>
         <div v-if="loggedIn" class="level-item has-text-centered">
-          <a href="Logout">
+          <router-link :to="{ path: '/logout' }">
             <i
               class="fas fa-sign-out-alt slideInRight"
               style="color: white"
@@ -102,7 +102,7 @@
             >
               Logout
             </p>
-          </a>
+          </router-link>
         </div>
       </div>
     </div>

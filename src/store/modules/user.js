@@ -70,12 +70,12 @@ export default {
     }
   },
   actions: {
-    aunthenticate({ commit }, payload) {
-      commit("setAuthenticate", payload, { root: true });
+    aunthenticate(context, payload) {
+      context.commit("setAuthenticate", payload, { root: true });
       // localStorage.setItem("role", payload.role);
     },
-    actToken({ commit }, payload) {
-      commit("setRetrieveToken", payload, { root: true });
+    actToken(context, payload) {
+      context.commit("setRetrieveToken", payload, { root: true });
     },
     destroyVerifie(context) {
       localStorage.removeItem("waiting_verivication");
@@ -115,7 +115,7 @@ export default {
           });
       });
     },
-    destroyToken({ commit }) {
+    destroyToken(context) {
       if (store.getters.loggedIn) {
         http()
           .get("auth/logout")
@@ -132,13 +132,13 @@ export default {
 
         localStorage.removeItem("access_token"),
           localStorage.removeItem("role"),
-          commit("setDestroyToken", {
+          context.commit("setDestroyToken", {
             root: true
           });
-        // commit("setDestroyLevel", {
+        // context.commit("setDestroyLevel", {
         //   root: true
         // });
-        commit("delAuthenticate", {
+        context.commit("delAuthenticate", {
           root: true
         });
       } else {
