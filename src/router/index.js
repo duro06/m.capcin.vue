@@ -6,12 +6,13 @@ import store from "../store";
 
 Vue.use(VueRouter);
 const role = localStorage.getItem("role");
-const routes = [{
-    path: "/",
-    redirect: {
-      name: "home",
-    }
-  },
+const routes = [
+  // {
+  //   path: "/",
+  //   redirect: {
+  //     name: "home",
+  //   }
+  // },
   {
     path: "/login",
     name: "login",
@@ -62,15 +63,36 @@ const routes = [{
     path: "/home",
     name: "home",
     component: () => import("../views/Home.vue"),
-    
+    children:[
+      {
+    path: "produksi",
+    name: "produksi",
+    component: () =>
+      import(
+        "../views/Produksi.vue"),
+
     beforeEnter: (to, from, next) => {
-      // if(from=={path:"/login"}){
-      //   console.log("I'am come from login")
-      //   console.log("from ",from)
-      // }else{
-      //   console.log("From ",from)
-      //   console.log("to ",to)
-      // }
+      console.log("to ",to)
+      console.log("from ",from)
+      // console.log(store.getters.levelAccess);
+      // console.log("router get Profile ",store.getters.myProfile.role);
+      console.log("router get access Profile ",store.getters.levelAccess);
+      
+      if (store.getters.levelAccess === "Produksi") {
+        next();
+        console.log("Produksi confirm")
+      } else if (store.getters.waitingVerified) {
+        console.log("Produksi look for verified")
+        next('/test');
+      } else {
+        console.log("Produksi none are true")
+        next("/home");
+      }
+    }
+  },
+      ],
+    
+    beforeEnter: (to, from, next) => {     
       console.log('logged get ', store.getters.loggedIn);
       if (store.getters.loggedIn) {
       console.log('Entering Home ');
@@ -146,37 +168,7 @@ const routes = [{
       }
     }
   },
-  {
-    path: "/produksi",
-    name: "produksi",
-    component: () =>
-      import(
-        "../views/Produksi.vue"),
-            children: [{
-      path: 'produk',
-      component: () => import("../components/produksi/ProduksiCard.vue")
-    },   
-    ],
-
-    beforeEnter: (to, from, next) => {
-      // console.log("to ",to)
-      // console.log("from ",from)
-      // console.log(store.getters.levelAccess);
-      // console.log("router get Profile ",store.getters.myProfile.role);
-      console.log("router get access Profile ",store.getters.levelAccess);
-      console.log("router Get storage ",role);
-      if (role === "Produksi" || store.getters.levelAccess === "Produksi") {
-        next();
-        console.log("Produksi confirm")
-      } else if (store.getters.waitingVerified) {
-        console.log("Produksi look for verified")
-        next('/test');
-      } else {
-        console.log("Produksi none are true")
-        next("/home");
-      }
-    }
-  },
+  
   {
     path: "/packing",
     name: "packing",

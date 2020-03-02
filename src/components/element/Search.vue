@@ -1,21 +1,21 @@
 <template>
-  <keep-alive>
-    <div class="cari">
-      <div class="field">
-        <div :class="['control', 'has-icons-left', load]">
-          <input
-            class="input is-small"
-            type="string"
-            placeholder="Cari"
-            v-model="cari"
-          />
-          <span class="icon is-small is-left">
-            <i class="fas fa-search"></i>
-          </span>
-        </div>
+  <!-- <keep-alive> -->
+  <div class="cari">
+    <div class="field">
+      <div :class="['control', 'has-icons-left', load]">
+        <input
+          class="input is-small"
+          type="string"
+          placeholder="Cari"
+          v-model="cari"
+        />
+        <span class="icon is-small is-left">
+          <i class="fas fa-search"></i>
+        </span>
       </div>
     </div>
-  </keep-alive>
+  </div>
+  <!-- </keep-alive> -->
 </template>
 <script>
 export default {

@@ -21,12 +21,12 @@
       <h2 class="has-text-centered">Produksi</h2>
       <div class="level">
         <div class="level-item has-text-centered">
-          <Search
+          <!-- <Search
             @search="handleSearch"
             class="is-small is-right is-7 search"
             v-model="search"
             :load="loading"
-          />
+          /> -->
         </div>
 
         <div class="level-item has-text-centered">
@@ -90,7 +90,7 @@
 <script>
 import Produksi from "./ProduksiEl.vue";
 import Bilboard from "../element/ElementCard.vue";
-import Search from "../element/Search.vue";
+// import Search from "../element/Search.vue";
 import Modal from "../element/Modal.vue";
 import * as itemService from "../../services/item_services.js";
 
@@ -99,7 +99,7 @@ export default {
   components: {
     Produksi,
     Modal,
-    Search,
+    // Search,
 
     Bilboard
   },

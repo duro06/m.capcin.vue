@@ -1,23 +1,23 @@
 <template>
-  <keep-alive>
-    <div class="produk">
-      <article class="message is-primary is-small">
-        <div class="message-header">
-          <p>{{ name }}</p>
-          <button
-            class="button is-small is-info"
-            aria-label="Edit"
-            @click.prevent="edit"
-          >
-            Edit
-          </button>
-        </div>
-        <div class="notification is-info is-light">
-          <p class="title is-7 ">Harga : {{ harga }}</p>
-          <p class="title is-7">Stok awal : {{ message }}</p>
-        </div>
-      </article>
-      <!--       
+  <!-- <keep-alive> -->
+  <div class="produk">
+    <article class="message is-primary is-small">
+      <div class="message-header">
+        <p>{{ name }}</p>
+        <button
+          class="button is-small is-info"
+          aria-label="Edit"
+          @click.prevent="edit"
+        >
+          Edit
+        </button>
+      </div>
+      <div class="notification is-info is-light">
+        <p class="title is-7 ">Harga : {{ harga }}</p>
+        <p class="title is-7">Stok awal : {{ message }}</p>
+      </div>
+    </article>
+    <!--       
       <article class="message is-primary is-small">
         <div class="message-header">
           <p>{{ name }}</p>
@@ -31,9 +31,9 @@
         </div> 
       </article>-->
 
-      <!-- <button class="button is-info">check</button> -->
+    <!-- <button class="button is-info">check</button> -->
 
-      <!-- <div class="card-content">
+    <!-- <div class="card-content">
         <div class="media">
           <div class="media-left">
             <figure class="image is-48x48">
@@ -51,8 +51,8 @@
           <time datetime="now"></time>
         </div>
       </div> -->
-    </div>
-  </keep-alive>
+  </div>
+  <!-- </keep-alive> -->
 </template>
 <script>
 export default {

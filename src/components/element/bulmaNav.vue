@@ -47,7 +47,7 @@
           <router-link
             class="navbar-item slideInDown "
             v-if="level == 'Produksi'"
-            :to="{ path: '/produksi' }"
+            :to="{ path: '/home/produksi' }"
             replace
             v-wow
             data-wow-duration="1s"

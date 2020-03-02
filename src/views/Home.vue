@@ -3,6 +3,8 @@
     <Navbar class="navbar" />
     <div class=" hero-body has-text-centered">
       <Welcome />
+      <router-view></router-view>
+      <!-- <Produksi v-if="produksi" /> -->
     </div>
     <Footer class="navbar " />
   </div>
@@ -12,6 +14,7 @@
 // import * as auth from "../services/auth_service";
 // import store from "../store";
 // @ is an alias to /src
+// import Produksi from "@/components/produksi/ProduksiCard.vue";
 import Navbar from "@/components/element/bulmaNav.vue";
 import Welcome from "@/components/Welcome.vue";
 import Footer from "@/components/element/bulmaFooter.vue";
@@ -22,8 +25,17 @@ export default {
   components: {
     Welcome,
     Navbar,
-    // Level3,
+    // Produksi,
     Footer
+  },
+  computed: {
+    produksi() {
+      if (this.$store.getters.levelAccess == "Produksi") {
+        return true;
+      } else {
+        return false;
+      }
+    }
   },
 
   created() {
