@@ -21,9 +21,6 @@
       <h2 class="has-text-centered">Produksi</h2>
       <div class="level">
         <div class="level-item has-text-centered">
-          <button id="show-modal" @click.prevent="modal">
-            Show Modal
-          </button>
           <Search
             @search="handleSearch"
             class="is-small is-right is-7 search"
@@ -53,7 +50,7 @@
             :key="apem"
             class="infinite-list-item"
           >
-            <Produksi class="produksi" :data="item" />
+            <Produksi class="produksi" :data="item" @edit="handleEdit" />
           </div>
           <div
             v-infinite-scroll="Scroll"
@@ -122,7 +119,7 @@ export default {
       items: {},
       meta: {},
       current_page: 1, //DEFAULT PAGE YANG AKTIF ADA PAGE 1
-      per_page: 4, //DEFAULT LOAD PERPAGE ADALAH 4
+      per_page: 8, //DEFAULT LOAD PERPAGE ADALAH 4
       search: "",
       sortBy: "created_at", //DEFAULT SORTNYA ADALAH CREATED_AT
       sortByDesc: false, //ASCEDING
@@ -197,27 +194,25 @@ export default {
       this.req(); //reload data
     },
     //jika ada scroll event
-    Scroll: async function() {
-      let current_page;
-      if (this.current_page < this.last_page) {
-        current_page = this.current_page + 1;
-        this.more_exist = true;
-        this.busy = false;
-        console.log("Last page  :  ", this.meta.last);
-        console.log("Current page  :  ", this.current_page);
-        console.log("Busy condition if :  ", this.busy);
-      } else if (this.current_page < this.last_page && this.last_page == 2) {
-        current_page = this.current_page + 1;
-        this.more_exist = true;
-        this.busy = false;
-        console.log("Last page  :  ", this.meta.last);
-        console.log("Current page  :  ", this.current_page);
-        console.log("Busy condition else if :  ", this.busy);
-      } else {
-        this.busy = true;
-        this.more_exist = false;
-        console.log("Busy condition else :  ", this.busy);
+    Scroll() {
+      console.log("Last page  :  ", this.meta.last);
+      console.log("Current page  :  ", this.current_page);
+      console.log("Busy Scroll :  ", this.busy);
+
+      this.busy = true;
+
+      if (this.more_exist) {
+        this.loadMore();
       }
+    },
+    // load lebih banyak data
+    loadMore: async function() {
+      console.log("Busy Load more :  ", this.busy);
+      let current_page;
+
+      current_page = this.current_page + 1;
+      this.busy = false;
+
       let sorting = this.sortByDesc ? "DESC" : "ASC";
       let params = {
         //kalo ga ada params servernya ga mau.. karena sudah di setting gitu..
@@ -245,6 +240,7 @@ export default {
           }); //ambil data yang dibutuhkan
           this.units = response.data.data_unit; //untuk sementara ini ga usah ga papa sih, selama ga bikin data baru
           this.totaldata = getData.total;
+          // jangan lupa current page dimasukkan juga..
           this.current_page = getData.current_page;
           // masukkan data meta
           this.meta = {
@@ -259,6 +255,8 @@ export default {
         this.loading = "";
         console.log("Busy response :  ", this.busy);
         console.log(this.items);
+        // biar more_exist nilainya di update oleh fungsi updated saja
+        this.more_exist = false;
       } catch (error) {
         console.log("" + error);
         this.flashMessage.error({
@@ -273,12 +271,24 @@ export default {
       this.search = val; // masukkan nilai perhalaman
       this.req(); //reload data
     },
-    modal() {
-      this.showModal = true;
-    },
     handleModal() {
       this.showModal = false;
+    },
+
+    handleEdit() {
+      this.showModal = true;
     }
+  },
+  updated() {
+    if (
+      this.current_page < this.last_page ||
+      (this.current_page < this.last_page && this.last_page == 2)
+    ) {
+      this.more_exist = true;
+    } else {
+      this.more_exist = false;
+    }
+    console.log("Updated :  ", this.more_exist);
   }
 };
 </script>

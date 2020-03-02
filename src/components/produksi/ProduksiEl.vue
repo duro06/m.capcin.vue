@@ -4,7 +4,11 @@
       <article class="message is-primary is-small">
         <div class="message-header">
           <p>{{ name }}</p>
-          <button class="button is-small is-info" aria-label="Edit">
+          <button
+            class="button is-small is-info"
+            aria-label="Edit"
+            @click.prevent="edit"
+          >
             Edit
           </button>
         </div>
@@ -100,6 +104,9 @@ export default {
   methods: {
     print() {
       console.log(this.data);
+    },
+    edit() {
+      this.$emit("edit");
     }
   }
 };
