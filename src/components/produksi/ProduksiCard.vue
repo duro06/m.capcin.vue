@@ -21,6 +21,9 @@
       <h2 class="has-text-centered">Produksi</h2>
       <div class="level">
         <div class="level-item has-text-centered">
+          <button id="show-modal" @click.prevent="modal">
+            Show Modal
+          </button>
           <Search
             @search="handleSearch"
             class="is-small is-right is-7 search"
@@ -28,10 +31,15 @@
             :load="loading"
           />
         </div>
+
         <div class="level-item has-text-centered">
           <p class="subtitle is-7">
             Data ke {{ meta.from }} sampai {{ meta.to }}, dari total
             {{ meta.total }} data ditemukan
+          </p>
+          <p class="subtitle is-7">
+            Halaman ke {{ meta.current }} dari total {{ meta.last }}
+            halaman
           </p>
         </div>
       </div>
@@ -60,6 +68,24 @@
         >
           Button loading
         </button>
+        <Modal v-if="showModal" @close="handleModal">
+          <!-- <h3 slot="header">Custom header</h3> -->
+          <header slot="header" class="modal-card-head">
+            <p class="modal-card-title">Modal title</p>
+            <button
+              class="delete"
+              aria-label="close"
+              @click.prevent="handleModal"
+            ></button>
+          </header>
+          <section slot="body" class="modal-card-body">
+            Content ...
+          </section>
+          <footer slot="footer" class="modal-card-foot">
+            <button class="button is-success">Save changes</button>
+            <button class="button">Cancel</button>
+          </footer>
+        </Modal>
       </div>
     </div>
   </div>
@@ -68,13 +94,14 @@
 import Produksi from "./ProduksiEl.vue";
 import Bilboard from "../element/ElementCard.vue";
 import Search from "../element/Search.vue";
+import Modal from "../element/Modal.vue";
 import * as itemService from "../../services/item_services.js";
 
 export default {
   name: "produk",
   components: {
     Produksi,
-
+    Modal,
     Search,
 
     Bilboard
@@ -95,13 +122,14 @@ export default {
       items: {},
       meta: {},
       current_page: 1, //DEFAULT PAGE YANG AKTIF ADA PAGE 1
-      per_page: 8, //DEFAULT LOAD PERPAGE ADALAH 4
+      per_page: 4, //DEFAULT LOAD PERPAGE ADALAH 4
       search: "",
       sortBy: "created_at", //DEFAULT SORTNYA ADALAH CREATED_AT
       sortByDesc: false, //ASCEDING
       loading: "",
       more_exist: true,
-      last_page: null
+      last_page: null,
+      showModal: false
     };
   },
   created() {
@@ -171,21 +199,24 @@ export default {
     //jika ada scroll event
     Scroll: async function() {
       let current_page;
-      if (this.current_page <= this.last_page && this.search == "") {
+      if (this.current_page < this.last_page) {
         current_page = this.current_page + 1;
         this.more_exist = true;
         this.busy = false;
         console.log("Last page  :  ", this.meta.last);
         console.log("Current page  :  ", this.current_page);
-      } else if (this.current_page < this.last_page && this.search != "") {
+        console.log("Busy condition if :  ", this.busy);
+      } else if (this.current_page < this.last_page && this.last_page == 2) {
         current_page = this.current_page + 1;
         this.more_exist = true;
         this.busy = false;
         console.log("Last page  :  ", this.meta.last);
         console.log("Current page  :  ", this.current_page);
+        console.log("Busy condition else if :  ", this.busy);
       } else {
         this.busy = true;
         this.more_exist = false;
+        console.log("Busy condition else :  ", this.busy);
       }
       let sorting = this.sortByDesc ? "DESC" : "ASC";
       let params = {
@@ -202,6 +233,8 @@ export default {
       };
       try {
         this.busy = true;
+        console.log("Busy try :  ", this.busy);
+        console.log("more exist  :  ", this.more_exist);
         if (this.more_exist) {
           const response = await itemService.loadData(params);
 
@@ -224,6 +257,7 @@ export default {
           };
         }
         this.loading = "";
+        console.log("Busy response :  ", this.busy);
         console.log(this.items);
       } catch (error) {
         console.log("" + error);
@@ -238,6 +272,12 @@ export default {
       this.current_page = 1; //reset halaman ke halaman satu
       this.search = val; // masukkan nilai perhalaman
       this.req(); //reload data
+    },
+    modal() {
+      this.showModal = true;
+    },
+    handleModal() {
+      this.showModal = false;
     }
   }
 };
