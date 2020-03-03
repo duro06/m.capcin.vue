@@ -205,7 +205,7 @@ export default {
         case "Produksi":
           console.log(" Login Switch to produksi");
           console.log(this.$route.params);
-          this.$router.push({ name: "produksi" }, () => {});
+          this.$router.push({ path: "/produksi" }, () => {});
           this.flashMessage.success({
             message: "Anda login sebagai " + item + " Capcin",
             time: 3000

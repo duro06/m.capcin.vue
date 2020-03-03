@@ -1,53 +1,47 @@
 <template>
-  <div class="login">
-    <section class="hero is-success is-fullheight is-flex-mobile">
-      <div class="hero-body">
-        <div class="container has-text-centered">
-          <div class="column is-4 is-offset-4">
-            <h2 class="mgbt-xs-5">
-              <img src="../../assets/logo3.png" alt="logo" />
-            </h2>
+  <section class="hero is-fullheight">
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <div class="column is-4 is-offset-4 box">
+          <div
+            class="fadeInUp"
+            v-wow
+            data-wow-delay="0s"
+            data-wow-duration="2s"
+          >
+            <h1 class="avatar has-text-centered section">
+              <img src="../../assets/logocapcin.png" alt="logo" />
+            </h1>
+          </div>
 
-            <h3 class="title has-text-black header">{{ msg }}</h3>
-            <hr class="login-hr" />
-            <transition name="slide-fade">
-              <p class="subtitle has-text-black" v-if="!show">
+          <transition name="slide-fade">
+            <div
+              class="fadeInUp"
+              v-wow
+              data-wow-delay="0s"
+              data-wow-duration="2s"
+            >
+              <p id="log" class="subtitle has-text-black">
                 Please login to proceed.
               </p>
-              <div class="notification is-warning is-light" v-if="show">
-                <span class="icon is-medium has-text-danger">
-                  <i class="fas fa-2x fa-ban"></i>
-                </span>
-                <p>
-                  <strong>Oh Snap!</strong>
-                  Diisi dulu om.. jangan buru-buru
-                </p>
-              </div>
-            </transition>
-            <div class="notification is-warning is-light" v-if="successMessage">
-              <span class="icon is-medium has-text-danger">
-                <i class="fas fa-2x fa-ban"></i>
-              </span>
-              <p>{{ successMessage }}</p>
             </div>
-            <div class="notification is-warning is-light" v-if="serverError">
-              <span class="icon is-medium has-text-danger">
-                <i class="fas fa-2x fa-ban"></i>
-              </span>
-              <p>{{ serverError }}</p>
-            </div>
-            <div class="box form-control">
-              <figure class="avatar">
-                <img src="../../assets/logocapcin.png" />
-              </figure>
-              <form id="validate-form" action="#" @submit.prevent="submitForm">
-                <div class="field">
-                  <div class="control has-icons-left has-icons-right">
+          </transition>
+          <form action>
+            <div class="login-form">
+              <form role="form" method="post">
+                <div
+                  class="field fadeInUp"
+                  v-wow
+                  data-wow-delay="0s"
+                  data-wow-duration="2s"
+                >
+                  <p class="control has-icons-left has-icons-right">
                     <input
-                      :class="['input', classDanger]"
+                      :class="['input', classDanger, 'is-small']"
                       type="email"
                       placeholder="Email"
-                      v-model="email"
+                      data-lpignore="true"
+                      v-model="user.email"
                     />
                     <span class="icon is-small is-left">
                       <i class="fas fa-envelope"></i>
@@ -58,19 +52,25 @@
                     >
                       <i class="fas fa-exclamation-triangle"></i>
                     </span>
-                  </div>
+                  </p>
                   <p :class="['help', 'align-left', formValidation()]">
                     {{ validMail }}
                   </p>
                 </div>
 
-                <div class="field">
-                  <div class="control has-icons-left has-icons-right">
+                <div
+                  class="field fadeInUp"
+                  v-wow
+                  data-wow-delay="0s"
+                  data-wow-duration="2s"
+                >
+                  <p class="control has-icons-left has-icons-right">
                     <input
-                      :class="['input', passOk()]"
+                      :class="['input', passOk(), 'is-small']"
                       type="password"
                       placeholder="Password"
-                      v-model="password"
+                      data-lpignore="true"
+                      v-model="user.password"
                     />
                     <span class="icon is-small is-left">
                       <i class="fas fa-lock"></i>
@@ -81,122 +81,351 @@
                     >
                       <i class="fas fa-check"></i>
                     </span>
-                  </div>
+                  </p>
                   <p :class="['help', 'lign-left', passOk()]">
                     {{ passCheck }}
                   </p>
                 </div>
-                <div class="field">
-                  <label class="checkbox">
-                    <input type="checkbox" />
-                    Remember me
-                  </label>
-                </div>
 
-                <button
-                  @click.prevent="submitForm"
-                  :class="[
-                    'button',
-                    'is-block',
-                    'is-info',
-                    'is-normal',
-                    'is-fullwidth',
-                    loading,
-                    'is-rounded'
-                  ]"
+                <div
+                  class="field fadeInUp level"
+                  v-wow
+                  data-wow-delay="0s"
+                  data-wow-duration="2s"
                 >
-                  Login
-                  <i class="fas fa-sign-in-alt"></i>
-                </button>
+                  <div class="level-item has-text-centered ">
+                    <input type="checkbox" v-model="user.remember" />
+                    <label class="checkbox is-size-7 ">
+                      Remember me
+                    </label>
+                  </div>
+                </div>
+                <div
+                  class="field fadeInUp"
+                  v-wow
+                  data-wow-delay="0s"
+                  data-wow-duration="2s"
+                >
+                  <p class="control">
+                    <button
+                      @click.prevent="submitForm"
+                      :class="[
+                        'button',
+                        'is-block',
+                        'is-danger',
+                        'is-small',
+                        'is-fullwidth',
+                        loading,
+                        'is-rounded'
+                      ]"
+                      :disabled="disable"
+                    >
+                      Login
+                    </button>
+                  </p>
+                </div>
               </form>
             </div>
-            <p class="has-text-grey">
-              <a href="/signup">Sign Up</a> &nbsp;·&nbsp;
-              <a href="../">Forgot Password</a> &nbsp;·&nbsp;
-              <a href="../">Need Help?</a>
-            </p>
-          </div>
+            <hr />
+            <div
+              class="forgot-password fadeInUp"
+              v-wow
+              data-wow-delay="0s"
+              data-wow-duration="2s"
+            >
+              <p class="has-text-centered has-text-small">
+                Did you
+                <a class="is-small" @click="forgot">forgot your password</a> or
+                <a @click="signup">need an account?</a>
+              </p>
+            </div>
+          </form>
         </div>
       </div>
-    </section>
-  </div>
+    </div>
+  </section>
 </template>
 <script>
-// const _urlOriginApi = 'http://192.168.43.231/capcin/api/'
-// const _LurlApi = 'http://127.0.0.1/capcin/api/'
-// const _newUrlApp = _LurlApi + 'app'
-// const _newUrlUser = _LurlApi + 'user/login'
-// const _newUrlApiLogin = _LurlApi + 'apilogin'
-
-// const axios = require('axios').default
-
-// import '../assets/js/bulma.js'
-// import { mapState } from "vuex";
+//import fungsi login dari auth_service
+import { login } from "../../services/auth_service";
 export default {
-  name: "LoginTemplate",
+  name: "Login",
   props: {
-    msg: String,
-    dataSuccessMessage: String
+    msg: String
   },
   data() {
     return {
-      email: "",
-      classDanger: "",
-      visClass: "hidden",
-      validMail: "",
+      //data user
+      user: {
+        email: "",
+        password: "",
+        remember: false
+      },
+      errors: {}, // belum dipakai, ga tau fungsinya juga sih
+      disable: false, //disable/enable button login
+      classDanger: "", // class valisdasi email
+      visClass: "hidden", //validasi email
+      validMail: "", //validasi email
+      // untuk ngecek email
       reg: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
-      password: "",
-      visPass: "hidden",
-      passCheck: "",
-      validPass: "",
-      merk: "https://placehold.it/128x128",
-      Vmail: false,
-      Vpass: false,
-      show: false,
-      loading: "",
-      successMessage: this.dataSuccessMessage,
-      serverError: ""
+      visPass: "hidden", //validasi password (class nya, merubah sedikit css nya)
+      passCheck: "", //validasi password
+      validPass: "", //validasi passsword
+      Vmail: false, // boolean email sudah valid atau belum, jika sudah valid bisa masuk proses selanjutnya
+      Vpass: false, // boolean password sudah valid atau belum, idem yang atas
+      loading: "" // kelas loading button
     };
   },
-  // updated() {
-  //  if (localStorage.getItem('access_token')) {
-  //   this.$router.replace(this.$route.query.redirect || '/logged')
-  //  }
-
-  // },
+  computed: {
+    // check isi vuex, sedang login atau tidak
+    logged() {
+      console.log(this.$store.getters.loggedIn);
+      return this.$store.getters.loggedIn;
+    }
+  },
   methods: {
-    //================= login request ===============
-    submitForm: function() {
-      const vm = this;
-      if (vm.Vpass == true && vm.Vmail == true) {
-        vm.loading = "is-loading";
-        const params = new FormData();
-        params.append("email", vm.email);
-        params.append("password", vm.password);
-        vm.$store
-          .dispatch("ambilToken", params)
-          .then(response => {
-            vm.loading = "";
-            console.log(response);
-            vm.$router.push("/logged");
-          })
-          .catch(error => {
-            vm.loading = "";
-            vm.serverError = error.response.data.message;
-            vm.password = "";
-            vm.successMessage = "";
-            setTimeout(function() {
-              vm.serverError = "";
-            }, 2000);
+    //redirect ke sign up
+    signup() {
+      this.$router.replace("/signup");
+    },
+    //redirect ke forgot, jika lupa password
+    forgot() {
+      this.$router.replace("/forgot");
+    },
+    // fungsi ridirect sesuai role
+    findRole(item) {
+      //redirect pake { name: "link"} biar ga panjang gini nulisnya
+      // {path:"/home/produksi"}
+      //================== jangan lupa ini nanti dihapus ==============
+      console.log(item);
+      //=======================================
+      const url = this.$store.getters.serverUrl; // server url, tempatnya admin sama root
+      // switch item berisi role yang dipaggil oleh fungsi submitForm
+      switch (item) {
+        case "Produksi":
+          // ============= jangan lupa ini nanti di hapus ===============
+          console.log(" Login Switch to produksi");
+          console.log("params", this.$route.params);
+          //================================================================
+          this.$router.push({ name: "produksi" }, () => {});
+          this.flashMessage.success({
+            message: "Anda login sebagai " + item + " Capcin",
+            time: 3000
           });
-      } else {
-        vm.show = true;
-        setTimeout(function() {
-          vm.show = false;
-        }, 2000);
+          break;
+        case "Packing":
+          // ============= jangan lupa ini nanti di hapus ===============
+          console.log("Switch to Packing");
+          //================================================================
+          this.$router.push({ name: "packing" }, () => {});
+          this.flashMessage.success({
+            message: "Anda login sebagai " + item + " Capcin",
+            time: 3000
+          });
+          break;
+        case "Supplier":
+          // ============= jangan lupa ini nanti di hapus ===============
+          console.log("Switch to Supplier");
+          //================================================================
+          this.$router.push({ name: "supplier" }, () => {});
+          this.flashMessage.success({
+            message: "Anda login sebagai " + item + " Capcin",
+            time: 3000
+          });
+          break;
+        case "Mitra":
+          // ============= jangan lupa ini nanti di hapus ===============
+          console.log("Switch to Mitra");
+          //================================================================
+          this.$router.push({ name: "mitra" }, () => {});
+          this.flashMessage.success({
+            message: "Anda login sebagai " + item + " Capcin",
+            time: 3000
+          });
+          break;
+        case "Admin":
+          this.disable = true; // disable button login
+          this.loading = "is-loading"; // enable button spinner
+          // jika yang login role nya  Admin, maka logout
+          this.$store
+            .dispatch("destroyToken")
+            .then(
+              this.flashMessage.success({
+                message:
+                  "Anda Login sebagai " +
+                  item +
+                  " dan akan diarahkan ke halaman Desktop, mohon tunggu sebentar",
+                time: 5000
+              }),
+              this.$router.replace(
+                this.$route.query.redirect || { name: "login" },
+                () => {}
+              )
+            )
+            .catch(
+              this.flashMessage.success({
+                message:
+                  "Anda Login sebagai " +
+                  item +
+                  " dan akan diarahkan ke halaman Desktop, mohon tunggu sebentar",
+                time: 5000
+              }),
+              this.$router.replace(
+                this.$route.query.redirect || { name: "login" },
+                () => {}
+              )
+            );
+          //dan arahkan ke halama server
+          setTimeout(function() {
+            this.loading = "";
+            window.location = url;
+            this.disable = false;
+          }, 5000);
+
+          break;
+        case "Root":
+          this.disable = true; // disable button login
+          this.loading = "is-loading"; // enable button spinner
+          // jika yang login role Root, maka logout
+          this.$store
+            .dispatch("destroyToken")
+            .then(
+              this.flashMessage.success({
+                message:
+                  "Anda Login sebagai " +
+                  item +
+                  " dan akan diarahkan ke halaman Desktop, mohon tunggu sebentar",
+                time: 5000
+              }),
+              this.$router.replace(
+                this.$route.query.redirect || { name: "login" },
+                () => {}
+              )
+            )
+            .catch(
+              this.flashMessage.success({
+                message:
+                  "Anda Login sebagai " +
+                  item +
+                  " dan akan diarahkan ke halaman Desktop, mohon tunggu sebentar",
+                time: 5000
+              }),
+              this.$router.replace(
+                this.$route.query.redirect || { name: "login" },
+                () => {}
+              )
+            );
+          //dan arahkan ke halama server
+          setTimeout(function() {
+            this.loading = "";
+            window.location = url;
+            this.disable = false;
+          }, 5000);
+
+          break;
+        default:
+          // ============= jangan lupa ini nanti di hapus ===============
+          console.log(url);
+          //================================================================
+          this.disable = true; // disable button login
+          this.loading = "is-loading"; // enable button spinner
+          // jika yang login role nya bukan 4 diatas atau admin atau root, maka logout
+          this.$store
+            .dispatch("destroyToken")
+            .then(
+              this.flashMessage.success({
+                message:
+                  "Mohon maaf Anda tidak diijinkan untuk login, silahkan hubungi Admin " +
+                  item,
+                time: 5000
+              }),
+              this.$router.replace(
+                this.$route.query.redirect || { name: "login" },
+                () => {}
+              )
+            )
+            .catch(
+              this.flashMessage.success({
+                message:
+                  "Mohon maaf Anda tidak diijinkan untuk login, silahkan hubungi Admin " +
+                  item,
+                time: 5000
+              }),
+              this.$router.replace(
+                this.$route.query.redirect || { name: "login" },
+                () => {}
+              )
+            );
+
+          break;
       }
     },
 
+    submitForm: async function() {
+      // shortcut untuk this
+      const vm = this;
+      //jika email dan password sudah di validai
+      if (vm.Vpass == true && vm.Vmail == true) {
+        vm.loading = "is-loading"; // button spinner on
+        this.disable = true; //disable button
+        try {
+          const response = await login(this.user); // paggil fungsi login dari auth dengan membawa data user
+          //=========== jangan lupa ini nanti di hapus =============
+          console.log(response);
+          //=========================================================
+          vm.loading = ""; // button spinner off
+          this.disable = false; // button enable
+          this.errors = {}; // sepertinya belum berfungsi membesihkan error dengan baik dan benar
+          this.findRole(response.token_scope); // panggil fungsi redirect sesuai role
+        } catch (error) {
+          //=========== jangan lupa ini nanti di hapus =============
+          console.log(error.response);
+          //=========================================================
+          this.disable = false; //button enable
+          if (error.response != undefined) {
+            vm.loading = ""; //loading spinner off
+            vm.user.password = ""; //kosongkan input password
+            //pilih pesan error sesuai respon server
+            switch (error.response.status) {
+              case 422:
+                this.errors = error.response.data.errors;
+                break;
+              case 500:
+                this.flashMessage.error({
+                  message: error.response.data.message,
+                  time: 5000
+                });
+                break;
+              case 401:
+                this.flashMessage.error({
+                  message: error.response.data.message,
+                  time: 5000
+                });
+                break;
+              case 404:
+                this.flashMessage.error({
+                  message: error.response.data.message,
+                  time: 5000
+                });
+                break;
+              default:
+                this.flashMessage.error({
+                  message: "Some error occured, Please Try Again!",
+                  time: 5000
+                });
+                break;
+            }
+          }
+        }
+      } else {
+        //ini seharusnya hanya terjadi jika formnya kosong
+        this.flashMessage.error({
+          message:
+            "Jangan buru-buru..., di cek dulu, kalo masih merah, ada yang salah",
+          time: 4000
+        });
+      }
+    },
     //====================== ngisi pesan aja ===============
     mailString(kelas, visib, pesan, pass) {
       const vm = this;
@@ -215,16 +444,15 @@ export default {
     //================= validasi email =====================
     formValidation: function() {
       const vm = this;
-
-      if (vm.email != "") {
-        if (vm.reg.test(vm.email) == false) {
+      if (vm.user.email != "") {
+        if (vm.reg.test(vm.user.email) == false) {
           vm.mailString(
             "is-danger",
             "visible",
             "periksa kembali email anda",
             false
           );
-        } else if (vm.reg.test(vm.email) == true) {
+        } else if (vm.reg.test(vm.user.email) == true) {
           vm.mailString("is-success", "hidden", "", true);
         }
       } else {
@@ -235,8 +463,8 @@ export default {
     //=================== validasi Password ==================
     passOk: function() {
       const vm = this;
-      if (vm.email != "" && vm.validMail == "" && vm.password != "") {
-        if (vm.password.length <= 5) {
+      if (vm.user.email != "" && vm.validMail == "" && vm.user.password != "") {
+        if (vm.user.password.length <= 5) {
           vm.passString(
             "is-danger",
             "hidden",
@@ -246,11 +474,11 @@ export default {
         } else {
           vm.passString("is-success", "visible", "", true);
         }
-      } else if (vm.password != "" && vm.email == "") {
+      } else if (vm.user.password != "" && vm.user.email == "") {
         vm.passString("is-danger", "hidden", "Email anda kosong", false);
-      } else if (vm.password != "" && vm.validMail != "") {
+      } else if (vm.user.password != "" && vm.validMail != "") {
         vm.passString("is-danger", "hidden", "Email anda belum valid", false);
-      } else if (vm.password == "" && vm.email != "") {
+      } else if (vm.user.password == "" && vm.user.email != "") {
         vm.passString(
           "is-warning",
           "hidden",
@@ -263,41 +491,10 @@ export default {
       return vm.validPass;
     }
   }
-  //  mounted: function () {
-  //   //========================= ambil data ====================
-  //   const vm = this
-  //   const axios = require('axios').default
-  //   // axios.defaults.headers.common['X-API-KEY'] = 'capcin123'
-  //   axios.get('http://localhost/capcin/api/app')
-  //    .then(function (response) {
-  //     if (response.data.status == true) {
-  //      vm.logo = response.data.data.logo
-  //     }
-  //    })
-  //    .catch(function (error) {
-  //     console.log(error);
-  //     location.reload()
-  //    })
-
-  //  },
 };
 </script>
 <style scoped>
-.login {
-  padding-bottom: 5%;
-}
-@import "../../assets/css/login.css";
-/* Enter and leave animations can use different */
-/* durations and timing functions.              */
-.slide-fade-enter-active {
-  transition: all 0.8s ease;
-}
-.slide-fade-leave-active {
-  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
-}
-.slide-fade-enter, .slide-fade-leave-to
-/* .slide-fade-leave-active below version 2.1.8 */ {
-  transform: translateX(10px);
-  opacity: 0;
+#log {
+  padding-bottom: 10px;
 }
 </style>

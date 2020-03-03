@@ -10,13 +10,11 @@ import vWow from "v-wow";
 import FlashMessage from '@smartweb/vue-flash-message';
 import VueCarousel from "vue-carousel"
 import infiniteScroll from "vue-infinite-scroll"
-// import BulmaCarousel from "bulma-carousel"
 import "bulma-carousel"
 
 // import 'https://js.pusher.com/5.1/pusher.min.js'
 
 Vue.use(Vuex, axios);
-// Vue.use(Bulma);
 Vue.use(vWow);
 Vue.use(FlashMessage);
 Vue.use(VueCarousel);
@@ -74,7 +72,6 @@ const _LurlApi = "http://localhost:8000/api/";
 axios.defaults.baseURL = _LurlApi;
 
 window.addEventListener("beforeunload", function() {
-  // event.returnValue = "Write something clever here..";
   localStorage.setItem('level', store.getters.levelAccess)
 });
 

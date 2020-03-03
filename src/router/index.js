@@ -90,7 +90,7 @@ const routes = [
       }
     }
   },{
-    path: "/profile",
+    path: "profile",
     name: "profile",
     component: () => import("../components/Profile.vue"),
     children: [{
@@ -113,7 +113,7 @@ const routes = [
       }
     }
   },{
-    path: "/packing",
+    path: "packing",
     name: "packing",
     component: () =>
       import(
@@ -130,7 +130,7 @@ const routes = [
       }
     }
   }, {
-    path: "/supplier",
+    path: "supplier",
     name: "supplier",
     component: () =>
       import(
@@ -146,7 +146,7 @@ const routes = [
       }
     }
   }, {
-    path: "/mitra",
+    path: "mitra",
     name: "mitra",
     component: () =>
       import(

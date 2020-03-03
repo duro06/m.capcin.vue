@@ -47,7 +47,7 @@
           <div
             v-infinite-scroll="Scroll"
             infinite-scroll-disabled="busy"
-            infinite-scroll-distance="0"
+            infinite-scroll-distance="12"
             infinite-scroll-throttle-delay="2000"
           ></div>
         </div>
