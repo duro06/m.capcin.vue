@@ -45,7 +45,7 @@
           </router-link>
         </div>
         <div class="level-item has-text-centered">
-          <router-link :to="{ path: '/profile' }">
+          <router-link :to="{ path: '/home/profile' }">
             <i
               class="fas fa-user-tie slideInRight "
               style="color: white"

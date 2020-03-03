@@ -2,28 +2,6 @@
   <section class="hero is-danger is-fullheight is-flex-mobile">
     <div class="hero-body">
       <div class="container has-text-centered">
-        <transition name="slide-fade">
-          <div class="notification is-warning is-light" v-if="show">
-            <span class="icon is-medium has-text-danger">
-              <i class="fas fa-2x fa-ban"></i>
-            </span>
-            <p>
-              <strong>Oh Snap!</strong>
-              Silahkan di isi dahulu yang belum di isi
-            </p>
-          </div>
-        </transition>
-        <transition name="slide-fade">
-          <div class="notification is-warning is-light" v-if="pesan">
-            <span class="icon is-medium has-text-danger">
-              <i class="fas fa-2x fa-ban"></i>
-            </span>
-            <p>
-              <strong>Oh Snap!</strong>
-              {{ pesan }}
-            </p>
-          </div>
-        </transition>
         <div class="box form-control">
           <div
             class="field fadeInUp"
@@ -64,37 +42,6 @@
                 </p>
               </div>
             </div>
-
-            <!-- <div
-              class="field fadeInUp"
-              v-wow
-              data-wow-delay="0s"
-              data-wow-duration="2s"
-            >
-              <div class="field">
-                <div class="control has-icons-left has-icons-right">
-                  <input
-                    @change="UserValidation"
-                    :class="['input', classUser, 'is-small']"
-                    type="username"
-                    placeholder="Username"
-                    v-model="username"
-                  />
-                  <span class="icon is-small is-left">
-                    <i class="fas fa-user"></i>
-                  </span>
-                  <span
-                    class="icon is-small is-right"
-                    :style="{ visibility: visUser }"
-                  >
-                    <i class="fas fa-exclamation-triangle"></i>
-                  </span>
-                </div>
-                <p :class="['help', 'align-left', classUser]">
-                  {{ validUser }}
-                </p>
-              </div>
-            </div> -->
 
             <div
               class="field fadeInUp"
@@ -240,11 +187,11 @@
           data-wow-duration="2s"
         >
           <div class="has-text-centered">
-            <a @click="toLogin" style="color: white">
+            <router-link :to="{ path: '/login' }" style="color: white">
               Sudah Punya Akun?
               <strong style="text-decoration:underline;">Log in</strong>
               Sekarang !
-            </a>
+            </router-link>
           </div>
         </div>
       </div>
@@ -256,8 +203,7 @@ export default {
   name: "signup",
   data() {
     return {
-      pesan: "",
-
+      // data User
       user: {
         name: "",
         email: "",
@@ -265,15 +211,14 @@ export default {
         password: "",
         password_confirmation: ""
       },
-
-      username: "",
-
+      //validasi nama
       className: "",
       validName: "",
+      //validasi email
       classDanger: "",
       visClass: "hidden",
       validMail: "",
-
+      // pilihan Role
       levels: [
         { id: "", nama: "Pilih bagian" },
         { id: 3, nama: "Produksi" },
@@ -281,82 +226,65 @@ export default {
         { id: 5, nama: "Supplier" },
         { id: 6, nama: "Mitra" }
       ],
-      // phone: null,
-      // classPhone: '',
-      // validPhone: '',
-
-      // addres: '',
-      // classAddres: '',
-      // validAddres: '',
+      //validasi select
       valSelect: "",
+      //validasi password
       validPass: "",
       visPass: "hidden",
       passCheck: "",
-
+      //validasi konfirmasi password
       classKonfirm: "",
       kPass: "hidden",
       passKonfirm: "",
 
-      ServerError: "",
-
-      classUser: "",
-      visUser: "hidden",
-      validUser: "",
-      loading: "",
-      Vmail: false,
-      Vpass: false,
-      show: false,
+      loading: "", // kelas bulma button spinner 'is-loading'
+      Vmail: false, //boolean validasi email
+      Vpass: false, //boolean validasi password
+      // validasi usernama, ga di pake sekarang, tapi simpen dulu aja
       reg2: /^[a-z0-9]+$/i,
+      // validasi email
       reg: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/
     };
   },
+  // backup plan kalo gagal redirect ke halaman test, untuk menuggu verifikasi
   updated() {
     if (localStorage.getItem("waiting_verivication")) {
       this.$router.replace(this.$route.query.redirect || "/test");
     }
   },
   methods: {
-    toLogin() {
-      this.$router.replace("/");
-    },
     register: function() {
+      // shortcut this
       const vm = this;
-      // if (vm.role == "") {
-      //   vm.valSelect = "is-danger";
-      // }
+      //jika email dan password valid
       if (vm.Vpass == true && vm.Vmail == true) {
-        vm.loading = "is-loading";
-        // const params = new FormData();
-        // params.append("nama", vm.name);
-        // params.append("username", vm.username);
-        // params.append("email", vm.email);
-        // params.append("id_level", vm.role);
-        // params.append("password", vm.password);
-
+        vm.loading = "is-loading"; // button spinner enable
+        //panggil fungsi "register" di action nya vuex, bawa data user
         vm.$store
           .dispatch("register", this.user)
           .then(response => {
+            //=====jangan lupa ini nanti di hapus -====================
             console.log(response);
+            //=========================================================
+            // panggil fungsi "retriveVerivie" di action nya Vuex, bawa apa aja buat di tarun d locak storage
             vm.$store.dispatch(
               "retrieveVerifie",
               "asdasdadasdasdadasdasdasdasdasdasdasdasdsad"
             );
+            // tampilkan flas message
             this.flashMessage.success({
               message: response.data.message,
               time: 5000
             });
-            vm.loading = "";
-            this.$router.replace({ name: "test" }, () => {});
+            vm.loading = ""; // button spinner disable
+            this.$router.replace({ name: "test" }, () => {}); // arahkan ke halaman test untuk menuggu verifikasi
           })
           .catch(error => {
             if (error) {
+              //=====jangan lupa ini nanti di hapus -====================
               console.log(error);
-              // if (error.response.data.errors.username == "username") {
-              //   vm.classUser = "is-danger";
-              //   vm.visUser = "visible";
-              //   (vm.validUser = "Username sudah ada, harap diganti"),
-              //     (vm.username = "");
-              // }
+              //=========================================================
+              //jika email sudah ada yang pake kosongkan dah kasih tanda
               if (error.response.data.errors.email == "email") {
                 vm.classDanger = "is-danger";
                 vm.visClass = "visible";
@@ -381,23 +309,21 @@ export default {
                   break;
               }
 
-              vm.loading = "";
+              vm.loading = ""; // button spinner disable
             }
           })
           .then(function() {
             // always executed
           });
-        // alert(postData)
+        //jika tidak cek semua data, jika ada salahsatu yang kosong panggil semua validasi
       } else if (
         vm.user.name == "" ||
         vm.user.email == "" ||
         vm.slected == "" ||
-        // vm.username == "" ||
         vm.user.password == ""
       ) {
         vm.NameValidation();
         vm.validasiSelect();
-        // vm.UserValidation();
         vm.formValidation();
         vm.passOk();
         this.flashMessage.error({
@@ -409,14 +335,10 @@ export default {
           message: "silahkan isi dahulu yang belum di isi",
           time: 5000
         });
-        vm.show = true;
-        setTimeout(function() {
-          vm.show = false;
-        }, 1500);
       }
     },
+    // ini sepertinya ga jadi dipake..
     splitError(e) {
-      // const vm = this
       const data = e.split(":");
       console.log(data);
     },
@@ -454,39 +376,7 @@ export default {
         this.valSelect = "";
       }
     },
-    // //====================== Validasi alamat ===============
-
-    // addresValidation() {
-    //  if (this.addres == "") {
-    //   this.classAddres = "is-danger"
-    //   this.validAddres = "alamat tidak boleh kosong"
-    //  } else {
-    //   this.classAddres = ""
-    //   this.validAddres = ""
-    //  }
-    // },
-    //= ================== validasi username ============
-    // UserValidation() {
-    //   const vm = this;
-    //   if (vm.username == "") {
-    //     vm.classUser = "is-danger";
-    //     vm.visUser = "visible";
-    //     vm.validUser = "Tidak boleh kosong";
-    //   } else if (vm.reg2.test(vm.username) == false) {
-    //     vm.classUser = "is-danger";
-    //     vm.visUser = "visible";
-    //     vm.validUser =
-    //       "gunakan karakter alpha-numerik (a-z / 0-9) dalam satu kata";
-    //   } else if (vm.username >= 20) {
-    //     vm.classUser = "is-danger";
-    //     vm.visUser = "visible";
-    //     vm.validUser = "tidak boleh lebih dari 20 karakter";
-    //   } else {
-    //     vm.classUser = "is-success";
-    //     vm.visUser = "hidden";
-    //     vm.validUser = "";
-    //   }
-    // },
+    // //====================== Validasi konfirm password ===============
     konfirm() {
       const vm = this;
       if (
@@ -514,7 +404,6 @@ export default {
     //= ================ validasi email =====================
     formValidation: function() {
       const vm = this;
-
       if (vm.user.email != "") {
         if (vm.reg.test(vm.user.email) == false) {
           vm.mailString(
