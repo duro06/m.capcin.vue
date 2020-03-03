@@ -73,6 +73,11 @@ const _LurlApi = "http://localhost:8000/api/";
 
 axios.defaults.baseURL = _LurlApi;
 
+window.addEventListener("beforeunload", function() {
+  // event.returnValue = "Write something clever here..";
+  localStorage.setItem('level', store.getters.levelAccess)
+});
+
 Vue.config.productionTip = false;
 new Vue({
   store,

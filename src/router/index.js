@@ -78,7 +78,7 @@ const routes = [
       // console.log("router get Profile ",store.getters.myProfile.role);
       console.log("router get access Profile ",store.getters.levelAccess);
       
-      if (store.getters.levelAccess === "Produksi") {
+      if (store.getters.levelAccess === "Produksi" || localStorage.getItem('level') === "Produksi") {
         next();
         console.log("Produksi confirm")
       } else if (store.getters.waitingVerified) {
@@ -89,34 +89,7 @@ const routes = [
         next("/home");
       }
     }
-    // beforeEnter: (to, from, next) => {     
-    //   console.log('logged get ', store.getters.loggedIn);
-    //   if (store.getters.loggedIn) {
-    //   console.log('Entering Home ');
-    //     next();
-    //   } else if (store.getters.waitingVerified) {
-    //     next('/test');
-    //   } else {
-    //     next("/login");
-    //   }
-    // }
-  },
-      ],
-    
-    beforeEnter: (to, from, next) => {     
-      console.log('logged get ', store.getters.loggedIn);
-      if (store.getters.loggedIn) {
-      console.log('Entering Home ');
-        next();
-      } else if (store.getters.waitingVerified) {
-        next('/test');
-      } else {
-        next("/login");
-      }
-    }
-  },
-  
-  {
+  },{
     path: "/profile",
     name: "profile",
     component: () => import("../components/Profile.vue"),
@@ -139,7 +112,73 @@ const routes = [
         next("/login");
       }
     }
+  },{
+    path: "/packing",
+    name: "packing",
+    component: () =>
+      import(
+        "../views/Packing.vue"),
+    beforeEnter: (to, from, next) => {
+      console.log("router get Profile ",store.getters.myProfile.role);
+      console.log("router get Profile ",store.getters.levelAccess);
+      if (store.getters.myProfile.role == "Packing" || localStorage.getItem('level') === "Packing") {
+        next();
+      } else if (store.getters.waitingVerified) {
+        next('/test');
+      } else {
+        next("/home");
+      }
+    }
+  }, {
+    path: "/supplier",
+    name: "supplier",
+    component: () =>
+      import(
+        "../views/Supplier.vue"),
+    beforeEnter: (to, from, next) => {
+      console.log(store.getters.levelAccess);
+      if (store.getters.levelAccess == "Supplier") {
+        next();
+      } else if (store.getters.waitingVerified) {
+        next('/test');
+      } else {
+        next("/home");
+      }
+    }
+  }, {
+    path: "/mitra",
+    name: "mitra",
+    component: () =>
+      import(
+        "../views/Mitra.vue"),
+    beforeEnter: (to, from, next) => {
+      console.log('get level ', store.getters.levelAccess );
+      if (store.getters.levelAccess == "Mitra" || localStorage.getItem('level') === "Mitra") {
+        next();
+      } else if (store.getters.waitingVerified) {
+        next('/test');
+      } else {
+        next("/home");
+      }
+    }
   },
+  
+  
+      ],
+    
+    beforeEnter: (to, from, next) => {     
+      console.log('logged get ', store.getters.loggedIn);
+      if (store.getters.loggedIn) {
+      console.log('Entering Home ');
+        next();
+      } else if (store.getters.waitingVerified) {
+        next('/test');
+      } else {
+        next("/login");
+      }
+    }
+  },
+  
   {
     path: "*",
     name: "hello",
@@ -180,56 +219,6 @@ const routes = [
     }
   },
   
-  {
-    path: "/packing",
-    name: "packing",
-    component: () =>
-      import(
-        "../views/Packing.vue"),
-    beforeEnter: (to, from, next) => {
-      console.log("router get Profile ",store.getters.myProfile.role);
-      console.log("router get Profile ",store.getters.levelAccess);
-      if (store.getters.myProfile.role == "Packing") {
-        next();
-      } else if (store.getters.waitingVerified) {
-        next('/test');
-      } else {
-        next("/home");
-      }
-    }
-  }, {
-    path: "/supplier",
-    name: "supplier",
-    component: () =>
-      import(
-        "../views/Supplier.vue"),
-    beforeEnter: (to, from, next) => {
-      console.log(store.getters.levelAccess);
-      if (store.getters.levelAccess == "Supplier") {
-        next();
-      } else if (store.getters.waitingVerified) {
-        next('/test');
-      } else {
-        next("/home");
-      }
-    }
-  }, {
-    path: "/mitra",
-    name: "mitra",
-    component: () =>
-      import(
-        "../views/Mitra.vue"),
-    beforeEnter: (to, from, next) => {
-      console.log('get level ', store.getters.levelAccess);
-      if (store.getters.levelAccess == "Mitra") {
-        next();
-      } else if (store.getters.waitingVerified) {
-        next('/test');
-      } else {
-        next("/home");
-      }
-    }
-  },
   {
     path: "/card",
     name: "card",

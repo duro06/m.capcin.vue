@@ -15,7 +15,7 @@ export default {
   components: {
     Produksi,
     Footer
-  }
+  },
   // beforeCreate: async function() {
   //   console.log("App Get Profile");
   //   try {
@@ -43,7 +43,17 @@ export default {
   //     console.log("Produksi none are true");
   //     next("/home");
   //   }
-  // }
+  // },
+  beforeRouteLeave(to, from, next) {
+    const answer = window.confirm(
+      "Do you really want to leave? you have unsaved changes!"
+    );
+    if (answer) {
+      next();
+    } else {
+      next(false);
+    }
+  }
 };
 </script>
 <style scoped></style>
