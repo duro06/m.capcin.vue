@@ -24,18 +24,12 @@ export default {
   },
   beforeCreate: async function() {
     localStorage.removeItem("level");
-    console.log(
-      "navigation",
-      window.performance.getEntriesByType("navigation")[0].type
-    );
-
-    this.location = window.performance.getEntriesByType("navigation")[0].type;
-    console.log(this.location);
     console.log("App Get Profile");
     try {
       if (store.getters.loggedIn) {
         console.log("Login = ", store.getters.loggedIn);
         const response = await auth.getProfile();
+        console.log(response);
         store.dispatch("aunthenticate", response.data);
       } else {
         console.log("Login = false");

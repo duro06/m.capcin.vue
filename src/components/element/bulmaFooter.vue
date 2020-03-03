@@ -115,6 +115,12 @@ export default {
   computed: {
     loggedIn() {
       return this.$store.getters.loggedIn;
+    },
+    isActive() {
+      let active;
+      let me = window.location;
+      console.log("Location: ", me);
+      return active;
     }
   }
 };

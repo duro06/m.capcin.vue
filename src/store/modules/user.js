@@ -131,7 +131,7 @@ export default {
           });
 
         localStorage.removeItem("access_token"),
-          localStorage.removeItem("role"),
+          localStorage.removeItem("level"),
           context.commit("setDestroyToken", {
             root: true
           });
