@@ -183,15 +183,7 @@ const routes = [
     path: "*",
     name: "hello",
     component: () => import("../components/HelloWorld.vue"),
-    children: [{
-        path: 'navbar',
-        component: () => import("../components/Navbar.vue")
-      },
-      {
-        path: 'footer',
-        component: () => import("../components/Footer.vue")
-      }
-    ],
+    
     beforeEnter: (to, from, next) => {
       console.log('logged get ', store.getters.loggedIn);
       if (store.getters.loggedIn) {
@@ -245,40 +237,8 @@ const routes = [
     name: "tabel",
     component: () => import("../components/element/Tabel.vue")
   }
-  // {
-  //   path: "/produksi",
-  //   name: "produksi",
-  //   component: () =>
-  //     import(
-  //       "../components/produksi/ProduksiCard.vue"),
-  //   // beforeEnter: (to, from, next) => {
-  //   //   console.log('get level ', store.getters.levelAccess);
-  //   //   if (store.getters.levelAccess == 6) {
-  //   //     next();
-  //   //   } else if (store.getters.waitingVerified) {
-  //   //     next('/test');
-  //   //   } else {
-  //   //     next("/home");
-  //   //   }
-  //   // }
-  // }
-  // {
-  //   path: "/login",
-  //   name: "login",
-  //   component: () =>
-  //     import(
-  //       "../components/LoginTemplate.vue"),
-  //   beforeEnter: (to, from, next) => {
-  //     console.log('login get ', store.getters.loggedIn);
-  //     if (store.getters.loggedIn) {
-  //       next("/home");
-  //     } else if (store.getters.waitingVerified) {
-  //       next('/test');
-  //     } else {
-  //       next();
-  //     }
-  //   }
-  // },
+  
+  
 ];
 
 const router = new VueRouter({
