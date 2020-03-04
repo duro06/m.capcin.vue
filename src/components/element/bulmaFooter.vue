@@ -15,7 +15,7 @@
               data-wow-duration="2s"
             />
             <p
-              class="heading slideInLeft"
+              class="subtitle is-7 slideInLeft"
               style="color: white"
               v-wow
               data-wow-duration="2s"
@@ -27,25 +27,25 @@
         <div class="level-item has-text-centered">
           <router-link :to="{ path: '/' }">
             <i
-              class="fas fa-info-circle slideInRight"
+              class="fas fa-wallet slideInRight"
               style="color: white"
               v-wow
               data-wow-duration="2s"
               data-wow-delay="0.5s"
             ></i>
             <p
-              class="heading slideInLeft"
+              class="subtitle is-7 slideInLeft"
               style="color: white"
               v-wow
               data-wow-duration="2s"
               data-wow-delay="0.5s"
             >
-              Informasi
+              Dompet
             </p>
           </router-link>
         </div>
         <div class="level-item has-text-centered">
-          <router-link :to="{ path: '/home/profile' }">
+          <router-link :to="{ path: '/profile' }">
             <i
               class="fas fa-user-tie slideInRight "
               style="color: white"
@@ -54,7 +54,7 @@
               data-wow-delay="0.7s"
             ></i>
             <p
-              class="heading slideInLeft"
+              class="subtitle is-7 slideInLeft"
               style="color: white"
               v-wow
               data-wow-duration="2s"
@@ -74,7 +74,7 @@
               data-wow-delay="0.9s"
             ></i>
             <p
-              class="heading slideInLeft"
+              class="subtitle is-7 slideInLeft"
               style="color: white"
               v-wow
               data-wow-duration="2s"
@@ -94,7 +94,7 @@
               data-wow-delay="0.9s"
             ></i>
             <p
-              class="heading slideInLeft"
+              class="subtitle is-7 slideInLeft"
               style="color: white"
               v-wow
               data-wow-duration="2s"
@@ -125,3 +125,8 @@ export default {
   }
 };
 </script>
+<style scoped>
+p.subtitle {
+  padding-top: 0px;
+}
+</style>

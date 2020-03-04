@@ -90,29 +90,6 @@ const routes = [
       }
     }
   },{
-    path: "profile",
-    name: "profile",
-    component: () => import("../components/Profile.vue"),
-    children: [{
-      path: 'navbar',
-      component: () => import("../components/Navbar.vue")
-    },
-    {
-      path: 'footer',
-      component: () => import("../components/Footer.vue")
-    }
-    ],
-    beforeEnter: (to, from, next) => {
-      console.log('logged get ', store.getters.loggedIn);
-      if (store.getters.loggedIn) {
-        next();
-      } else if (store.getters.waitingVerified) {
-        next('/test');
-      } else {
-        next("/login");
-      }
-    }
-  },{
     path: "packing",
     name: "packing",
     component: () =>
@@ -199,6 +176,21 @@ const routes = [
     path: "/logged",
     name: "logged",
     component: () => import("../views/Logged.vue"),
+    beforeEnter: (to, from, next) => {
+      console.log('logged get ', store.getters.loggedIn);
+      if (store.getters.loggedIn) {
+        next();
+      } else if (store.getters.waitingVerified) {
+        next('/test');
+      } else {
+        next("/login");
+      }
+    }
+  },,{
+    path: "/profile",
+    name: "profile",
+    component: () => import("../components/Profile.vue"),
+    
     beforeEnter: (to, from, next) => {
       console.log('logged get ', store.getters.loggedIn);
       if (store.getters.loggedIn) {
